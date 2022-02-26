@@ -1,4 +1,13 @@
 package me.eriknikli.homm.scenes;
 
-public class MainMenuScene {
+import javax.swing.*;
+
+public class MainMenuScene extends JPanel {
+
+    public MainMenuScene() {
+
+    }
+
+    
+
 }
