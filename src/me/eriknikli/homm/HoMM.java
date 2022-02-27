@@ -3,9 +3,12 @@ package me.eriknikli.homm;
 import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.LaunchParameter;
+import me.eriknikli.homm.utils.Log;
 import me.eriknikli.homm.utils.Utils;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.util.Objects;
 
 /**
  * A játék class-e, itt található a main függvény is
@@ -105,9 +108,14 @@ public class HoMM extends JFrame {
     }
 
     /**
-     * Beállítja a frame címét, méretét, stb...
+     * Beállítja a frame címét, ikonját, méretét, stb...
      */
     public void initFrame() {
+        try {
+            setIconImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/icon.png"))));
+        } catch (Exception e) {
+            Log.err("Az ikont nem sikerült beállítani.", e);
+        }
         setTitle("Heroes of Might and Magic - Copy");
         setBounds(params.x, params.y, params.width, params.height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
