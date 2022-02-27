@@ -39,7 +39,15 @@ public class HoMM extends JFrame {
      *             </ul>
      */
     public static void main(String[] args) {
+        processArgs(args);
         game = new HoMM();
+    }
+
+    /**
+     * Feldolgozza a kapott argumentumokat
+     * @param args az argumentumok
+     */
+    public static void processArgs(String[] args) {
         params = new LaunchParameter();
         for (int i = 0; i < args.length; i++) {
             try {
@@ -62,10 +70,13 @@ public class HoMM extends JFrame {
     }
 
     /**
-     * Éppen
+     * Éppen aktuális scene
      */
     private Scene scene;
 
+    /**
+     * Konstruktor, meghívja az {@code initFrame()} függvényt
+     */
     public HoMM() {
         initFrame();
     }
