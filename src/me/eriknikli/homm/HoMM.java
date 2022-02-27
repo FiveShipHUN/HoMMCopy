@@ -36,6 +36,9 @@ public class HoMM extends JFrame {
      *             <li>
      *                   -height | -h (szám), magasság
      *              </li>
+     *              <li>
+     *                  -resizable, beállítja, hogy az ablak átméretezhető legyen
+     *              </li>
      *             </ul>
      */
     public static void main(String[] args) {
@@ -45,23 +48,33 @@ public class HoMM extends JFrame {
 
     /**
      * Feldolgozza a kapott argumentumokat
+     *
      * @param args az argumentumok
      */
     public static void processArgs(String[] args) {
         params = new LaunchParameter();
         for (int i = 0; i < args.length; i++) {
             try {
-                if (args[i].equalsIgnoreCase("-x")) {
-                    params.x = Integer.parseInt(args[i + 1]);
-                }
-                if (args[i].equalsIgnoreCase("-y")) {
-                    params.y = Integer.parseInt(args[i + 1]);
-                }
-                if (args[i].equalsIgnoreCase("-width") || args[i].equalsIgnoreCase("-w")) {
-                    params.width = Integer.parseInt(args[i + 1]);
-                }
-                if (args[i].equalsIgnoreCase("-height") || args[i].equalsIgnoreCase("-h")) {
-                    params.height = Integer.parseInt(args[i + 1]);
+                if (args[i].startsWith("-")) {
+                    if (args[i].equalsIgnoreCase("-x")) {
+                        params.x = Integer.parseInt(args[i + 1]);
+                        i++;
+                    }
+                    if (args[i].equalsIgnoreCase("-y")) {
+                        params.y = Integer.parseInt(args[i + 1]);
+                        i++;
+                    }
+                    if (args[i].equalsIgnoreCase("-width") || args[i].equalsIgnoreCase("-w")) {
+                        params.width = Integer.parseInt(args[i + 1]);
+                        i++;
+                    }
+                    if (args[i].equalsIgnoreCase("-height") || args[i].equalsIgnoreCase("-h")) {
+                        params.height = Integer.parseInt(args[i + 1]);
+                        i++;
+                    }
+                    if (args[i].equalsIgnoreCase("-resizable")) {
+                        params.resizable = true;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -88,6 +101,7 @@ public class HoMM extends JFrame {
         setTitle("Heroes of Might and Magic - Copy");
         setBounds(params.x, params.y, params.width, params.height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(params.resizable);
         setVisible(true);
         setScene(new GameScene());
     }

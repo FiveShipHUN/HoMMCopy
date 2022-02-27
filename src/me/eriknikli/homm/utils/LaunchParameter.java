@@ -25,6 +25,11 @@ public class LaunchParameter {
      */
     public int height = 600;
 
+    /**
+     * Átmérezhető-e az ablak?
+     */
+    public boolean resizable = false;
+
     public LaunchParameter() {
     }
 
