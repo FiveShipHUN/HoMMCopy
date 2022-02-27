@@ -12,9 +12,19 @@ import javax.swing.*;
  */
 public class HoMM extends JFrame {
 
+    /**
+     * A játék objektumot tartalmazza
+     */
     private static HoMM game;
+
+    /**
+     * Indítási paramétereket tartalmazó osztály
+     */
     private static LaunchParameter params;
 
+    /**
+     * @return a játék objektuma
+     */
     public static HoMM game() {
         return game;
     }
