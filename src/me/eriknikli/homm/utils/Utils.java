@@ -1,7 +1,7 @@
 package me.eriknikli.homm.utils;
 
 /**
- * Segítő függvények, főleg olyanok amiket máshova nem tudtam rakni
+ * Segítő függvények, főleg olyanok amiket máshova nem illenek be
  */
 public class Utils {
 
@@ -20,14 +20,13 @@ public class Utils {
             tryDispose(d);
         }
         try {
-
+            o.getClass().getMethod("dispose").invoke(o);
         } catch (Exception e) {
-
+            Log.debug("Object of class " + o.getClass() + " could not be disposed.", e);
         }
     }
 
     /**
-     *
      * @param d az objektum, amit dispose-olni kell,
      */
     public static void tryDispose(Disposable d) {
