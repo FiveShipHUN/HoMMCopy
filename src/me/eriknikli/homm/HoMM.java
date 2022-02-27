@@ -2,6 +2,7 @@ package me.eriknikli.homm;
 
 import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.Scene;
+import me.eriknikli.homm.utils.LaunchParameter;
 import me.eriknikli.homm.utils.Utils;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import javax.swing.*;
 public class HoMM extends JFrame {
 
     private static HoMM game;
+    private static LaunchParameter params;
 
     public static HoMM game() {
         return game;
@@ -20,17 +22,40 @@ public class HoMM extends JFrame {
     /**
      * A main függvény, innen indul a program
      *
-     * @param args indítási argumentumok
+     * @param args indítási argumentumok<br>
+     *             <ul>
+     *              <li>
+     *                  -x (szám), x pozíció
+     *              </li>
+     *              <li>
+     *                  -y (szám), y pozíció
+     *              </li>
+     *              <li>
+     *                  -width | -w (szám), szélesség
+     *              </li>
+     *             <li>
+     *                   -height | -h (szám), magasság
+     *              </li>
+     *             </ul>
      */
     public static void main(String[] args) {
         game = new HoMM();
+        params = new LaunchParameter();
         for (int i = 0; i < args.length; i++) {
             try {
-                if (args[i].equalsIgnoreCase("-width")) {
-
+                if (args[i].equalsIgnoreCase("-x")) {
+                    params.x = Integer.parseInt(args[i + 1]);
+                }
+                if (args[i].equalsIgnoreCase("-y")) {
+                    params.y = Integer.parseInt(args[i + 1]);
+                }
+                if (args[i].equalsIgnoreCase("-width") || args[i].equalsIgnoreCase("-w")) {
+                    params.width = Integer.parseInt(args[i + 1]);
+                }
+                if (args[i].equalsIgnoreCase("-height") || args[i].equalsIgnoreCase("-h")) {
+                    params.height = Integer.parseInt(args[i + 1]);
                 }
             } catch (Exception e) {
-
                 e.printStackTrace();
             }
         }
@@ -50,7 +75,7 @@ public class HoMM extends JFrame {
      */
     public void initFrame() {
         setTitle("Heroes of Might and Magic - Copy");
-        setBounds(0, 0, 800, 600);
+        setBounds(params.x, params.y, params.width, params.height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         setScene(new GameScene());
