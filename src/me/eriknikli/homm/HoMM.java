@@ -1,6 +1,8 @@
 package me.eriknikli.homm;
 
+import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.Scene;
+import me.eriknikli.homm.utils.Utils;
 
 import javax.swing.*;
 
@@ -17,12 +19,26 @@ public class HoMM extends JFrame {
 
     /**
      * A main függvény, innen indul a program
+     *
      * @param args indítási argumentumok
      */
     public static void main(String[] args) {
         game = new HoMM();
+        for (int i = 0; i < args.length; i++) {
+            try {
+                if (args[i].equalsIgnoreCase("-width")) {
+
+                }
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
     }
 
+    /**
+     * Éppen
+     */
     private Scene scene;
 
     public HoMM() {
@@ -37,6 +53,7 @@ public class HoMM extends JFrame {
         setBounds(0, 0, 800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        setScene(new GameScene());
     }
 
     /**
@@ -47,11 +64,13 @@ public class HoMM extends JFrame {
     }
 
     /**
-     * Beállítja az új aktív scene-t
-     * @param s
+     * Beállítja az új aktív scene-t, a jelenelgit pedig dispose-olja
+     *
+     * @param s az új Scene
      */
     public void setScene(Scene s) {
-
+        Utils.tryDispose(scene());
+        this.scene = s;
     }
 
 }
