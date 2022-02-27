@@ -56,6 +56,7 @@ public class HoMM extends JFrame {
      */
     public static void main(String[] args) {
         processArgs(args);
+        trySettingNimbusLaF();
         game = new HoMM();
     }
 
@@ -92,6 +93,22 @@ public class HoMM extends JFrame {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * Megpróbálja a Nimbus kinézetet beállítani
+     */
+    public static void trySettingNimbusLaF(){
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // If Nimbus is not available, you can set the GUI to another look and feel.
         }
     }
 
