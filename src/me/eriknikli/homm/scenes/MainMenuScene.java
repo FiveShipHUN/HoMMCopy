@@ -2,6 +2,9 @@ package me.eriknikli.homm.scenes;
 
 import javax.swing.*;
 
+/**
+ * Főmenü
+ */
 public class MainMenuScene extends Scene {
 
     /**

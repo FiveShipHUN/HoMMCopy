@@ -1,7 +1,6 @@
 package me.eriknikli.homm;
 
-import me.eriknikli.homm.scenes.GameBoard;
-import me.eriknikli.homm.scenes.GameScene;
+import me.eriknikli.homm.scenes.components.GameBoard;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.LaunchParameter;
 import me.eriknikli.homm.utils.Log;
@@ -9,12 +8,16 @@ import me.eriknikli.homm.utils.Utils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 import java.util.Objects;
 
 /**
  * A játék class-e, itt található a main függvény is
  */
 public class HoMM extends JFrame {
+
+    public static Image __DEBUG;
 
     /**
      * A játék objektumot tartalmazza
@@ -59,6 +62,10 @@ public class HoMM extends JFrame {
      *             </ul>
      */
     public static void main(String[] args) {
+        try {
+            __DEBUG = ImageIO.read(Objects.requireNonNull(HoMM.class.getResourceAsStream("/farmer.png")));
+        } catch (Exception ignored) {
+        }
         SwingUtilities.invokeLater(() -> {
             processArgs(args);
             trySettingNimbusLaF();

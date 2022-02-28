@@ -1,8 +1,12 @@
-package me.eriknikli.homm.scenes;
+package me.eriknikli.homm.scenes.components;
 
-import javax.swing.*;
+import me.eriknikli.homm.scenes.Scene;
+
 import java.awt.*;
 
+/**
+ * A játékmezők
+ */
 public class GameBoard extends Scene {
 
     /**
