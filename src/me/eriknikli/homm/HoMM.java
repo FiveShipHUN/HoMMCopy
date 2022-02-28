@@ -97,7 +97,7 @@ public class HoMM extends JFrame {
                             Log.setLogLevel(Integer.parseInt(args[i + 1]));
                         } catch (NumberFormatException e) {
                             Log.setLogLevel(switch (args[i + 1].toLowerCase()) {
-                                case "none" -> 0;
+                              //  case "none" -> 0;, redundáns a default case miatt
                                 case "info" -> 1;
                                 case "warn" -> 2;
                                 case "err" -> 3;
