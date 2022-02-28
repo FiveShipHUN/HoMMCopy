@@ -22,7 +22,7 @@ public class GameScene extends Scene {
         layout = new GridBagLayout();
         constraints = new GridBagConstraints();
         setLayout(layout);
-
+        addActor(new GameBoard());
     }
 
     /**
