@@ -18,12 +18,12 @@ public class LaunchParameter {
     /**
      * Az ablak hossza
      */
-    public int width = 800;
+    public int width = 1280;
 
     /**
      * Az ablak magassága
      */
-    public int height = 600;
+    public int height = 768;
 
     /**
      * Átmérezhető-e az ablak?

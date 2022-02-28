@@ -8,28 +8,21 @@ public class GameScene extends Scene {
     /**
      * A layout maga
      */
-    private final GridBagLayout layout;
-
-    /**
-     * A layout beállításait tartalmazza, ezen keresztül kontrollálhatjuk a komponenseket
-     */
-    private final GridBagConstraints constraints;
+    private final GridLayout layout;
 
     /**
      * Inicializálja a scene-t
      */
     public GameScene() {
-        layout = new GridBagLayout();
-        constraints = new GridBagConstraints();
-        setLayout(layout);
+        layout = new GridLayout(1, 3);
         addActor(new GameBoard());
     }
 
     /**
-     * Beállítások a komponensre
+     * @return a scene layout-ját adja vissza
      */
-    public GridBagConstraints actorSettings() {
-        return constraints;
+    public GridLayout gLayout() {
+        return layout;
     }
 
     /**
@@ -38,8 +31,6 @@ public class GameScene extends Scene {
      * @param c komponens, amit szeretnénk hozzáadni a scene-hez
      */
     public void addActor(Component c) {
-        add(c, constraints);
+        add(c);
     }
-
-
 }

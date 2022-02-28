@@ -1,8 +1,9 @@
 package me.eriknikli.homm.scenes;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class GameBoard extends JPanel {
+public class GameBoard extends Scene {
 
     /**
      * Mezők
@@ -28,20 +29,26 @@ public class GameBoard extends JPanel {
 
     /**
      * Map inicializálása
-     * @param width szélesség
+     *
+     * @param width  szélesség
      * @param height magasság
      */
     public GameBoard(int width, int height) {
         this.width = width;
         this.height = height;
         tiles = new Tile[width * height];
+        var layout = new GridLayout(height, width);
+        setLayout(layout);
         for (int i = 0; i < tiles.length; i++) {
             tiles[i] = new Tile(x(i), y(i));
+            add(tiles[i]);
         }
+
     }
 
     /**
      * megmondja index alapján az x koordinátát
+     *
      * @param index a mező indexe
      * @return x koordináta
      */
@@ -52,16 +59,18 @@ public class GameBoard extends JPanel {
 
     /**
      * megmondja index alapján az y koordinátát
+     *
      * @param index a mező indexe
      * @return y koordináta
      */
     public int y(int index) {
-        return index / height;
+        return index / width;
     }
 
 
     /**
      * megmondja koordináták alapján a mező indexét a tömbbe
+     *
      * @param x az x koordináta
      * @param y az y koordináta
      * @return az index

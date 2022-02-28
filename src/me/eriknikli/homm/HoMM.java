@@ -1,5 +1,6 @@
 package me.eriknikli.homm;
 
+import me.eriknikli.homm.scenes.GameBoard;
 import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.LaunchParameter;
@@ -58,9 +59,11 @@ public class HoMM extends JFrame {
      *             </ul>
      */
     public static void main(String[] args) {
-        processArgs(args);
-        trySettingNimbusLaF();
-        game = new HoMM();
+        SwingUtilities.invokeLater(() -> {
+            processArgs(args);
+            trySettingNimbusLaF();
+            game = new HoMM();
+        });
     }
 
     /**
@@ -97,7 +100,7 @@ public class HoMM extends JFrame {
                             Log.setLogLevel(Integer.parseInt(args[i + 1]));
                         } catch (NumberFormatException e) {
                             Log.setLogLevel(switch (args[i + 1].toLowerCase()) {
-                              //  case "none" -> 0;, redundáns a default case miatt
+                                //  case "none" -> 0;, redundáns a default case miatt
                                 case "info" -> 1;
                                 case "warn" -> 2;
                                 case "err" -> 3;
@@ -156,7 +159,7 @@ public class HoMM extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(params.resizable);
         setVisible(true);
-        setScene(new GameScene());
+        setScene(new GameBoard(12, 10));
     }
 
     /**
@@ -172,8 +175,13 @@ public class HoMM extends JFrame {
      * @param s az új Scene
      */
     public void setScene(Scene s) {
-        Utils.tryDispose(scene());
+        if (scene() != null) {
+            remove(scene());
+            Utils.tryDispose(scene());
+        }
         this.scene = s;
+        add(this.scene);
+        setContentPane(this.scene);
     }
 
 }
