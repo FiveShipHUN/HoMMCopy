@@ -52,6 +52,9 @@ public class HoMM extends JFrame {
      *              <li>
      *                  -resizable, beállítja, hogy az ablak átméretezhető legyen
      *              </li>
+     *              <li>
+     *                  -loglevel, beállítja, hogy milyen szinten logoljon a program, NONE = 0, INFO = 1, WARN = 2, ERR = 3, DEBUG = 4
+     *              </li>
      *             </ul>
      */
     public static void main(String[] args) {
@@ -89,6 +92,21 @@ public class HoMM extends JFrame {
                     if (args[i].equalsIgnoreCase("-resizable")) {
                         params.resizable = true;
                     }
+                    if (args[i].equalsIgnoreCase("-loglevel")) {
+                        try {
+                            Log.setLogLevel(Integer.parseInt(args[i + 1]));
+                        } catch (NumberFormatException e) {
+                            Log.setLogLevel(switch (args[i + 1].toLowerCase()) {
+                                case "none" -> 0;
+                                case "info" -> 1;
+                                case "warn" -> 2;
+                                case "err" -> 3;
+                                case "debug" -> 4;
+                                default -> 0;
+                            });
+                        }
+                        i++;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -99,7 +117,7 @@ public class HoMM extends JFrame {
     /**
      * Megpróbálja a Nimbus kinézetet beállítani
      */
-    public static void trySettingNimbusLaF(){
+    public static void trySettingNimbusLaF() {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
