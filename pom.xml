@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mycompany.app</groupId>
+    <artifactId>my-app</artifactId>
+    <version>1</version>
+    <repositories>
+        <repository>
+            <id>
+                JUNIT
+            </id>
+            <name>
+                JUNIT
+            </name>
+            <url>
+                https://mvnrepository.com/artifact/
+            </url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+</project>

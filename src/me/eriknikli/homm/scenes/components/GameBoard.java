@@ -42,13 +42,46 @@ public class GameBoard extends JPanel {
         this.width = width;
         this.height = height;
         tiles = new Tile[width * height];
-        var layout = new GridLayout(height, width);
+        var layout = new GridLayout(height + 2, width + 2);
         setLayout(layout);
-        for (int i = 0; i < tiles.length; i++) {
-            tiles[i] = new Tile(x(i), y(i));
-            add(tiles[i]);
+        addColumnLabel(true);
+        for (int y = 0; y < height; y++) {
+            addVerticalLabelOf(y, true);
+            for (int x = 0; x < width; x++) {
+                add(tiles[index(x, y)] = new Tile(x, y));
+            }
+            addVerticalLabelOf(y, false);
         }
+        addColumnLabel(false);
+        setBackground(Color.GRAY);
+    }
 
+    private void addVerticalLabelOf(int y, boolean left) {
+        var lbl = new JLabel((y + 1) + "");
+        setPropsForColumnRowLbl(lbl);
+        lbl.setHorizontalTextPosition(left ? SwingConstants.RIGHT : SwingConstants.LEFT);
+        lbl.setHorizontalAlignment(left ? SwingConstants.RIGHT : SwingConstants.LEFT);
+        add(lbl);
+    }
+
+    private void addColumnLabel2(int x, boolean topRow) {
+        var lbl = new JLabel((x + 1) + "");
+        setPropsForColumnRowLbl(lbl);
+        lbl.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl.setVerticalAlignment(topRow ? SwingConstants.BOTTOM : SwingConstants.TOP);
+        add(lbl);
+    }
+
+    private void setPropsForColumnRowLbl(JLabel lbl) {
+        lbl.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
+    }
+
+    private void addColumnLabel(boolean topRow) {
+        add(new JLabel(""));
+        for (int x = 0; x < width; x++) {
+            addColumnLabel2(x, topRow);
+        }
+        add(new JLabel(""));
     }
 
     /**

@@ -19,6 +19,7 @@ public class HeroPanel extends JPanel {
         this.hero = hero;
         setLayout(new GridLayout(2, 1));
         add(new JLabel("Player"));
+        setBackground(Color.DARK_GRAY);
     }
 
     /**
