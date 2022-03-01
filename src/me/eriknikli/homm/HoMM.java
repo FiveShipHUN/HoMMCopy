@@ -1,5 +1,6 @@
 package me.eriknikli.homm;
 
+import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.components.GameBoard;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.LaunchParameter;
@@ -80,42 +81,48 @@ public class HoMM extends JFrame {
      */
     public static void processArgs(String[] args) {
         params = new LaunchParameter();
+        boolean ignoreConfig = false;
         for (int i = 0; i < args.length; i++) {
             try {
                 if (args[i].startsWith("-")) {
-                    if (args[i].equalsIgnoreCase("-x")) {
-                        params.x = Integer.parseInt(args[i + 1]);
-                        i++;
+                    if (args[i].equalsIgnoreCase("-ignoreConfig")) {
+                        ignoreConfig = true;
                     }
-                    if (args[i].equalsIgnoreCase("-y")) {
-                        params.y = Integer.parseInt(args[i + 1]);
-                        i++;
-                    }
-                    if (args[i].equalsIgnoreCase("-width") || args[i].equalsIgnoreCase("-w")) {
-                        params.width = Integer.parseInt(args[i + 1]);
-                        i++;
-                    }
-                    if (args[i].equalsIgnoreCase("-height") || args[i].equalsIgnoreCase("-h")) {
-                        params.height = Integer.parseInt(args[i + 1]);
-                        i++;
-                    }
-                    if (args[i].equalsIgnoreCase("-resizable")) {
-                        params.resizable = true;
-                    }
-                    if (args[i].equalsIgnoreCase("-loglevel")) {
-                        try {
-                            Log.setLogLevel(Integer.parseInt(args[i + 1]));
-                        } catch (NumberFormatException e) {
-                            Log.setLogLevel(switch (args[i + 1].toLowerCase()) {
-                                //  case "none" -> 0;, redundáns a default case miatt
-                                case "info" -> 1;
-                                case "warn" -> 2;
-                                case "err" -> 3;
-                                case "debug" -> 4;
-                                default -> 0;
-                            });
+                    if (!ignoreConfig) {
+                        if (args[i].equalsIgnoreCase("-x")) {
+                            params.x = Integer.parseInt(args[i + 1]);
+                            i++;
                         }
-                        i++;
+                        if (args[i].equalsIgnoreCase("-y")) {
+                            params.y = Integer.parseInt(args[i + 1]);
+                            i++;
+                        }
+                        if (args[i].equalsIgnoreCase("-width") || args[i].equalsIgnoreCase("-w")) {
+                            params.width = Integer.parseInt(args[i + 1]);
+                            i++;
+                        }
+                        if (args[i].equalsIgnoreCase("-height") || args[i].equalsIgnoreCase("-h")) {
+                            params.height = Integer.parseInt(args[i + 1]);
+                            i++;
+                        }
+                        if (args[i].equalsIgnoreCase("-resizable")) {
+                            params.resizable = true;
+                        }
+                        if (args[i].equalsIgnoreCase("-loglevel")) {
+                            try {
+                                Log.setLogLevel(Integer.parseInt(args[i + 1]));
+                            } catch (NumberFormatException e) {
+                                Log.setLogLevel(switch (args[i + 1].toLowerCase()) {
+                                    //  case "none" -> 0;, redundáns a default case miatt
+                                    case "info" -> 1;
+                                    case "warn" -> 2;
+                                    case "err" -> 3;
+                                    case "debug" -> 4;
+                                    default -> 0;
+                                });
+                            }
+                            i++;
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -166,7 +173,7 @@ public class HoMM extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(params.resizable);
         setVisible(true);
-        setScene(new GameBoard(12, 10));
+        setScene(new GameScene());
     }
 
     /**

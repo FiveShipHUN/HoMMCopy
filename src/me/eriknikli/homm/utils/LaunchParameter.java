@@ -8,12 +8,12 @@ public class LaunchParameter {
     /**
      * Az ablak X pozíciója
      */
-    public int x = 100;
+    public int x = 0;
 
     /**
      * Az ablak Y pozíciója
      */
-    public int y = 100;
+    public int y = 0;
 
     /**
      * Az ablak hossza

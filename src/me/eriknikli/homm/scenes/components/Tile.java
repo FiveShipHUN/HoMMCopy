@@ -1,8 +1,10 @@
 package me.eriknikli.homm.scenes.components;
 
 import me.eriknikli.homm.HoMM;
+import me.eriknikli.homm.gameplay.Unit;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Mezőt leíró osztály
@@ -20,6 +22,11 @@ public class Tile extends JButton {
     private final int y;
 
     /**
+     * Unit
+     */
+    private Unit unit;
+
+    /**
      * Létrehoz egy mezőt
      *
      * @param x az x koordinátája a mezőnek
@@ -28,8 +35,11 @@ public class Tile extends JButton {
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
-        setText(x + " , " + y);
-        setIcon(new ImageIcon(HoMM.__DEBUG));
+        setFont(new Font("Times New Roman", Font.BOLD, 20));
+        setForeground(Color.WHITE);
+        setBackground(Color.BLACK);
+        setHorizontalTextPosition(CENTER);
+        setVerticalTextPosition(CENTER);
     }
 
     /**
@@ -44,6 +54,22 @@ public class Tile extends JButton {
      */
     public int y() {
         return y;
+    }
+
+    /**
+     * @return A jelenleg itt tartozkodó Unit-ot visszaadja
+     */
+    public Unit unit() {
+        return unit;
+    }
+
+    /**
+     * Ide mozgatja az adott unit-ot
+     *
+     * @param u
+     */
+    public void setUnit(Unit u) {
+        this.unit = u;
     }
 
 

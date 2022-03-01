@@ -2,12 +2,13 @@ package me.eriknikli.homm.scenes.components;
 
 import me.eriknikli.homm.scenes.Scene;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
  * A játékmezők
  */
-public class GameBoard extends Scene {
+public class GameBoard extends JPanel {
 
     /**
      * Mezők
