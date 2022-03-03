@@ -1,10 +1,9 @@
-package me.eriknikli.homm.gameplay;
+package me.eriknikli.homm.gameplay.units.types;
+
+import me.eriknikli.homm.data.Registry;
+import me.eriknikli.homm.data.ImageAsset;
 
 public class Archer extends UnitType {
-    @Override
-    public String id() {
-        return "archer";
-    }
 
     @Override
     public String name() {
@@ -34,5 +33,10 @@ public class Archer extends UnitType {
     @Override
     public int speed() {
         return 0;
+    }
+
+    @Override
+    public ImageAsset image() {
+        return Registry.I_ARCHER;
     }
 }

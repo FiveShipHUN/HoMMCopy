@@ -1,5 +1,8 @@
 package me.eriknikli.homm.utils;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -160,6 +163,36 @@ public class RNG {
      */
     public static boolean randomBoolean(float trueWeight) {
         return rng().nextFloat() <= trueWeight;
+    }
+
+    /**
+     * Visszaad az adott adattömbből egy random elemet
+     * @param array a tömb
+     * @param <T> a tömb típusa
+     * @return egy random elem a tömbből
+     */
+    public static <T> T randomElement(T[] array) {
+        return array[randomInt(array.length)];
+    }
+
+    /**
+     * Visszaad az adott kollekcióból egy random elemet, úgy hogy abból előbb egy listát készít
+     * @param c a kollekció
+     * @param <T> a típusa a kollekciónak
+     * @return egy random elem
+     */
+    public static <T> T randomElement(Collection<T> c) {
+        return randomElement((List<T>) new ArrayList<>(c));
+    }
+
+    /**
+     * Visszaad egy random elemet a listából
+     * @param l a lista
+     * @param <T> a lista típusa
+     * @return egy random elem a listából
+     */
+    public static <T> T randomElement(List<T> l) {
+        return l.get(randomInt(l.size()));
     }
 
 }

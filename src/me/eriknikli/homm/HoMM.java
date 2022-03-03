@@ -1,6 +1,6 @@
 package me.eriknikli.homm;
 
-import me.eriknikli.homm.data.Assets;
+import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.data.Config;
 import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.Scene;
@@ -63,7 +63,7 @@ public class HoMM extends JFrame implements Disposable {
      *             </ul>
      */
     public static void main(String[] args) {
-        Assets.init();
+        Registry.init();
         Config.load();
         SwingUtilities.invokeLater(() -> {
             processArgs(args);
@@ -198,6 +198,6 @@ public class HoMM extends JFrame implements Disposable {
 
     @Override
     public void dispose() {
-        Assets.dispose();
+        Registry.dispose();
     }
 }

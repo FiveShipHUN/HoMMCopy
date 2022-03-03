@@ -21,9 +21,10 @@ public class GameScene extends Scene {
         var c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
-        c.ipadx = c.ipady = 5;
+        c.insets = new Insets(0, 10, 0, 10);
         c.fill = GridBagConstraints.VERTICAL;
-        add(new HeroPanel(new Hero()), c);
+        var leftH = new HeroPanel(new Hero());
+        add(leftH, c);
         c = new GridBagConstraints();
         c.gridx = 1;
         c.gridy = 0;
@@ -34,7 +35,9 @@ public class GameScene extends Scene {
         c.gridx = 2;
         c.gridy = 0;
         c.fill = GridBagConstraints.VERTICAL;
-        c.ipadx = c.ipady = 5;
-        add(new HeroPanel(new Hero()), c);
+        c.insets = new Insets(0, 10, 0, 10);
+        var rightH = new HeroPanel(new Hero());
+        add(rightH, c);
+        setBackground(rightH.getBackground());
     }
 }

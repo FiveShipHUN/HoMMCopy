@@ -41,6 +41,8 @@ public class GameBoard extends JPanel {
         this.height = height;
         tiles = new Tile[width * height];
         var layout = new GridLayout(height + 2, width + 2);
+        layout.setHgap(0);
+        layout.setVgap(0);
         setLayout(layout);
         addColumnLabel(true);
         for (int y = 0; y < height; y++) {

@@ -1,6 +1,6 @@
-package me.eriknikli.homm.gameplay;
+package me.eriknikli.homm.gameplay.units;
 
-import me.eriknikli.homm.utils.RNG;
+import me.eriknikli.homm.gameplay.units.types.UnitType;
 
 public class Unit {
 

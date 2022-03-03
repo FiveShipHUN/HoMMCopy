@@ -1,7 +1,6 @@
 package me.eriknikli.homm.scenes.components;
 
-import me.eriknikli.homm.data.Assets;
-import me.eriknikli.homm.gameplay.Unit;
+import me.eriknikli.homm.gameplay.units.Unit;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -43,15 +42,29 @@ public class Tile extends JButton {
         setBackground(Color.BLACK);
         setHorizontalTextPosition(CENTER);
         setVerticalTextPosition(CENTER);
+        setUnit(new Unit());
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                var width = (int) (e.getComponent().getWidth() * 0.8f);
-                var height = (int) (e.getComponent().getHeight() * 0.8f);
-                width = height = Math.min(width, height);
-                setIcon(Assets.I_FARMER.icon(width, height));
+                refreshUnitInfo();
             }
         });
+    }
+
+    /**
+     * Update-eli a unit információit ezen a mezőn
+     */
+    public void refreshUnitInfo() {
+        if (unit() == null) {
+            setIcon(null);
+            setText("");
+        } else {
+            var width = (int) (getWidth() * 0.8f);
+            var height = (int) (getHeight() * 0.8f);
+            width = height = Math.min(width, height);
+            setIcon(unit().type().image().icon(width, height));
+            setText(unit().amount() + "");
+        }
     }
 
     /**
@@ -81,6 +94,7 @@ public class Tile extends JButton {
      * @param u a unit, amit ide szeretnél rakni
      */
     public void setUnit(Unit u) {
+        refreshUnitInfo();
         this.unit = u;
     }
 

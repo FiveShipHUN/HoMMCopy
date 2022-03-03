@@ -18,7 +18,11 @@ public class HeroPanel extends JPanel {
     public HeroPanel(Hero hero) {
         this.hero = hero;
         setLayout(new GridLayout(2, 1));
-        add(new JLabel("Player"));
+        var lbl = new JLabel("Player");
+        lbl.setFont(new Font("Times New Roman", Font.BOLD, 30));
+        lbl.setVerticalTextPosition(SwingConstants.CENTER);
+        lbl.setHorizontalTextPosition(SwingConstants.CENTER);
+        add(lbl);
         setBackground(Color.DARK_GRAY);
     }
 
