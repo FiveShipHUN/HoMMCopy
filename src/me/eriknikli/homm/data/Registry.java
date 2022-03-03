@@ -5,6 +5,7 @@ import me.eriknikli.homm.gameplay.units.types.Farmer;
 import me.eriknikli.homm.gameplay.units.types.Griffin;
 import me.eriknikli.homm.gameplay.units.types.Priest;
 import me.eriknikli.homm.gameplay.units.types.Swordman;
+import me.eriknikli.homm.gameplay.units.types.UnitType;
 
 /**
  * Ebből a classból lehet elérni az asseteket és egyéb objektumokat
@@ -73,8 +74,8 @@ public class Registry {
     /**
      * @return Összes unit típus
      */
-    public static Object[] uTypes() {
-        return new Object[]{UT_FARMER, UT_ARCHER, UT_SWORDSMAN, UT_PRIEST, UT_GRIFFIN};
+    public static UnitType[] uTypes() {
+        return new UnitType[]{UT_FARMER, UT_ARCHER, UT_SWORDSMAN, UT_PRIEST, UT_GRIFFIN};
     }
 
     /**

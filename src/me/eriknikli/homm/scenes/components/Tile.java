@@ -1,6 +1,8 @@
 package me.eriknikli.homm.scenes.components;
 
+import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.units.Unit;
+import me.eriknikli.homm.utils.RNG;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -42,7 +44,7 @@ public class Tile extends JButton {
         setBackground(Color.BLACK);
         setHorizontalTextPosition(CENTER);
         setVerticalTextPosition(CENTER);
-        setUnit(new Unit());
+        setUnit(new Unit(RNG.randomElement(Registry.uTypes()), 100));
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
