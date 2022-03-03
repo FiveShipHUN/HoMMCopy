@@ -1,5 +1,9 @@
 package me.eriknikli.homm.utils;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
 /**
  * Segítő függvények, főleg olyanok amiket máshova nem illenek be
  */
@@ -33,6 +37,29 @@ public class Utils {
         if (d != null) {
             d.dispose();
         }
+    }
+
+    /**
+     * Átméretez egy képet (src: <a href="https://stackoverflow.com/questions/9417356/bufferedimage-resize">https://stackoverflow.com/questions/9417356/bufferedimage-resize</a>)
+     *
+     * @param img  a kép maga
+     * @param newW új szélesség
+     * @param newH új magasság
+     * @return az átméretezett kép
+     */
+    public static BufferedImage resizeImg(BufferedImage img, int newW, int newH) {
+        Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+        BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2d = dimg.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+
+        return dimg;
+    }
+
+    public static BufferedImage cpy(BufferedImage img) {
+        return resizeImg(img, img.getWidth(), img.getHeight());
     }
 
 }

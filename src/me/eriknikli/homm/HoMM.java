@@ -1,7 +1,6 @@
 package me.eriknikli.homm;
 
 import me.eriknikli.homm.scenes.GameScene;
-import me.eriknikli.homm.scenes.components.GameBoard;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.Disposable;
 import me.eriknikli.homm.utils.LaunchParameter;
@@ -9,17 +8,15 @@ import me.eriknikli.homm.utils.Log;
 import me.eriknikli.homm.utils.Utils;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import java.util.Objects;
 
 /**
  * A játék class-e, itt található a main függvény is
  */
-public class HoMM extends JFrame {
-
-    public static Image __DEBUG;
+public class HoMM extends JFrame implements Disposable {
 
     /**
      * A játék objektumot tartalmazza
@@ -65,7 +62,7 @@ public class HoMM extends JFrame {
      */
     public static void main(String[] args) {
         try {
-            __DEBUG = ImageIO.read(Objects.requireNonNull(HoMM.class.getResourceAsStream("/farmer.png")));
+
         } catch (Exception ignored) {
         }
         SwingUtilities.invokeLater(() -> {
@@ -165,7 +162,7 @@ public class HoMM extends JFrame {
      */
     public void initFrame() {
         try {
-            setIconImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/icon.png"))));
+            setIconImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/textures/units/icon.png"))));
         } catch (Exception e) {
             Log.err("Az ikont nem sikerült beállítani.", e);
         }
@@ -199,4 +196,8 @@ public class HoMM extends JFrame {
         setContentPane(this.scene);
     }
 
+    @Override
+    public void dispose() {
+
+    }
 }

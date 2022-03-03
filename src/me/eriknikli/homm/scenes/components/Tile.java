@@ -1,10 +1,14 @@
 package me.eriknikli.homm.scenes.components;
 
 import me.eriknikli.homm.HoMM;
+import me.eriknikli.homm.assets.Assets;
 import me.eriknikli.homm.gameplay.Unit;
+import me.eriknikli.homm.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /**
  * Mezőt leíró osztály
@@ -40,6 +44,16 @@ public class Tile extends JButton {
         setBackground(Color.BLACK);
         setHorizontalTextPosition(CENTER);
         setVerticalTextPosition(CENTER);
+        setIcon(new ImageIcon(HoMM.__DEBUG));
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                var width = (int) (e.getComponent().getWidth() * 0.9f);
+                var height = (int) (e.getComponent().getHeight() * 0.9f);
+                width = height = Math.min(width, height);
+                setIcon(Assets.I_FARMER.icon(width, height));
+            }
+        });
     }
 
     /**
@@ -66,7 +80,7 @@ public class Tile extends JButton {
     /**
      * Ide mozgatja az adott unit-ot
      *
-     * @param u
+     * @param u a unit, amit ide szeretnél rakni
      */
     public void setUnit(Unit u) {
         this.unit = u;

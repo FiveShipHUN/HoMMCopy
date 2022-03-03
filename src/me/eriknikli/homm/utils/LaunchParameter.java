@@ -28,7 +28,7 @@ public class LaunchParameter {
     /**
      * Átmérezhető-e az ablak?
      */
-    public boolean resizable = false;
+    public boolean resizable = true;
 
 
     public LaunchParameter() {
