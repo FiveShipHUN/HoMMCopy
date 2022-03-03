@@ -1,6 +1,7 @@
 package me.eriknikli.homm;
 
 import me.eriknikli.homm.data.Assets;
+import me.eriknikli.homm.data.Config;
 import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.Disposable;
@@ -63,6 +64,7 @@ public class HoMM extends JFrame implements Disposable {
      */
     public static void main(String[] args) {
         Assets.init();
+        Config.load();
         SwingUtilities.invokeLater(() -> {
             processArgs(args);
             trySettingNimbusLaF();
@@ -84,6 +86,24 @@ public class HoMM extends JFrame implements Disposable {
                     if (args[i].equalsIgnoreCase("-ignoreConfig")) {
                         ignoreConfig = true;
                     }
+                    if (args[i].equalsIgnoreCase("-resizable")) {
+                        params.resizable = true;
+                    }
+                    if (args[i].equalsIgnoreCase("-loglevel")) {
+                        try {
+                            Log.setLogLevel(Integer.parseInt(args[i + 1]));
+                        } catch (NumberFormatException e) {
+                            Log.setLogLevel(switch (args[i + 1].toLowerCase()) {
+                                //  case "none" -> 0;, redundáns a default case miatt
+                                case "info" -> 1;
+                                case "warn" -> 2;
+                                case "err" -> 3;
+                                case "debug" -> 4;
+                                default -> 0;
+                            });
+                        }
+                        i++;
+                    }
                     if (!ignoreConfig) {
                         if (args[i].equalsIgnoreCase("-x")) {
                             params.x = Integer.parseInt(args[i + 1]);
@@ -99,24 +119,6 @@ public class HoMM extends JFrame implements Disposable {
                         }
                         if (args[i].equalsIgnoreCase("-height") || args[i].equalsIgnoreCase("-h")) {
                             params.height = Integer.parseInt(args[i + 1]);
-                            i++;
-                        }
-                        if (args[i].equalsIgnoreCase("-resizable")) {
-                            params.resizable = true;
-                        }
-                        if (args[i].equalsIgnoreCase("-loglevel")) {
-                            try {
-                                Log.setLogLevel(Integer.parseInt(args[i + 1]));
-                            } catch (NumberFormatException e) {
-                                Log.setLogLevel(switch (args[i + 1].toLowerCase()) {
-                                    //  case "none" -> 0;, redundáns a default case miatt
-                                    case "info" -> 1;
-                                    case "warn" -> 2;
-                                    case "err" -> 3;
-                                    case "debug" -> 4;
-                                    default -> 0;
-                                });
-                            }
                             i++;
                         }
                     }

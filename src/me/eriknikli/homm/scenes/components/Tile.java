@@ -46,8 +46,8 @@ public class Tile extends JButton {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                var width = (int) (e.getComponent().getWidth() * 0.9f);
-                var height = (int) (e.getComponent().getHeight() * 0.9f);
+                var width = (int) (e.getComponent().getWidth() * 0.8f);
+                var height = (int) (e.getComponent().getHeight() * 0.8f);
                 width = height = Math.min(width, height);
                 setIcon(Assets.I_FARMER.icon(width, height));
             }

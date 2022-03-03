@@ -1,5 +1,7 @@
 package me.eriknikli.homm.utils;
 
+import me.eriknikli.homm.data.Config;
+
 /**
  * Indítási paramétereket tartalmaz
  */
@@ -30,8 +32,21 @@ public class LaunchParameter {
      */
     public boolean resizable = true;
 
+    /**
+     * Legyen-e hatása az {@code initFromConfig()} függvénynek?
+     */
+    public boolean ignoreConfig;
 
     public LaunchParameter() {
+    }
+
+    public void initFromCfg() {
+        if (!ignoreConfig) {
+            x = Config.instance().x;
+            y = Config.instance().y;
+            width = Config.instance().width;
+            height = Config.instance().height;
+        }
     }
 
 }

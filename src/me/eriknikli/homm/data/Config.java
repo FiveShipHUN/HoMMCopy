@@ -10,6 +10,11 @@ import java.util.Properties;
 public class Config {
 
     /**
+     * Config instance
+     */
+    private static Config instance;
+
+    /**
      * Játékos neve, esetleges MP implementáció miatt
      */
     public String playerName;
@@ -36,11 +41,20 @@ public class Config {
     public int height;
 
     /**
-     * Betölti a {@code config.properties} fájlból a Config-ot
-     *
-     * @return Az így készült objektum
+     * @return a Config instance-t, ha még nincs betöltve, akkor betölti
      */
-    public static Config load() {
+    public static Config instance() {
+        if (instance == null) {
+            load();
+        }
+        return instance;
+    }
+
+    /**
+     * Betölti a {@code config.properties} fájlból a Config-ot
+     * Ezt az objektumot a {@code Config.instance()}-en keresztül lehet elérni
+     */
+    public static void load() {
         try (var reader = new FileReader("config.properties")) {
             Properties prop = new Properties();
             prop.load(reader);
@@ -50,9 +64,9 @@ public class Config {
             cfg.y = Integer.parseInt(prop.getProperty("Y"));
             cfg.width = Integer.parseInt(prop.getProperty("Width"));
             cfg.height = Integer.parseInt(prop.getProperty("Height"));
-            return cfg;
+            instance = cfg;
         } catch (Exception e) {
-            return new Config();
+            instance = new Config();
         }
     }
 

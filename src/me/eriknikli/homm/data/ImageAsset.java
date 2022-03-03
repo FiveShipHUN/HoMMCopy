@@ -110,7 +110,7 @@ public class ImageAsset implements Disposable {
     }
 
     /**
-     * Átméretezi az adott képet, HA kell, ha nem akkor csak visszaadja az adott képről készült icont
+     * Ha kell átméretezi az adott képet és visszaadja az adott képről készült icont
      *
      * @param width  szélesség
      * @param height magasság
@@ -122,22 +122,63 @@ public class ImageAsset implements Disposable {
     }
 
     /**
-     * Átméretezi az adott képet, HA kell, ha nem akkor csak visszaadja az adott képet
+     * Ha kell átméretezi az adott képet méretarányosan, szélesség alapján, és visszaadja az adott képről készült icont
+     *
+     * @param width szélesség
+     * @return az átméretezett icon
+     */
+    public ImageIcon iconByWidth(int width) {
+        sizedInstanceByWidth(width);
+        return swingIcon;
+    }
+
+    /**
+     * Ha kell átméretezi az adott képet méretarányosan, magasság alapján, és visszaadja az adott képről készült icont
+     *
+     * @param height magasság
+     * @return az átméretezett icon
+     */
+    public ImageIcon iconByHeight(int height) {
+        sizedInstanceByHeight(height);
+        return swingIcon;
+    }
+
+    /**
+     * Átméretezi az adott képet ha kell, ha nem akkor csak visszaadja azt.
      *
      * @param width  szélesség
      * @param height magasság
      * @return az átméretezett kép
      */
     public BufferedImage sizedInstance(int width, int height) {
-        if (original().getWidth() == width && height == original().getHeight()) {
-            return original();
-        }
         if (cpy.getWidth() == width && cpy.getHeight() == height) {
             return cpy;
         }
         cpy = Utils.resizeImg(original(), width, height);
         swingIcon = new ImageIcon(cpy);
         return cpy;
+    }
+
+    /**
+     * Átméretezi az adott képet a szélesség alapján, megtartva a méretarányt
+     *
+     * @param width szélesség
+     * @return az átméretezett kép
+     */
+    public BufferedImage sizedInstanceByWidth(int width) {
+        int height = (int) (width * (float) original().getHeight() / original().getWidth());
+        return sizedInstance(width, height);
+    }
+
+    /**
+     * Átméretezi az adott képet a magasság alapján, megtartva a méretarányt
+     *
+     * @param height magasság
+     * @return az átméretezett kép
+     */
+    public BufferedImage sizedInstanceByHeight(int height) {
+        int width = (int) (height * (float) original().getWidth() / original().getHeight());
+        return sizedInstance(width, height);
     }
 
     @Override
