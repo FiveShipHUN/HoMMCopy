@@ -1,7 +1,5 @@
 package me.eriknikli.homm.scenes.components;
 
-import me.eriknikli.homm.scenes.Scene;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -46,17 +44,22 @@ public class GameBoard extends JPanel {
         setLayout(layout);
         addColumnLabel(true);
         for (int y = 0; y < height; y++) {
-            addVerticalLabelOf(y, true);
+            addRowLbl(y, true);
             for (int x = 0; x < width; x++) {
                 add(tiles[index(x, y)] = new Tile(x, y));
             }
-            addVerticalLabelOf(y, false);
+            addRowLbl(y, false);
         }
         addColumnLabel(false);
         setBackground(Color.GRAY);
     }
 
-    private void addVerticalLabelOf(int y, boolean left) {
+    /**
+     * Hozzáadja a mezősorszámot, ami a sorokhoz tartozik
+     * @param y a sor indexe
+     * @param left bal oldalon van-e a felirat?
+     */
+    private void addRowLbl(int y, boolean left) {
         var lbl = new JLabel((y + 1) + "");
         setPropsForColumnRowLbl(lbl);
         lbl.setHorizontalTextPosition(left ? SwingConstants.RIGHT : SwingConstants.LEFT);
@@ -64,7 +67,12 @@ public class GameBoard extends JPanel {
         add(lbl);
     }
 
-    private void addColumnLabel2(int x, boolean topRow) {
+    /**
+     * Hozzáadja a mezősorszámot, ami az oszlopokhoz tartozik
+     * @param x az oszlop indexe
+     * @param topRow felső részen van-e a felirat?
+     */
+    private void addColumnLbl(int x, boolean topRow) {
         var lbl = new JLabel((x + 1) + "");
         setPropsForColumnRowLbl(lbl);
         lbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -72,16 +80,24 @@ public class GameBoard extends JPanel {
         add(lbl);
     }
 
-    private void setPropsForColumnRowLbl(JLabel lbl) {
-        lbl.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
-    }
-
+    /**
+     * Hozzáadja a mezősorszámokat az oszlopokhoz
+     * @param topRow felső részen van a felirat?
+     */
     private void addColumnLabel(boolean topRow) {
         add(new JLabel(""));
         for (int x = 0; x < width; x++) {
-            addColumnLabel2(x, topRow);
+            addColumnLbl(x, topRow);
         }
         add(new JLabel(""));
+    }
+
+    /**
+     * Közös beállítások a sor/oszlop jelölő szövegnek (pl. font)
+     * @param lbl a szöveg-objektum
+     */
+    private void setPropsForColumnRowLbl(JLabel lbl) {
+        lbl.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
     }
 
     /**

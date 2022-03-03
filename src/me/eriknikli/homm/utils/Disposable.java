@@ -10,4 +10,12 @@ public interface Disposable {
      */
     void dispose();
 
+    /**
+     * Meghívja {@code Utils.tryDispose(d)} függvényt
+     * @param d a paraméter, amit átad a meghívott függvénynek
+     */
+    static void tryDispose(Disposable d) {
+        Utils.tryDispose(d);
+    }
+
 }

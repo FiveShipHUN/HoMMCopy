@@ -3,6 +3,7 @@ package me.eriknikli.homm;
 import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.components.GameBoard;
 import me.eriknikli.homm.scenes.Scene;
+import me.eriknikli.homm.utils.Disposable;
 import me.eriknikli.homm.utils.LaunchParameter;
 import me.eriknikli.homm.utils.Log;
 import me.eriknikli.homm.utils.Utils;

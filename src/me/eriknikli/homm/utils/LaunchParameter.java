@@ -30,6 +30,7 @@ public class LaunchParameter {
      */
     public boolean resizable = false;
 
+
     public LaunchParameter() {
     }
 
