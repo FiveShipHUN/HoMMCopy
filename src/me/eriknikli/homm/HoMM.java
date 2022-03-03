@@ -1,5 +1,6 @@
 package me.eriknikli.homm;
 
+import me.eriknikli.homm.assets.Assets;
 import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.Disposable;
@@ -61,10 +62,7 @@ public class HoMM extends JFrame implements Disposable {
      *             </ul>
      */
     public static void main(String[] args) {
-        try {
-
-        } catch (Exception ignored) {
-        }
+        Assets.init();
         SwingUtilities.invokeLater(() -> {
             processArgs(args);
             trySettingNimbusLaF();
@@ -198,6 +196,6 @@ public class HoMM extends JFrame implements Disposable {
 
     @Override
     public void dispose() {
-
+        Assets.dispose();
     }
 }

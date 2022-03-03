@@ -69,7 +69,7 @@ public class ImageAsset implements Disposable {
      */
     public void loadImage(String resource) {
         try (var is = ImageAsset.class.getResourceAsStream("/" + resource)) {
-            setImg(img);
+            setImg(ImageIO.read(Objects.requireNonNull(is)));
         } catch (Exception ignored) {
         }
     }
@@ -142,6 +142,8 @@ public class ImageAsset implements Disposable {
 
     @Override
     public void dispose() {
-
+        img = null;
+        cpy = null;
+        swingIcon = null;
     }
 }

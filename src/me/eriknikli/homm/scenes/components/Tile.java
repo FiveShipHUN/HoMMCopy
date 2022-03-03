@@ -1,12 +1,11 @@
 package me.eriknikli.homm.scenes.components;
 
-import me.eriknikli.homm.HoMM;
 import me.eriknikli.homm.assets.Assets;
 import me.eriknikli.homm.gameplay.Unit;
-import me.eriknikli.homm.utils.Utils;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -44,7 +43,6 @@ public class Tile extends JButton {
         setBackground(Color.BLACK);
         setHorizontalTextPosition(CENTER);
         setVerticalTextPosition(CENTER);
-        setIcon(new ImageIcon(HoMM.__DEBUG));
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
