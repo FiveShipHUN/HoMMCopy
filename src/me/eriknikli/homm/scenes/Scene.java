@@ -18,5 +18,6 @@ public class Scene extends JPanel implements Disposable {
 
     @Override
     public void dispose() {
+        System.gc();
     }
 }
