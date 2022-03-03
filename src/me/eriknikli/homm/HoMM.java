@@ -1,6 +1,6 @@
 package me.eriknikli.homm;
 
-import me.eriknikli.homm.assets.Assets;
+import me.eriknikli.homm.data.Assets;
 import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.Disposable;

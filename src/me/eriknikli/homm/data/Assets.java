@@ -1,4 +1,4 @@
-package me.eriknikli.homm.assets;
+package me.eriknikli.homm.data;
 
 /**
  * Ebből a classból lehet elérni az asseteket

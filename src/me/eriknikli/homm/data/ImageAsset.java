@@ -1,4 +1,4 @@
-package me.eriknikli.homm.assets;
+package me.eriknikli.homm.data;
 
 import me.eriknikli.homm.utils.Disposable;
 import me.eriknikli.homm.utils.Utils;

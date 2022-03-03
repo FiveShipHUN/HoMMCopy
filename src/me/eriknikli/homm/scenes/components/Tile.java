@@ -1,6 +1,6 @@
 package me.eriknikli.homm.scenes.components;
 
-import me.eriknikli.homm.assets.Assets;
+import me.eriknikli.homm.data.Assets;
 import me.eriknikli.homm.gameplay.Unit;
 
 import javax.swing.JButton;
