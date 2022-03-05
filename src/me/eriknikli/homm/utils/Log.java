@@ -1,11 +1,5 @@
 package me.eriknikli.homm.utils;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Naplózó /Logger osztály, "függvénykönyvtár"
  */
@@ -144,7 +138,7 @@ public class Log {
      */
     public static void err(String s, Exception e) {
         if (logLvl() >= ERR) {
-            System.out.println("[HoMM-Error] " + s);
+            System.err.println("[HoMM-Error] " + s);
         }
     }
 
