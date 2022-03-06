@@ -1,4 +1,4 @@
-package me.eriknikli.homm.gameplay.units.types;
+package me.eriknikli.homm.gameplay.army.types;
 
 import me.eriknikli.homm.data.ImageAsset;
 

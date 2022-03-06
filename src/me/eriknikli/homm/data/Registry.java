@@ -1,11 +1,11 @@
 package me.eriknikli.homm.data;
 
-import me.eriknikli.homm.gameplay.units.types.Archer;
-import me.eriknikli.homm.gameplay.units.types.Farmer;
-import me.eriknikli.homm.gameplay.units.types.Griffin;
-import me.eriknikli.homm.gameplay.units.types.Priest;
-import me.eriknikli.homm.gameplay.units.types.Swordman;
-import me.eriknikli.homm.gameplay.units.types.UnitType;
+import me.eriknikli.homm.gameplay.army.types.Archer;
+import me.eriknikli.homm.gameplay.army.types.Farmer;
+import me.eriknikli.homm.gameplay.army.types.Griffin;
+import me.eriknikli.homm.gameplay.army.types.Priest;
+import me.eriknikli.homm.gameplay.army.types.Swordman;
+import me.eriknikli.homm.gameplay.army.types.UnitType;
 
 /**
  * Ebből a classból lehet elérni az asseteket és egyéb objektumokat

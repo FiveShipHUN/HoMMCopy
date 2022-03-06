@@ -1,16 +1,18 @@
-package me.eriknikli.homm.gameplay.units.types;
+package me.eriknikli.homm.gameplay.army.types;
 
+import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.data.ImageAsset;
 
-public class Griffin extends UnitType {
+public class Farmer extends UnitType {
+
     @Override
     public String name() {
-        return "Griffin";
+        return "Farmer";
     }
 
     @Override
     public String description() {
-        return "Griffin is a powerful unit.";
+        return "The Farmer is a basic unit, it's cheap but it is not that effective.";
     }
 
     @Override
@@ -35,6 +37,6 @@ public class Griffin extends UnitType {
 
     @Override
     public ImageAsset image() {
-        return null;
+        return Registry.I_FARMER;
     }
 }

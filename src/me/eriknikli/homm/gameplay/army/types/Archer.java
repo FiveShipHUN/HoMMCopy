@@ -1,18 +1,18 @@
-package me.eriknikli.homm.gameplay.units.types;
+package me.eriknikli.homm.gameplay.army.types;
 
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.data.ImageAsset;
 
-public class Farmer extends UnitType {
+public class Archer extends UnitType {
 
     @Override
     public String name() {
-        return "Farmer";
+        return "Archer";
     }
 
     @Override
     public String description() {
-        return "The Farmer is a basic unit, it's cheap but it is not that effective.";
+        return "Archers are good for attacking ";
     }
 
     @Override
@@ -37,6 +37,6 @@ public class Farmer extends UnitType {
 
     @Override
     public ImageAsset image() {
-        return Registry.I_FARMER;
+        return Registry.I_ARCHER;
     }
 }

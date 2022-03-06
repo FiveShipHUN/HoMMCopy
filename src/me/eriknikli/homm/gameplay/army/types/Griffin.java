@@ -1,16 +1,16 @@
-package me.eriknikli.homm.gameplay.units.types;
+package me.eriknikli.homm.gameplay.army.types;
 
 import me.eriknikli.homm.data.ImageAsset;
 
-public class Swordman extends UnitType {
+public class Griffin extends UnitType {
     @Override
     public String name() {
-        return "Swordsman";
+        return "Griffin";
     }
 
     @Override
     public String description() {
-        return "Swordsman is a good unit for area-damage.";
+        return "Griffin is a powerful unit.";
     }
 
     @Override

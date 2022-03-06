@@ -1,7 +1,7 @@
 package me.eriknikli.homm.scenes.components;
 
 import me.eriknikli.homm.data.Registry;
-import me.eriknikli.homm.gameplay.units.Unit;
+import me.eriknikli.homm.gameplay.army.Unit;
 import me.eriknikli.homm.utils.RNG;
 
 import javax.swing.JButton;

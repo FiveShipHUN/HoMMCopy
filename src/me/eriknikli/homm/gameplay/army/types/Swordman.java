@@ -1,18 +1,16 @@
-package me.eriknikli.homm.gameplay.units.types;
+package me.eriknikli.homm.gameplay.army.types;
 
-import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.data.ImageAsset;
 
-public class Archer extends UnitType {
-
+public class Swordman extends UnitType {
     @Override
     public String name() {
-        return "Archer";
+        return "Swordsman";
     }
 
     @Override
     public String description() {
-        return "Archers are good for attacking ";
+        return "Swordsman is a good unit for area-damage.";
     }
 
     @Override
@@ -37,6 +35,6 @@ public class Archer extends UnitType {
 
     @Override
     public ImageAsset image() {
-        return Registry.I_ARCHER;
+        return null;
     }
 }

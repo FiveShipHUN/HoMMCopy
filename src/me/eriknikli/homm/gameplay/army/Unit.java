@@ -1,6 +1,6 @@
-package me.eriknikli.homm.gameplay.units;
+package me.eriknikli.homm.gameplay.army;
 
-import me.eriknikli.homm.gameplay.units.types.UnitType;
+import me.eriknikli.homm.gameplay.army.types.UnitType;
 
 public class Unit {
 
