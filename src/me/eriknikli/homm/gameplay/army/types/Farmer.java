@@ -2,6 +2,7 @@ package me.eriknikli.homm.gameplay.army.types;
 
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.data.ImageAsset;
+import me.eriknikli.homm.utils.Range;
 
 public class Farmer extends UnitType {
 
@@ -17,12 +18,12 @@ public class Farmer extends UnitType {
 
     @Override
     public int price() {
-        return 0;
+        return 2;
     }
 
     @Override
-    public int damage() {
-        return 0;
+    public Range damage() {
+        return new Range(1, 1);
     }
 
     @Override

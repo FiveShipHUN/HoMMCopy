@@ -1,6 +1,8 @@
 package me.eriknikli.homm.gameplay.army.types;
 
 import me.eriknikli.homm.data.ImageAsset;
+import me.eriknikli.homm.data.Registry;
+import me.eriknikli.homm.utils.Range;
 
 public class Priest extends UnitType {
     @Override
@@ -19,8 +21,8 @@ public class Priest extends UnitType {
     }
 
     @Override
-    public int damage() {
-        return 0;
+    public Range damage() {
+        return new Range(1, 1);
     }
 
     @Override
@@ -35,6 +37,6 @@ public class Priest extends UnitType {
 
     @Override
     public ImageAsset image() {
-        return null;
+        return Registry.I_PRIEST;
     }
 }

@@ -8,8 +8,8 @@ import me.eriknikli.homm.gameplay.army.types.Swordman;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
 
 /**
- * Ebből a classból lehet elérni az asseteket és egyéb objektumokat
- * I_* => képet tárol el
+ * Ebből a classból lehet elérni az asseteket és egyéb, konstans objektumokat
+ * I_* => kép asset
  * UT_* => unit típus
  */
 public class Registry {
@@ -86,7 +86,7 @@ public class Registry {
         I_ARCHER.loadImage("textures/units/archer.png");
         I_GRIFFIN.loadImage("textures/units/griffin.png");
         I_PRIEST.loadImage("textures/units/priest.png");
-        I_SWORDSMAN.loadImage("textures/units/swordman.png");
+        I_SWORDSMAN.loadImage("textures/units/swordsman.png");
     }
 
     /**
