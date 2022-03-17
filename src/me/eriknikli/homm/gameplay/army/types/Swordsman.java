@@ -4,7 +4,10 @@ import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.utils.Range;
 
-public class Swordman extends UnitType {
+/**
+ * Kardforgatót leíró egységtípus
+ */
+public class Swordsman extends UnitType {
     @Override
     public String name() {
         return "Swordsman";

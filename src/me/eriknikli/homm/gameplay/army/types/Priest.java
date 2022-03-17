@@ -4,6 +4,9 @@ import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.utils.Range;
 
+/**
+ * Papot leíró egységtípus
+ */
 public class Priest extends UnitType {
     @Override
     public String name() {

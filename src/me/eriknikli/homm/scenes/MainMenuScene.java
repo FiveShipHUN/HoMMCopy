@@ -1,9 +1,7 @@
 package me.eriknikli.homm.scenes;
 
-import javax.swing.*;
-
 /**
- * Főmenü
+ * Főmenüt leíró Scene
  */
 public class MainMenuScene extends Scene {
 
@@ -11,7 +9,7 @@ public class MainMenuScene extends Scene {
      * Inicializálja a scene-t
      */
     public MainMenuScene() {
-
+        
     }
 
     

@@ -8,7 +8,7 @@ import me.eriknikli.homm.scenes.components.HeroPanel;
 import java.awt.*;
 
 /**
- * Játék jelenete
+ * Játék Scene-je
  */
 public class GameScene extends Scene {
 

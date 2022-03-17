@@ -88,6 +88,7 @@ public class Unit {
         if (health <= 0) {
             die();
         }
+        health = Math.max(health, 0);
     }
 
     /**
@@ -95,6 +96,13 @@ public class Unit {
      */
     public void die() {
 
+    }
+
+    /**
+     * @return él-e még ez az egység?
+     */
+    public boolean isAlive() {
+        return health <= 0;
     }
 
     /**
@@ -110,7 +118,6 @@ public class Unit {
     public Hero hero() {
         return hero;
     }
-
 
 
 }

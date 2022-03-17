@@ -4,6 +4,9 @@ import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.utils.Range;
 
+/**
+ * Farmert leíró egységtípus
+ */
 public class Farmer extends UnitType {
 
     @Override

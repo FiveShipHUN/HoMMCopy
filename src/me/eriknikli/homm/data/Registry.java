@@ -4,7 +4,7 @@ import me.eriknikli.homm.gameplay.army.types.Archer;
 import me.eriknikli.homm.gameplay.army.types.Farmer;
 import me.eriknikli.homm.gameplay.army.types.Griffin;
 import me.eriknikli.homm.gameplay.army.types.Priest;
-import me.eriknikli.homm.gameplay.army.types.Swordman;
+import me.eriknikli.homm.gameplay.army.types.Swordsman;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
 
 /**
@@ -62,7 +62,7 @@ public class Registry {
     /**
      * Farmer egységtípus
      */
-    public static final Swordman UT_SWORDSMAN = new Swordman();
+    public static final Swordsman UT_SWORDSMAN = new Swordsman();
 
     /**
      * @return Összes kép asset

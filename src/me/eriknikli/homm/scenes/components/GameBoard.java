@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A játékmezők
+ * A pálya, ahol zajlik a játék
  */
 public class GameBoard extends JPanel {
 

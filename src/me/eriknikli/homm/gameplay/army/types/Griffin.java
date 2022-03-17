@@ -4,6 +4,9 @@ import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.utils.Range;
 
+/**
+ * Griffint leíró egységtípus
+ */
 public class Griffin extends UnitType {
     @Override
     public String name() {

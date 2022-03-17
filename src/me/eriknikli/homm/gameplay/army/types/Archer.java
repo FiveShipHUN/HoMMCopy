@@ -4,6 +4,9 @@ import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.utils.Range;
 
+/**
+ * Íjászt leíró egységtípus
+ */
 public class Archer extends UnitType {
 
     @Override

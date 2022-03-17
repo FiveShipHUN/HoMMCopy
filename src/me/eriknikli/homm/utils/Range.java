@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 import java.util.Objects;
 
 /**
- * Egy intervallum
+ * Egy intervallumot ír le
  */
 public class Range implements Serializable {
 
