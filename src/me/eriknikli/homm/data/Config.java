@@ -2,6 +2,9 @@ package me.eriknikli.homm.data;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -12,7 +15,7 @@ public class Config {
     /**
      * Játékos neve, esetleges MP implementáció miatt
      */
-    public String playerName;
+    public String playerName = "Player";
     // FOR MP implementation public UUID playerID;
 
     /**
@@ -38,7 +41,7 @@ public class Config {
     /**
      * Kinagyítsa-e az ablakot automatikusan? Ha igen, akkor az x, y, width és height paraméterek elveszítik értelmüket
      */
-    public boolean maximizeWindow = false;
+    public boolean maximizeWindow = true;
 
     /**
      * Betölti a {@code config.properties} fájlból a Config-ot
@@ -54,6 +57,7 @@ public class Config {
             cfg.y = Integer.parseInt(prop.getProperty("Y"));
             cfg.width = Integer.parseInt(prop.getProperty("Width"));
             cfg.height = Integer.parseInt(prop.getProperty("Height"));
+            cfg.maximizeWindow = Boolean.parseBoolean(prop.getProperty("MaximizeWindow"));
             return cfg;
         } catch (Exception e) {
             return new Config();
@@ -65,9 +69,14 @@ public class Config {
      */
     public void save() {
         Properties prop = new Properties();
-        prop.setProperty("PlayerName", playerName);
+        prop.put("PlayerName", playerName);
+        prop.put("X", Objects.toString(x));
+        prop.put("Y", Objects.toString(y));
+        prop.put("Width", Objects.toString(width));
+        prop.put("Height", Objects.toString(height));
+        prop.put("MaximizeWindow", Objects.toString(maximizeWindow));
         try (var writer = new FileWriter("config.properties")) {
-            prop.store(writer, "");
+            prop.store(writer, "Last Saved: "+ LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         } catch (Exception ignored) {
         }
     }

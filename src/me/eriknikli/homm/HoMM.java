@@ -71,6 +71,7 @@ public class HoMM extends JFrame implements Disposable {
         Registry.init();
         cfg = Config.load();
         SwingUtilities.invokeLater(() -> {
+            cfg.save();
             processArgs(args);
             trySettingNimbusLaF();
             game = new HoMM();

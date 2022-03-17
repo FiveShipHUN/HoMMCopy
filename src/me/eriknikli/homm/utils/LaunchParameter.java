@@ -40,7 +40,7 @@ public class LaunchParameter {
     /**
      * Kinagyítsa-e az ablakot automatikusan? Ha igen, akkor az x, y, width és height paraméterek elveszítik értelmüket
      */
-    public boolean maximizeWindow = false;
+    public boolean maximizeWindow = true;
 
     public LaunchParameter() {
     }
