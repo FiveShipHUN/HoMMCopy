@@ -2,8 +2,6 @@ package me.eriknikli.homm.data;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -76,7 +74,7 @@ public class Config {
         prop.put("Height", Objects.toString(height));
         prop.put("MaximizeWindow", Objects.toString(maximizeWindow));
         try (var writer = new FileWriter("config.properties")) {
-            prop.store(writer, "Last Saved: "+ LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            prop.store(writer, "");
         } catch (Exception ignored) {
         }
     }

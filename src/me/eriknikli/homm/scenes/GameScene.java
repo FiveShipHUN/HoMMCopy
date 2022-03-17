@@ -2,8 +2,8 @@ package me.eriknikli.homm.scenes;
 
 import me.eriknikli.homm.gameplay.AIHero;
 import me.eriknikli.homm.gameplay.Hero;
-import me.eriknikli.homm.scenes.components.GameBoard;
-import me.eriknikli.homm.scenes.components.HeroPanel;
+import me.eriknikli.homm.scenes.components.game.GameBoard;
+import me.eriknikli.homm.scenes.components.game.HeroPanel;
 
 import java.awt.*;
 

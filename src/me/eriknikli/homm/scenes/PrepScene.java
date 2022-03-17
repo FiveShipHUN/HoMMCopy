@@ -1,7 +1,8 @@
 package me.eriknikli.homm.scenes;
 
 import me.eriknikli.homm.gameplay.Hero;
-import me.eriknikli.homm.scenes.components.UnitBuyingPanel;
+import me.eriknikli.homm.scenes.components.prep.CurrentStatusPanel;
+import me.eriknikli.homm.scenes.components.prep.UnitBuyingPanel;
 
 import java.awt.*;
 
@@ -19,8 +20,9 @@ public class PrepScene extends Scene {
         c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.BOTH;
-        add(new UnitBuyingPanel(),c);
+        add(new UnitBuyingPanel(), c);
         c = new GridBagConstraints();
+        add(new CurrentStatusPanel());
     }
 
 

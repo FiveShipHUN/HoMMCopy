@@ -21,6 +21,7 @@ public class Range implements Serializable {
 
     /**
      * Készít egy intervallumot, ami [x , x]
+     *
      * @param x az adott intervallum alsó- és felsőkorlátja is
      */
     public Range(double x) {
@@ -132,5 +133,21 @@ public class Range implements Serializable {
         String min = f.format(this.min);
         String max = f.format(this.max);
         return "[" + min + " ; " + max + "]";
+    }
+
+    /**
+     * @param rounding kerekítés
+     * @return {@code [min ; max]} formába adja vissza az adott intervallumot String-ként
+     */
+    public String toStringNoBrackets(int rounding) {
+        var f = NumberFormat.getNumberInstance();
+        f.setMinimumFractionDigits(0);
+        f.setMaximumFractionDigits(rounding);
+        String min = f.format(this.min);
+        String max = f.format(this.max);
+        if (min.equalsIgnoreCase(max)) {
+            return min;
+        }
+        return "" + min + " - " + max + "";
     }
 }

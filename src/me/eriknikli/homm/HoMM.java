@@ -63,6 +63,9 @@ public class HoMM extends JFrame implements Disposable {
      *                  -resizable, beállítja, hogy az ablak átméretezhető legyen
      *              </li>
      *              <li>
+     *                  -notresizable, beállítja, hogy az ablak ne legyen átméretezhető
+     *              </li>
+     *              <li>
      *                  -loglevel, beállítja, hogy milyen szinten logoljon a program, NONE = 0, INFO = 1, WARN = 2, ERR = 3, DEBUG = 4
      *              </li>
      *             </ul>
@@ -101,6 +104,9 @@ public class HoMM extends JFrame implements Disposable {
                     }
                     if (args[i].equalsIgnoreCase("-resizable")) {
                         params.resizable = true;
+                    }
+                    if (args[i].equalsIgnoreCase("-resizable")) {
+                        params.resizable = false;
                     }
                     if (args[i].equalsIgnoreCase("-loglevel")) {
                         try {
@@ -187,8 +193,9 @@ public class HoMM extends JFrame implements Disposable {
         setBounds(params.x, params.y, params.width, params.height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(params.resizable);
-        setExtendedState(params.maximizeWindow?JFrame.MAXIMIZED_BOTH:getExtendedState());
-        setVisible(true);
+        if(params.maximizeWindow) {
+            setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }setVisible(true);
         setScene(new PrepScene(new PlayerHero(cfg().playerName, Difficulty.NORMAL)));
     }
 

@@ -51,6 +51,7 @@ public class LaunchParameter {
             y = HoMM.cfg().y;
             width = HoMM.cfg().width;
             height = HoMM.cfg().height;
+            maximizeWindow = HoMM.cfg().maximizeWindow;
         }
     }
 

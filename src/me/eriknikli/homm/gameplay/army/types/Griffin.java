@@ -20,7 +20,7 @@ public class Griffin extends UnitType {
 
     @Override
     public int price() {
-        return 0;
+        return 15;
     }
 
     @Override
@@ -30,12 +30,17 @@ public class Griffin extends UnitType {
 
     @Override
     public double maxHealth() {
-        return 0;
+        return 30;
     }
 
     @Override
     public int speed() {
-        return 0;
+        return 7;
+    }
+
+    @Override
+    public int priority() {
+        return 15;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package me.eriknikli.homm.scenes.components;
+package me.eriknikli.homm.scenes.components.game;
 
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.army.Unit;
@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.HashSet;
 
 /**
  * Mezőt leíró osztály
@@ -31,14 +32,21 @@ public class Tile extends JButton {
     private Unit unit;
 
     /**
+     * A tábla
+     */
+    private final GameBoard board;
+
+    /**
      * Létrehoz egy mezőt
      *
-     * @param x az x koordinátája a mezőnek
-     * @param y az y koordinátája a mezőnek
+     * @param x     az x koordinátája a mezőnek
+     * @param y     az y koordinátája a mezőnek
+     * @param board a tábla
      */
-    public Tile(int x, int y) {
+    public Tile(int x, int y, GameBoard board) {
         this.x = x;
         this.y = y;
+        this.board = board;
         setFont(new Font("Times New Roman", Font.BOLD, 20));
         setForeground(Color.WHITE);
         setBackground(Color.BLACK);
@@ -98,6 +106,25 @@ public class Tile extends JButton {
     public void setUnit(Unit u) {
         refreshUnitInfo();
         this.unit = u;
+    }
+
+    /**
+     *
+     */
+    public HashSet<Tile> neighbors() {
+        var tiles = new HashSet<Tile>();
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if (dx == 0 && dy == 0) {
+                    continue;
+                }
+                Tile tile = board.tileOf(x, y);
+                if (tile != null) {
+                    tiles.add(tile);
+                }
+            }
+        }
+        return tiles;
     }
 
 

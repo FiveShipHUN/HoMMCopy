@@ -25,7 +25,8 @@ public abstract class Hero {
 
     /**
      * Hőst hoz létre, magába nem használható
-     * @param name a hős neve
+     *
+     * @param name      a hős neve
      * @param startGold a hős ennyi golddal kezd
      */
     protected Hero(String name, int startGold) {
@@ -96,6 +97,14 @@ public abstract class Hero {
      */
     public boolean subtractGold(int amount) {
         return addGold(-amount);
+    }
+
+    /**
+     * @param gold aranymennyiség
+     * @return van-e ennyi aranya ennek a hősnek?
+     */
+    public boolean canAfford(int gold) {
+        return this.gold >= gold;
     }
 
 }

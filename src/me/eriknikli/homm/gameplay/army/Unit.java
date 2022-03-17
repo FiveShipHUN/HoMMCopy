@@ -2,7 +2,7 @@ package me.eriknikli.homm.gameplay.army;
 
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
-import me.eriknikli.homm.scenes.components.Tile;
+import me.eriknikli.homm.scenes.components.game.Tile;
 
 /**
  * Egy egység

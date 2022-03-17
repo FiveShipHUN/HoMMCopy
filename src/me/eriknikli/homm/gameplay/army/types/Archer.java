@@ -16,12 +16,12 @@ public class Archer extends UnitType {
 
     @Override
     public String description() {
-        return "Archers are good for attacking ";
+        return "Archers are good for attacking distant units but they are not trained for close-ranged combats. ";
     }
 
     @Override
     public int price() {
-        return 0;
+        return 6;
     }
 
     @Override
@@ -31,12 +31,17 @@ public class Archer extends UnitType {
 
     @Override
     public double maxHealth() {
-        return 0;
+        return 7;
     }
 
     @Override
     public int speed() {
-        return 0;
+        return 4;
+    }
+
+    @Override
+    public int priority() {
+        return 9;
     }
 
     @Override

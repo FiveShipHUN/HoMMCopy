@@ -41,6 +41,11 @@ public abstract class UnitType {
     public abstract int speed();
 
     /**
+     * Prioritás / Kezdeményezés, ez alapján dől el, melyik egység támad hamarabb
+     */
+    public abstract int priority();
+
+    /**
      * @return Ikonhoz kép, ami a mezőn látszódik
      */
     public abstract ImageAsset image();
@@ -68,5 +73,33 @@ public abstract class UnitType {
             return getClass().equals(obj.getClass());
         }
         return false;
+    }
+
+    public String helpTxt() {
+        return "<html>" +
+                "<h2>" +
+                name() +
+                "</h2>" +
+                "<p>" +
+                description() +
+                "</p>" +
+                "<ul>" +
+                "<li>" +
+                "Price / soldier: " + price() + " gold" +
+                "</li>" +
+                "<li>" +
+                "Damage: " + damage().toStringNoBrackets(1) +
+                "</li>" +
+                "<li>" +
+                "Starting HP: " + maxHealth() +
+                "</li>" +
+                "<li>" +
+                "Speed: " + speed() +
+                "</li>" +
+                "<li>" +
+                "Priority: " + priority() +
+                "</li>" +
+                "</ul>" +
+                "</html>";
     }
 }

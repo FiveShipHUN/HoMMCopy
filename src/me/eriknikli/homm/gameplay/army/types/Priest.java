@@ -15,27 +15,32 @@ public class Priest extends UnitType {
 
     @Override
     public String description() {
-        return "Priest is the main support character.";
+        return "Priest is the main support character. It can heal units that are alive.";
     }
 
     @Override
     public int price() {
-        return 0;
+        return 100;
     }
 
     @Override
     public Range damage() {
-        return new Range(1, 1);
+        return new Range(1, 3);
     }
 
     @Override
     public double maxHealth() {
-        return 0;
+        return 2;
     }
 
     @Override
     public int speed() {
-        return 0;
+        return 5;
+    }
+
+    @Override
+    public int priority() {
+        return 16;
     }
 
     @Override

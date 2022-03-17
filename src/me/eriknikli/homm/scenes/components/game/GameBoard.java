@@ -1,7 +1,14 @@
-package me.eriknikli.homm.scenes.components;
+package me.eriknikli.homm.scenes.components.game;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * A pálya, ahol zajlik a játék
@@ -48,7 +55,7 @@ public class GameBoard extends JPanel {
         for (int y = 0; y < height; y++) {
             addRowLbl(y, true);
             for (int x = 0; x < width; x++) {
-                add(tiles[index(x, y)] = new Tile(x, y));
+                add(tiles[index(x, y)] = new Tile(x, y, this));
             }
             addRowLbl(y, false);
         }
@@ -58,7 +65,8 @@ public class GameBoard extends JPanel {
 
     /**
      * Hozzáadja a mezősorszámot, ami a sorokhoz tartozik
-     * @param y a sor indexe
+     *
+     * @param y    a sor indexe
      * @param left bal oldalon van-e a felirat?
      */
     private void addRowLbl(int y, boolean left) {
@@ -71,7 +79,8 @@ public class GameBoard extends JPanel {
 
     /**
      * Hozzáadja a mezősorszámot, ami az oszlopokhoz tartozik
-     * @param x az oszlop indexe
+     *
+     * @param x      az oszlop indexe
      * @param topRow felső részen van-e a felirat?
      */
     private void addColumnLbl(int x, boolean topRow) {
@@ -84,6 +93,7 @@ public class GameBoard extends JPanel {
 
     /**
      * Hozzáadja a mezősorszámokat az oszlopokhoz
+     *
      * @param topRow felső részen van a felirat?
      */
     private void addColumnLabel(boolean topRow) {
@@ -96,6 +106,7 @@ public class GameBoard extends JPanel {
 
     /**
      * Közös beállítások a sor/oszlop jelölő szövegnek (pl. font)
+     *
      * @param lbl a szöveg-objektum
      */
     private void setPropsForColumnRowLbl(JLabel lbl) {
@@ -133,6 +144,42 @@ public class GameBoard extends JPanel {
      */
     public int index(int x, int y) {
         return x + y * width;
+    }
+
+    public Tile tileOf(int x, int y) {
+        int i = index(x, y);
+        if (0 <= i && i < tiles.length) {
+            return tiles[i];
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Megkeresi az elérhető mezőket adott mezőről a megadott távolságban
+     * @param from        Innen indul az algoritmus
+     * @param range       Mekkora távolságról van szó
+     * @param includeSelf hozzáadja saját magát?
+     * @return mezők, amiket el lehet érni innen
+     */
+    public HashSet<Tile> tilesInRange(Tile from, int range, boolean includeSelf) {
+        HashSet<Tile> inRange = new HashSet<>();
+        List<Tile> queue = new ArrayList<>();
+        queue.add(from);
+        for (int i = 0; i < range && queue.size() > 0; i++) {
+            var e = queue.get(0);
+            queue.remove(0);
+            for (Tile t : e.neighbors()) {
+                if (!inRange.contains(t)) {
+                    queue.add(e);
+                }
+            }
+            inRange.add(e);
+        }
+        if (!includeSelf) {
+            inRange.remove(from);
+        }
+        return inRange;
     }
 
 }

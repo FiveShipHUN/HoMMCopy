@@ -38,6 +38,10 @@ public class Registry {
      * Kardforgatóhoz tartozó kép
      */
     public static final ImageAsset I_SWORDSMAN = new ImageAsset();
+    /**
+     * Help icon
+     */
+    public static final ImageAsset I_HELP = new ImageAsset();
 
     /**
      * Farmer egységtípus
@@ -87,6 +91,7 @@ public class Registry {
         I_GRIFFIN.loadImage("textures/units/griffin.png");
         I_PRIEST.loadImage("textures/units/priest.png");
         I_SWORDSMAN.loadImage("textures/units/swordsman.png");
+        I_HELP.loadImage("textures/help.png");
     }
 
     /**

@@ -1,4 +1,4 @@
-package me.eriknikli.homm.scenes.components;
+package me.eriknikli.homm.scenes.components.game;
 
 import me.eriknikli.homm.gameplay.Hero;
 

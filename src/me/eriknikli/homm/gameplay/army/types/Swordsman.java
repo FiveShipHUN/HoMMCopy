@@ -15,12 +15,12 @@ public class Swordsman extends UnitType {
 
     @Override
     public String description() {
-        return "Swordsman is a good unit for area-damage.";
+        return "Swordsmen are a good for damaging a larger area.";
     }
 
     @Override
     public int price() {
-        return 0;
+        return 8;
     }
 
     @Override
@@ -30,12 +30,17 @@ public class Swordsman extends UnitType {
 
     @Override
     public double maxHealth() {
-        return 0;
+        return 15;
     }
 
     @Override
     public int speed() {
-        return 0;
+        return 5;
+    }
+
+    @Override
+    public int priority() {
+        return 10;
     }
 
     @Override

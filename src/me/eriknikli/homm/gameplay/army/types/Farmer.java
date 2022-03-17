@@ -31,12 +31,17 @@ public class Farmer extends UnitType {
 
     @Override
     public double maxHealth() {
-        return 0;
+        return 3;
     }
 
     @Override
     public int speed() {
-        return 0;
+        return 4;
+    }
+
+    @Override
+    public int priority() {
+        return 8;
     }
 
     @Override
