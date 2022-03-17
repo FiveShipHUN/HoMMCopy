@@ -1,8 +1,7 @@
 package me.eriknikli.homm.scenes;
 
 import me.eriknikli.homm.gameplay.AIHero;
-import me.eriknikli.homm.gameplay.Difficulty;
-import me.eriknikli.homm.gameplay.PlayerHero;
+import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.scenes.components.GameBoard;
 import me.eriknikli.homm.scenes.components.HeroPanel;
 
@@ -17,7 +16,7 @@ public class GameScene extends Scene {
     /**
      * Inicializálja a scene-t
      */
-    public GameScene() {
+    public GameScene(Hero player) {
         var layout = new GridBagLayout();
         setLayout(layout);
         var c = new GridBagConstraints();
@@ -25,7 +24,7 @@ public class GameScene extends Scene {
         c.gridy = 0;
         c.insets = new Insets(0, 10, 0, 10);
         c.fill = GridBagConstraints.VERTICAL;
-        var leftH = new HeroPanel(new PlayerHero("Player", Difficulty.NORMAL));
+        var leftH = new HeroPanel(player);
         add(leftH, c);
         c = new GridBagConstraints();
         c.gridx = 1;

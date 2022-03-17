@@ -3,6 +3,7 @@ package me.eriknikli.homm;
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.data.Config;
 import me.eriknikli.homm.scenes.GameScene;
+import me.eriknikli.homm.scenes.PrepScene;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.Disposable;
 import me.eriknikli.homm.utils.LaunchParameter;
@@ -171,7 +172,7 @@ public class HoMM extends JFrame implements Disposable {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(params.resizable);
         setVisible(true);
-        setScene(new GameScene());
+        setScene(new PrepScene());
     }
 
     /**
