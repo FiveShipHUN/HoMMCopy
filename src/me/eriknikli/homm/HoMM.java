@@ -1,8 +1,9 @@
 package me.eriknikli.homm;
 
-import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.data.Config;
-import me.eriknikli.homm.scenes.GameScene;
+import me.eriknikli.homm.data.Registry;
+import me.eriknikli.homm.gameplay.Difficulty;
+import me.eriknikli.homm.gameplay.PlayerHero;
 import me.eriknikli.homm.scenes.PrepScene;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.Disposable;
@@ -11,9 +12,7 @@ import me.eriknikli.homm.utils.Log;
 import me.eriknikli.homm.utils.Utils;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 import java.util.Objects;
 
 /**
@@ -30,6 +29,11 @@ public class HoMM extends JFrame implements Disposable {
      * Indítási paramétereket tartalmazó osztály
      */
     private static LaunchParameter params;
+
+    /**
+     * Configot tartalmazza
+     */
+    private static Config cfg;
 
     /**
      * @return a játék objektuma
@@ -65,12 +69,19 @@ public class HoMM extends JFrame implements Disposable {
      */
     public static void main(String[] args) {
         Registry.init();
-        Config.load();
+        cfg = Config.load();
         SwingUtilities.invokeLater(() -> {
             processArgs(args);
             trySettingNimbusLaF();
             game = new HoMM();
         });
+    }
+
+    /**
+     * @return a Configot
+     */
+    public static Config cfg(){
+        return cfg;
     }
 
     /**
@@ -162,6 +173,7 @@ public class HoMM extends JFrame implements Disposable {
      * Beállítja a frame címét, ikonját, méretét, stb...
      */
     public void initFrame() {
+        params.initFromCfg();
         try {
             setIconImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/textures/units/icon.png"))));
         } catch (Exception e) {
@@ -172,7 +184,7 @@ public class HoMM extends JFrame implements Disposable {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(params.resizable);
         setVisible(true);
-        setScene(new PrepScene());
+        setScene(new PrepScene(new PlayerHero(cfg().playerName, Difficulty.NORMAL)));
     }
 
     /**

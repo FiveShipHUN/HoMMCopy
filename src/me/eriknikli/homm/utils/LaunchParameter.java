@@ -1,6 +1,6 @@
 package me.eriknikli.homm.utils;
 
-import me.eriknikli.homm.data.Config;
+import me.eriknikli.homm.HoMM;
 
 /**
  * Indítási paramétereket tartalmaz
@@ -42,10 +42,10 @@ public class LaunchParameter {
 
     public void initFromCfg() {
         if (!ignoreConfig) {
-            x = Config.instance().x;
-            y = Config.instance().y;
-            width = Config.instance().width;
-            height = Config.instance().height;
+            x = HoMM.cfg().x;
+            y = HoMM.cfg().y;
+            width = HoMM.cfg().width;
+            height = HoMM.cfg().height;
         }
     }
 
