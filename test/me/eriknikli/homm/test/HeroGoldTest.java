@@ -24,8 +24,8 @@ public class HeroGoldTest {
     @DisplayName("ConstructorTest")
     public void testConstructor() {
         Hero d1 = new PlayerHero("easy", Difficulty.EASY);
-        Hero d2 = new PlayerHero("easy", Difficulty.NORMAL);
-        Hero d3 = new PlayerHero("easy", Difficulty.HARD);
+        Hero d2 = new PlayerHero("normal", Difficulty.NORMAL);
+        Hero d3 = new PlayerHero("hard", Difficulty.HARD);
         Assertions.assertEquals(1300, d1.gold());
         Assertions.assertEquals(1000, d2.gold());
         Assertions.assertEquals(700, d3.gold());
