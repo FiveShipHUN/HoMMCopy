@@ -19,12 +19,13 @@ public class SpecificUnitBuyingPanel extends JPanel {
         c = new GridBagConstraints();
         c.gridx = c.gridy = 0;
         c.fill = GridBagConstraints.BOTH;
-        JLabel lbl = new JLabel(ut.image().iconByHeight(Integer.max(1, getHeight())));
+        JLabel lbl = new JLabel(ut.image().iconByHeight(Integer.max(32, getHeight())));
+        lbl.setText(ut.name());
         add(lbl, c);
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                lbl.setIcon(ut.image().iconByHeight(Integer.max(1, getHeight())));
+                lbl.setIcon(ut.image().iconByHeight(Integer.max(32, getHeight())));
             }
         });
     }

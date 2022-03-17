@@ -10,7 +10,7 @@ import me.eriknikli.homm.utils.Range;
 public class Priest extends UnitType {
     @Override
     public String name() {
-        return null;
+        return "Priest";
     }
 
     @Override

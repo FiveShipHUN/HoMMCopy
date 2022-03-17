@@ -11,7 +11,12 @@ import java.awt.*;
 public class UnitBuyingPanel extends JPanel {
 
     public UnitBuyingPanel() {
-        setLayout(new GridLayout());
+        var layout = new GridLayout();
+        layout.setHgap(5);
+        layout.setVgap(layout.getHgap());
+        layout.setColumns(1);
+        layout.setRows(Registry.uTypes().length);
+        setLayout(layout);
         for (var ut : Registry.uTypes()) {
             add(new SpecificUnitBuyingPanel(ut));
         }
