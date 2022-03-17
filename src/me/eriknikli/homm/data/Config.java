@@ -18,22 +18,27 @@ public class Config {
     /**
      * X poz. az ablaknak
      */
-    public int x;
+    public int x = 0;
 
     /**
      * Y poz. az ablaknak
      */
-    public int y;
+    public int y = 0;
 
     /**
      * Ablak szélessége
      */
-    public int width;
+    public int width = 1280;
 
     /**
      * Ablak magassága
      */
-    public int height;
+    public int height = 768;
+
+    /**
+     * Kinagyítsa-e az ablakot automatikusan? Ha igen, akkor az x, y, width és height paraméterek elveszítik értelmüket
+     */
+    public boolean maximizeWindow = false;
 
     /**
      * Betölti a {@code config.properties} fájlból a Config-ot

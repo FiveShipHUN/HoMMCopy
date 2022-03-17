@@ -133,6 +133,9 @@ public class HoMM extends JFrame implements Disposable {
                             params.height = Integer.parseInt(args[i + 1]);
                             i++;
                         }
+                        if(args[i].equalsIgnoreCase("-mw")||args[i].equalsIgnoreCase("-maximize")||args[i].equalsIgnoreCase("-maximizewindow")){
+                            params.maximizeWindow = true;
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -183,6 +186,7 @@ public class HoMM extends JFrame implements Disposable {
         setBounds(params.x, params.y, params.width, params.height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(params.resizable);
+        setExtendedState(params.maximizeWindow?JFrame.MAXIMIZED_BOTH:getExtendedState());
         setVisible(true);
         setScene(new PrepScene(new PlayerHero(cfg().playerName, Difficulty.NORMAL)));
     }

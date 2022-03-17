@@ -37,6 +37,11 @@ public class LaunchParameter {
      */
     public boolean ignoreConfig;
 
+    /**
+     * Kinagyítsa-e az ablakot automatikusan? Ha igen, akkor az x, y, width és height paraméterek elveszítik értelmüket
+     */
+    public boolean maximizeWindow = false;
+
     public LaunchParameter() {
     }
 
