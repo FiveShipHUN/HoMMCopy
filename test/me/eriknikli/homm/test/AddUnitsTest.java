@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Leteszteli, hogy a Unit addolás jól működik, merge-el ha kell, ha kell akkor hozzáadja a listához, mint új objektum a unit-ot
  */
-public class AddUnits {
+public class AddUnitsTest {
 
 
     @Test()
@@ -26,6 +26,7 @@ public class AddUnits {
         hero.addUnit(u3);
         hero.addUnit(u4);
         hero.addUnit(u5);
+
     }
 
 }
