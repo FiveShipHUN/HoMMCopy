@@ -1,10 +1,17 @@
 package me.eriknikli.homm.scenes.components.prep;
 
 import me.eriknikli.homm.data.Registry;
+import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -14,7 +21,13 @@ import java.awt.event.ComponentEvent;
 public class SpecificUnitBuyingPanel extends JPanel {
 
 
-    public SpecificUnitBuyingPanel(UnitType ut) {
+    private UnitType ut;
+    private Hero hero;
+    private int amountToBuy;
+
+    public SpecificUnitBuyingPanel(UnitType ut, Hero hero) {
+        this.ut = ut;
+        this.hero = hero;
         setLayout(new GridBagLayout());
         GridBagConstraints c;
         c = new GridBagConstraints();
@@ -69,11 +82,11 @@ public class SpecificUnitBuyingPanel extends JPanel {
         c.gridy = 2;
         c.insets = new Insets(10, 10, 10, 10);
         add(costLbl, c);
-        var buyBtn = new JButton("Buy");
+        var clearBtn = new JButton("Clear");
         c.gridx = 1;
         c.gridy = 3;
         c.insets = new Insets(10, 10, 10, 10);
-        add(buyBtn, c);
+        add(clearBtn, c);
         var addOne = new JButton("+1");
         c.gridx = 2;
         c.gridy = 1;
@@ -89,6 +102,21 @@ public class SpecificUnitBuyingPanel extends JPanel {
         c.gridy = 3;
         c.insets = new Insets(10, 10, 10, 10);
         add(addFifty, c);
+        var buyBtn = new JButton("Buy");
+        c.gridx = 0;
+        c.gridy = 4;
+        c.gridwidth = 3;
+        c.fill = GridBagConstraints.BOTH;
+        add(buyBtn, c);
+        updateAmounts();
+    }
+
+    public void updateAmounts() {
+
+    }
+
+    public void updateAmounts(int amount) {
+
     }
 
 }
