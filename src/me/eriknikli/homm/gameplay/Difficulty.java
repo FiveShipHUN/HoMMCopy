@@ -10,13 +10,17 @@ public enum Difficulty {
      */
     EASY(1300),
     /**
-     * Könnyű, 1000 arannyal kezd
+     * Normál, 1000 arannyal kezd
      */
     NORMAL(1000),
     /**
-     * Könnyű, 700 arannyal kezd
+     * Nehéz, 700 arannyal kezd
      */
-    HARD(700);
+    HARD(700),
+    /**
+     * Nincs korlát
+     */
+    NO_LIMIT(Integer.MAX_VALUE);
 
     /**
      * Az arany
@@ -37,6 +41,29 @@ public enum Difficulty {
      */
     public int gold() {
         return gold;
+    }
+
+    /**
+     *
+     */
+    public String displayName() {
+        String name = toString();
+        String cpy = "";
+        boolean toUpper = true;
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            if (c == '_') {
+                c = ' ';
+                toUpper = true;
+            } else if (toUpper) {
+                toUpper = false;
+                c = Character.toUpperCase(c);
+            } else {
+                c = Character.toLowerCase(c);
+            }
+            cpy += c;
+        }
+        return cpy;
     }
 
 }

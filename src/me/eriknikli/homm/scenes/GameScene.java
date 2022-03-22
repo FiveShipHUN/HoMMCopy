@@ -1,6 +1,6 @@
 package me.eriknikli.homm.scenes;
 
-import me.eriknikli.homm.gameplay.AIHero;
+import me.eriknikli.homm.gameplay.OPAIHero;
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.scenes.components.game.GameBoard;
 import me.eriknikli.homm.scenes.components.game.HeroPanel;
@@ -37,7 +37,7 @@ public class GameScene extends Scene {
         c.gridy = 0;
         c.fill = GridBagConstraints.VERTICAL;
         c.insets = new Insets(0, 10, 0, 10);
-        var rightH = new HeroPanel(new AIHero());
+        var rightH = new HeroPanel(new OPAIHero());
         add(rightH, c);
         setBackground(rightH.getBackground());
     }

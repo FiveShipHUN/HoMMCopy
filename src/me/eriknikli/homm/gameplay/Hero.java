@@ -1,7 +1,10 @@
 package me.eriknikli.homm.gameplay;
 
 import me.eriknikli.homm.gameplay.army.Unit;
+import me.eriknikli.homm.gameplay.army.types.UnitType;
+import me.eriknikli.homm.gameplay.spells.Spell;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -22,6 +25,16 @@ public abstract class Hero {
      * Unitjai a hősnek
      */
     private final HashSet<Unit> units = new HashSet<>();
+
+    /**
+     * Spellek, amiket ismer a hős
+     */
+    private final HashSet<Spell> spells = new HashSet<>();
+
+    /**
+     * Skillek
+     */
+    private final HashMap<Skill, Integer> skills = new HashMap<>();
 
     /**
      * Hőst hoz létre, magába nem használható
@@ -62,6 +75,40 @@ public abstract class Hero {
             }
         }
         units.add(unit);
+    }
+
+    /**
+     * @return ha sikerült megtanulnia a képességet
+     */
+    public boolean learnSpell(Spell s) {
+        if (!knowsSpell(s)) {
+            spells.add(s);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean knowsSpell(Spell o) {
+        for (Spell s : spells) {
+            if (o.equals(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param type az egység típusa amit keresünk
+     * @return visszaadja az adott típusú egyésg objektumot, amelyet a hős birtokol, null ha még ilyen nem létezik
+     */
+    public Unit unitOf(UnitType type) {
+        for (var u : units) {
+            if (u.type().equals(type)) {
+                return u;
+            }
+        }
+        return null;
     }
 
     /**
@@ -107,4 +154,11 @@ public abstract class Hero {
         return this.gold >= gold;
     }
 
+    public void unlearnSpell(Spell s) {
+        spells.remove(s);
+    }
+
+    public void removeUnit(Unit u) {
+        units.remove(u);
+    }
 }

@@ -20,7 +20,7 @@ public class Priest extends UnitType {
 
     @Override
     public int price() {
-        return 100;
+        return 50;
     }
 
     @Override

@@ -39,7 +39,7 @@ public class Config {
     /**
      * Kinagyítsa-e az ablakot automatikusan? Ha igen, akkor az x, y, width és height paraméterek elveszítik értelmüket
      */
-    public boolean maximizeWindow = true;
+    public boolean maximizeWindow = false;
 
     /**
      * Betölti a {@code config.properties} fájlból a Config-ot

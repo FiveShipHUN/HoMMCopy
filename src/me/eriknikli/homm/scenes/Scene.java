@@ -14,6 +14,9 @@ public class Scene extends JPanel implements Disposable {
     public Scene() {
     }
 
+    public void _update() {
+    }
+
     @Override
     public void dispose() {
         System.gc();

@@ -4,6 +4,7 @@ import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.Hero;
 
 import javax.swing.JPanel;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,20 +14,41 @@ import java.awt.Insets;
  */
 public class BuyPanel extends JPanel {
 
+    private final BuySpellsPanel spells;
+    private final ImproveSkillPanel skills;
+    private final SpecificUnitBuyingPanel[] unit = new SpecificUnitBuyingPanel[5];
+
     public BuyPanel(Hero hero) {
         var layout = new GridBagLayout();
         setLayout(layout);
         int i = 0;
         for (var ut : Registry.uTypes()) {
-            GridBagConstraints c = new GridBagConstraints();
-            c.gridx = i % 3;
-            c.gridy = i / 3;
-            c.insets = new Insets(5,5,5,5);
-            add(new SpecificUnitBuyingPanel(ut, hero), c);
+            addComponent(unit[i] = new SpecificUnitBuyingPanel(ut, hero), i);
             i++;
         }
-        add(new BuySpellsPanel());
-        add(new ImproveSkillsPanel());
+        addComponent(spells = new BuySpellsPanel(hero), i);
+        i++;
+        // add(skills = new ImproveSkillsPanel(), c);
+        addComponent(skills = new ImproveSkillPanel(), i);
+        // i++;
+    }
+
+    public void _update() {
+        spells._update();
+        skills._update();
+        for (var v : unit) {
+            v._update();
+        }
+    }
+
+    public void addComponent(Component co, int i) {
+        var c = new GridBagConstraints();
+        c.gridx = i % 3;
+        c.gridy = i / 3;
+        c.insets = new Insets(5, 5, 5, 5);
+        c.weightx = c.weighty = 1;
+        c.anchor = GridBagConstraints.PAGE_START;
+        add(co, c);
     }
 
 }

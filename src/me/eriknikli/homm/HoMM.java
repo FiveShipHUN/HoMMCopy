@@ -84,7 +84,7 @@ public class HoMM extends JFrame implements Disposable {
     /**
      * @return a Configot
      */
-    public static Config cfg(){
+    public static Config cfg() {
         return cfg;
     }
 
@@ -114,11 +114,11 @@ public class HoMM extends JFrame implements Disposable {
                         } catch (NumberFormatException e) {
                             Log.setLogLevel(switch (args[i + 1].toLowerCase()) {
                                 //  case "none" -> 0;, redundáns a default case miatt
-                                case "info" -> 1;
-                                case "warn" -> 2;
-                                case "err" -> 3;
-                                case "debug" -> 4;
-                                default -> 0;
+                                case "info" -> Log.INFO;
+                                case "warn" -> Log.WARN;
+                                case "err" -> Log.ERR;
+                                case "debug" -> Log.DEBUG;
+                                default -> Log.NONE;
                             });
                         }
                         i++;
@@ -140,7 +140,7 @@ public class HoMM extends JFrame implements Disposable {
                             params.height = Integer.parseInt(args[i + 1]);
                             i++;
                         }
-                        if(args[i].equalsIgnoreCase("-mw")||args[i].equalsIgnoreCase("-maximize")||args[i].equalsIgnoreCase("-maximizewindow")){
+                        if (args[i].equalsIgnoreCase("-mw") || args[i].equalsIgnoreCase("-maximize") || args[i].equalsIgnoreCase("-maximizewindow")) {
                             params.maximizeWindow = true;
                         }
                     }
@@ -187,15 +187,16 @@ public class HoMM extends JFrame implements Disposable {
         try {
             setIconImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/textures/units/icon.png"))));
         } catch (Exception e) {
-            Log.err("Az ikont nem sikerült beállítani.", e);
+            Log.err("Error occurred while setting up the icon for JFrame.", e);
         }
         setTitle("Heroes of Might and Magic - Copy");
         setBounds(params.x, params.y, params.width, params.height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(params.resizable);
-        if(params.maximizeWindow) {
+        if (params.maximizeWindow) {
             setExtendedState(JFrame.MAXIMIZED_BOTH);
-        }setVisible(true);
+        }
+        setVisible(true);
         setScene(new PrepScene(new PlayerHero(cfg().playerName, Difficulty.NORMAL)));
     }
 
@@ -219,6 +220,16 @@ public class HoMM extends JFrame implements Disposable {
         this.scene = s;
         add(this.scene);
         setContentPane(this.scene);
+    }
+
+    public static void update() {
+        game()._update();
+    }
+
+    public void _update() {
+        if (scene() != null) {
+            scene()._update();
+        }
     }
 
     @Override

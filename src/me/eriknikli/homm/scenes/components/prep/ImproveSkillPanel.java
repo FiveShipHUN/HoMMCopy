@@ -5,5 +5,13 @@ import javax.swing.JPanel;
 /**
  * Itt lehet a skilleket állítani
  */
-public class ImproveSkillsPanel extends JPanel {
+public class ImproveSkillPanel extends JPanel {
+
+
+
+
+    public void _update() {
+
+    }
+
 }

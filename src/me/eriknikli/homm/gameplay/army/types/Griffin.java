@@ -15,7 +15,7 @@ public class Griffin extends UnitType {
 
     @Override
     public String description() {
-        return "Griffin is a powerful unit.";
+        return "Griffin is a powerful unit. It can counter-attack more then once per turn.";
     }
 
     @Override
