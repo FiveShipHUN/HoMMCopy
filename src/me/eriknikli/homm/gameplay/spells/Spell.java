@@ -12,15 +12,17 @@ public abstract class Spell {
 
     public abstract int mana();
 
-    public abstract String desc(Object[] params);
+    public abstract double power(int skill);
 
-    public String helpTxt(Object... params) {
+    public abstract String desc();
+
+    public String helpTxt(int skill) {
         return "<html>" +
                 "<h2>" +
                 name() +
                 "</h2>" +
                 "<p>" +
-                desc(params) +
+                desc() +
                 "</p>" +
                 "<ul>" +
                 "<li>" +
@@ -28,6 +30,9 @@ public abstract class Spell {
                 "</li>" +
                 "<li>" +
                 "Mana: " + mana() +
+                "</li>" +
+                "<li>" +
+                "Power: " + power(skill) +
                 "</li>" +
                 "</ul>" +
                 "</html>";

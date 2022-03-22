@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Leteszteli, hogy a Unit addolás jól működik, merge-el ha kell, ha kell akkor hozzáadja a listához, mint új objektum a unit-ot
+ * Szélsőséges esetek: amikor már létezik adott egység, vagy ha nem létezik adott egység, akkor visszatér-e nullal?
  */
 public class AddUnitsTest {
 

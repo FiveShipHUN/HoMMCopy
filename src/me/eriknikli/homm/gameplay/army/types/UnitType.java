@@ -2,7 +2,10 @@ package me.eriknikli.homm.gameplay.army.types;
 
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.gameplay.army.Unit;
+import me.eriknikli.homm.scenes.components.game.Tile;
 import me.eriknikli.homm.utils.Range;
+
+import java.util.HashSet;
 
 /**
  * Egységek típusát leíró osztály, minden egységtípusnak saját osztálya lesz
@@ -73,6 +76,24 @@ public abstract class UnitType {
             return getClass().equals(obj.getClass());
         }
         return false;
+    }
+
+    public boolean canCounterAttack(Unit u) {
+        return !u.wasAttacked();
+    }
+
+    public HashSet<Unit> validTargets(Unit who) {
+        var set = new HashSet<Unit>();
+        for (Tile t : who.tile().neighbors()) {
+            if (t.unit() != null) {
+                set.add(t.unit());
+            }
+        }
+        return set;
+    }
+
+    public void onStartTurn(Unit who) {
+
     }
 
     public String helpTxt() {

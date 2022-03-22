@@ -2,6 +2,7 @@ package me.eriknikli.homm.gameplay.army.types;
 
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
+import me.eriknikli.homm.gameplay.army.Unit;
 import me.eriknikli.homm.utils.Range;
 
 /**
@@ -15,7 +16,7 @@ public class Griffin extends UnitType {
 
     @Override
     public String description() {
-        return "Griffin is a powerful unit. It can counter-attack more then once per turn.";
+        return "Griffin is a powerful unit. It can counter-attack more than once per turn.";
     }
 
     @Override
@@ -46,5 +47,10 @@ public class Griffin extends UnitType {
     @Override
     public ImageAsset image() {
         return Registry.I_GRIFFIN;
+    }
+
+    @Override
+    public boolean canCounterAttack(Unit u) {
+        return true;
     }
 }

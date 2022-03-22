@@ -16,7 +16,7 @@ public class Farmer extends UnitType {
 
     @Override
     public String description() {
-        return "The Farmer is a basic unit, it's cheap but it is not that effective.";
+        return "The Farmer is a basic unit, it's cheap but it is not that effective and has no special effect.";
     }
 
     @Override

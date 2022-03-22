@@ -9,8 +9,8 @@ public enum Skill {
     MORAL("Moral", "It increases your units priority."),
     LUCK("Luck", "It increases the chance of a critical attack.");
 
-    private String name;
-    private String desc;
+    private final String name;
+    private final String desc;
 
     Skill(String name, String desc) {
         this.name = name;

@@ -62,4 +62,24 @@ public class Utils {
         return resizeImg(img, img.getWidth(), img.getHeight());
     }
 
+    /**
+     * Beszorít két érték közé egy értéket
+     *
+     * @param x   az adott x
+     * @param min az alsó korlát
+     * @param max a felső korlát
+     * @return x, ha a korlátok közt van, alsó korlát, ha annál kisebb, felső korlát, ha annál nagyobb
+     */
+    public static double clamp(double x, double min, double max) {
+        if (min == max) {
+            return x;
+        }
+        if (min > max) {
+            double s = min;
+            min = max;
+            max = s;
+        }
+        return Math.min(Math.max(x, min), max);
+    }
+
 }

@@ -229,6 +229,7 @@ public class HoMM extends JFrame implements Disposable {
     public void _update() {
         if (scene() != null) {
             scene()._update();
+            scene().repaint();
         }
     }
 

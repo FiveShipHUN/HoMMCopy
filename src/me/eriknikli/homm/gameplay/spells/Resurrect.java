@@ -22,8 +22,13 @@ public class Resurrect extends Spell {
     }
 
     @Override
-    public String desc(Object[] params) {
-        return "It damages one unit depending on your Magic Power. (Magic * 30)";
+    public String desc() {
+        return "It can heal units depending on your Magic Power. (50 * Magic Power)";
+    }
+
+    @Override
+    public double power(int skill) {
+        return (int) (50 * skill);
     }
 
     @Override

@@ -15,7 +15,7 @@ public class Swordsman extends UnitType {
 
     @Override
     public String description() {
-        return "Swordsmen are a good for damaging a larger area.";
+        return "Swordsmen are a good for damaging a larger area.<br>When it attacks, every enemy unit next to the attacked unit will be damaged too.";
     }
 
     @Override

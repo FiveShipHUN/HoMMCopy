@@ -22,8 +22,13 @@ public class TeleportSwap extends Spell {
     }
 
     @Override
-    public String desc(Object[] params) {
+    public String desc() {
         return "It swaps two unit on the board. One has to be yours and the other has to be an enemy.<br>The unit gets a <strong>Confused</strong> effect for 2 turn which decreases damage and makes the unit unable to teleport.";
+    }
+
+    @Override
+    public double power(int skill) {
+        return 1.0;
     }
 
     @Override

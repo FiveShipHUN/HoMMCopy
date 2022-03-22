@@ -1,5 +1,7 @@
 package me.eriknikli.homm.scenes.components.game;
 
+import me.eriknikli.homm.scenes.GameScene;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -29,12 +31,13 @@ public class GameBoard extends JPanel {
      * A map magassága, alapból 10
      */
     public final int height;
+    private final GameScene scene;
 
     /**
      * Map inicializálása 12 és 10-es szélességgel
      */
-    public GameBoard() {
-        this(12, 10);
+    public GameBoard(GameScene s) {
+        this(s, 12, 10);
     }
 
     /**
@@ -43,7 +46,8 @@ public class GameBoard extends JPanel {
      * @param width  szélesség
      * @param height magasság
      */
-    public GameBoard(int width, int height) {
+    public GameBoard(GameScene s, int width, int height) {
+        this.scene = s;
         this.width = width;
         this.height = height;
         tiles = new Tile[width * height];
@@ -157,6 +161,7 @@ public class GameBoard extends JPanel {
 
     /**
      * Megkeresi az elérhető mezőket adott mezőről a megadott távolságban
+     *
      * @param from        Innen indul az algoritmus
      * @param range       Mekkora távolságról van szó
      * @param includeSelf hozzáadja saját magát?
@@ -170,7 +175,7 @@ public class GameBoard extends JPanel {
             var e = queue.get(0);
             queue.remove(0);
             for (Tile t : e.neighbors()) {
-                if (!inRange.contains(t)) {
+                if (!inRange.contains(t) && t.unit() == null) {
                     queue.add(e);
                 }
             }
@@ -180,6 +185,10 @@ public class GameBoard extends JPanel {
             inRange.remove(from);
         }
         return inRange;
+    }
+
+    public GameScene game() {
+        return scene;
     }
 
 }

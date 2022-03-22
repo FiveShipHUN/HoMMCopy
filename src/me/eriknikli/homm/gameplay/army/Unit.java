@@ -4,6 +4,8 @@ import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
 import me.eriknikli.homm.scenes.components.game.Tile;
 
+import java.util.HashSet;
+
 /**
  * Egy egység
  */
@@ -38,6 +40,11 @@ public class Unit {
     private double startHP;
 
     /**
+     * Meg volt-e támadva
+     */
+    private boolean wasAttacked = false;
+
+    /**
      * Létrehoz egy új egységet
      *
      * @param type az egyésg típusa, Registry.UT_*
@@ -51,6 +58,14 @@ public class Unit {
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount cannot be negative or 0.");
         }
+    }
+
+    /**
+     * Ha elindul egy kör, akkor lesz meghívva ez a függvény
+     */
+    public void onTurnStarted() {
+        wasAttacked = false;
+        type().onStartTurn(this);
     }
 
     /**
@@ -119,5 +134,56 @@ public class Unit {
         return hero;
     }
 
+    /**
+     * @return meg volt-e támadva az adott egyésg ebben a körben? Minden kör elején visszaáll false-ra
+     */
+    public boolean wasAttacked() {
+        return wasAttacked;
+    }
 
+    /**
+     * @return tud-e visszatámadni?
+     */
+    public boolean canCounterAttack() {
+        return type().canCounterAttack(this);
+    }
+
+    /**
+     * @return lehetséges célpontok
+     */
+    public HashSet<Unit> validTargets() {
+        return type().validTargets(this);
+    }
+
+    /**
+     * @return a mezőt, amin a hős van
+     */
+    public Tile tile() {
+        return tile;
+    }
+
+    /**
+     * @param who az egység
+     * @return megnézi, hogy az adott egység egy csapatba van-e a másikkal (ha nem, akkor lehet, hogy who null, ha nem, akkor viszont egyértelműen ellenfelek)
+     */
+    public boolean isWith(Unit who) {
+        if (who == null) {
+            return false;
+        }
+        return who.hero() == hero();
+    }
+
+    /**
+     * Gyógyul a hős
+     */
+    public void heal(double amount, boolean canRevive) {
+        health += amount;
+        health = Math.min(startHP, health);
+        if (!canRevive) {
+            health = Math.min(health, this.amount * type.maxHealth());
+        } else {
+            this.amount = (int) (health / type.maxHealth());
+        }
+
+    }
 }

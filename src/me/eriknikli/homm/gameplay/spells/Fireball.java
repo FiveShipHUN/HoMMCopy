@@ -22,8 +22,13 @@ public class Fireball extends Spell {
     }
 
     @Override
-    public String desc(Object[] params) {
-        return "It damages one unit depending on your Magic Power. (Magic * 30)";
+    public String desc() {
+        return "It damages a 3x3 area depending on your Magic Power. (Magic * 20)<br>It will damage your units too!";
+    }
+
+    @Override
+    public double power(int skill) {
+        return (int) (20 * skill);
     }
 
     @Override

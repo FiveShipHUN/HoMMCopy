@@ -1,5 +1,6 @@
 package me.eriknikli.homm.gameplay;
 
+import me.eriknikli.homm.HoMM;
 import me.eriknikli.homm.gameplay.army.Unit;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
 import me.eriknikli.homm.gameplay.spells.Spell;
@@ -37,6 +38,11 @@ public abstract class Hero {
     private final HashMap<Skill, Integer> skills = new HashMap<>();
 
     /**
+     * Megtanult skillek száma eddig
+     */
+    private int learntSkills = 0;
+
+    /**
      * Hőst hoz létre, magába nem használható
      *
      * @param name      a hős neve
@@ -45,7 +51,9 @@ public abstract class Hero {
     protected Hero(String name, int startGold) {
         this.name = name;
         setGold(startGold);
-
+        for (var s : Skill.values()) {
+            skills.put(s, 1);
+        }
     }
 
 
@@ -154,11 +162,96 @@ public abstract class Hero {
         return this.gold >= gold;
     }
 
+    /**
+     * Megtanult spell árának visszakérése, és annak elfelejtése
+     *
+     * @param s a spell
+     */
     public void unlearnSpell(Spell s) {
         spells.remove(s);
     }
 
+    /**
+     * Egy adott egység kitörlése a hős egységei közül
+     *
+     * @param u az egység
+     */
     public void removeUnit(Unit u) {
         units.remove(u);
     }
+
+    /**
+     * @param s az adott skill
+     * @return mekkora szintű ezen a skillen, >=1-nek kell lennie
+     */
+    public int skill(Skill s) {
+        if (s == null) {
+            return 0;
+        }
+        return skills.getOrDefault(s, 0);
+    }
+
+    /**
+     * @return Tud-e skillt fejleszteni
+     */
+    public boolean canImprove(Skill s) {
+        return canAfford(nextSkillPrice()) && skill(s) < 10;
+    }
+
+    /**
+     * @param s a skill
+     * @return Tud-e az adott skillből visszavenni
+     */
+    public boolean canDeprove(Skill s) {
+        return skill(s) > 1;
+    }
+
+    /**
+     * Skillből vesz vissza eggyel és visszaadja a pénzt
+     *
+     * @param s a skill
+     */
+    public void decreaseSkill(Skill s) {
+        if (canDeprove(s)) {
+            skills.put(s, skill(s) - 1);
+            learntSkills--;
+            addGold(nextSkillPrice());
+        }
+        HoMM.update();
+    }
+
+    /**
+     * Javít az adott skillből ha tud, és visszaadja az aranyat
+     *
+     * @param s a skill
+     */
+    public void increaseSkill(Skill s) {
+        if (canImprove(s)) {
+            skills.put(s, skill(s) + 1);
+            subtractGold(nextSkillPrice());
+            learntSkills++;
+        }
+        HoMM.update();
+    }
+
+    public int nextSkillPrice() {
+        return skillPriceN(learntSkills);
+    }
+
+    private int skillPriceN(int n) {
+        if (n == 0) {
+            return 5;
+        }
+        return (int) Math.ceil(skillPriceN(n - 1) * 1.1);
+    }
+
+    public void resetSkills() {
+        for (Skill s : Skill.values()) {
+            while (canDeprove(s)) {
+                decreaseSkill(s);
+            }
+        }
+    }
+
+
 }

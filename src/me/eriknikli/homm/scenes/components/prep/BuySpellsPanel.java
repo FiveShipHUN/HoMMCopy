@@ -3,6 +3,7 @@ package me.eriknikli.homm.scenes.components.prep;
 import me.eriknikli.homm.HoMM;
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.Hero;
+import me.eriknikli.homm.gameplay.Skill;
 import me.eriknikli.homm.gameplay.spells.Spell;
 
 import javax.swing.JButton;
@@ -53,7 +54,7 @@ public class BuySpellsPanel extends JPanel {
         lbl.setHorizontalAlignment(SwingConstants.LEFT);
         add(lbl, c);
         JLabel help = new JLabel();
-        help.setToolTipText(s.helpTxt());
+        help.setToolTipText(s.helpTxt(h.skill(Skill.MAGIC_POWER)));
         help.setIcon(Registry.I_HELP.iconByHeight(16));
         c = new GridBagConstraints();
         c.gridx = 1;

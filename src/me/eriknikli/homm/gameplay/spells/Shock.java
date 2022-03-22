@@ -22,8 +22,13 @@ public class Shock extends Spell {
     }
 
     @Override
-    public String desc(Object[] args) {
-        return "It damages one unit depending on your Magic Power. (Magic * 30)";
+    public String desc() {
+        return "It damages one unit depending on your Magic Power. (Magic Power * 30)";
+    }
+
+    @Override
+    public double power(int skill) {
+        return (int) (30 * skill);
     }
 
     @Override

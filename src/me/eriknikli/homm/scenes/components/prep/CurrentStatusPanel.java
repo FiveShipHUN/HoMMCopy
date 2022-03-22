@@ -18,6 +18,7 @@ public class CurrentStatusPanel extends JPanel {
     private final UnitListPanel units;
     private final SpellsListPanel spells;
     private final JLabel gold;
+    private final ImproveSkillPanel skills;
     private Hero hero;
 
     public CurrentStatusPanel(Hero hero) {
@@ -46,9 +47,18 @@ public class CurrentStatusPanel extends JPanel {
         gold.setHorizontalAlignment(SwingConstants.CENTER);
         gold.setHorizontalTextPosition(SwingConstants.CENTER);
         gold.setFont(new Font("Arial", Font.BOLD, 15));
+
         c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 2;
+        c.gridwidth = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.PAGE_START;
+        c.weightx = 1;
+        add(skills = new ImproveSkillPanel(hero), c);
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 3;
         //c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.PAGE_START;
         c.weighty = 1;
@@ -56,7 +66,7 @@ public class CurrentStatusPanel extends JPanel {
         add(units = new UnitListPanel(hero), c);
         c = new GridBagConstraints();
         c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 3;
         c.weighty = 1;
         //c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.PAGE_START;
@@ -67,6 +77,7 @@ public class CurrentStatusPanel extends JPanel {
     public void _update() {
         units._update();
         spells._update();
+        skills._update();
         gold.setText("Gold: " + hero.gold());
 
     }

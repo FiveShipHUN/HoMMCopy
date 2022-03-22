@@ -22,8 +22,13 @@ public class Strengthening extends Spell {
     }
 
     @Override
-    public String desc(Object[] params) {
+    public String desc() {
         return "It increases your units' damage for a round depending on your Magic Power (It multiplies with 1 + Magic Power / 20).";
+    }
+
+    @Override
+    public double power(int skill) {
+        return 1.0 + skill / 20.0;
     }
 
     @Override

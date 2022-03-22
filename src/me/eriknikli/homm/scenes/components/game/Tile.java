@@ -128,4 +128,7 @@ public class Tile extends JButton {
     }
 
 
+    public GameBoard board() {
+        return board;
+    }
 }

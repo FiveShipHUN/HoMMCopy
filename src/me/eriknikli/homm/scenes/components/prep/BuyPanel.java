@@ -15,7 +15,6 @@ import java.awt.Insets;
 public class BuyPanel extends JPanel {
 
     private final BuySpellsPanel spells;
-    private final ImproveSkillPanel skills;
     private final SpecificUnitBuyingPanel[] unit = new SpecificUnitBuyingPanel[5];
 
     public BuyPanel(Hero hero) {
@@ -27,15 +26,13 @@ public class BuyPanel extends JPanel {
             i++;
         }
         addComponent(spells = new BuySpellsPanel(hero), i);
-        i++;
+
         // add(skills = new ImproveSkillsPanel(), c);
-        addComponent(skills = new ImproveSkillPanel(), i);
         // i++;
     }
 
     public void _update() {
         spells._update();
-        skills._update();
         for (var v : unit) {
             v._update();
         }

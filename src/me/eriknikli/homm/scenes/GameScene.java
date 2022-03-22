@@ -12,11 +12,33 @@ import java.awt.*;
  */
 public class GameScene extends Scene {
 
+    private Hero left;
+    private Hero right;
+
+    /**
+     * @param h a hős, akinek az ellenfelét keressük
+     * @return left (bal oldali játékos), ha right.equals(h), ellenkező esetben mindig right (jobb oldali játékos)
+     */
+    public Hero enemyOf(Hero h) {
+        if (right.equals(h)) {
+            return left;
+        }
+        return right;
+    }
+
+    public Hero left() {
+        return left;
+    }
+
+    public Hero right() {
+        return right;
+    }
 
     /**
      * Inicializálja a scene-t
      */
     public GameScene(Hero player) {
+        left = player;
         var layout = new GridBagLayout();
         setLayout(layout);
         var c = new GridBagConstraints();
@@ -31,13 +53,13 @@ public class GameScene extends Scene {
         c.gridy = 0;
         c.fill = GridBagConstraints.BOTH;
         c.weighty = c.weightx = 0.5;
-        add(new GameBoard(), c);
+        add(new GameBoard(this), c);
         c = new GridBagConstraints();
         c.gridx = 2;
         c.gridy = 0;
         c.fill = GridBagConstraints.VERTICAL;
         c.insets = new Insets(0, 10, 0, 10);
-        var rightH = new HeroPanel(new OPAIHero());
+        var rightH = new HeroPanel(right = new OPAIHero());
         add(rightH, c);
         setBackground(rightH.getBackground());
     }
