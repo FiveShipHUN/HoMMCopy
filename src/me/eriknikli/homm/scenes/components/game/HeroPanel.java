@@ -15,6 +15,10 @@ public class HeroPanel extends JPanel {
      */
     private final Hero hero;
 
+    /**
+     * Létrehozza a Hero panelt
+     * @param hero a hero, aminek panelt készít
+     */
     public HeroPanel(Hero hero) {
         this.hero = hero;
         setLayout(new GridLayout(2, 1));

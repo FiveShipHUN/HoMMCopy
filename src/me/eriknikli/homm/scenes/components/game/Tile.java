@@ -1,8 +1,6 @@
 package me.eriknikli.homm.scenes.components.game;
 
-import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.army.Unit;
-import me.eriknikli.homm.utils.RNG;
 
 import javax.swing.JButton;
 import java.awt.Color;
@@ -52,7 +50,6 @@ public class Tile extends JButton {
         setBackground(Color.BLACK);
         setHorizontalTextPosition(CENTER);
         setVerticalTextPosition(CENTER);
-        setUnit(new Unit(RNG.randomElement(Registry.uTypes()), 100));
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -127,7 +124,10 @@ public class Tile extends JButton {
         return tiles;
     }
 
-
+    /**
+     *
+     * @return A board, ami ezt a mezőt tartalmazza
+     */
     public GameBoard board() {
         return board;
     }

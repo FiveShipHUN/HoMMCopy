@@ -68,6 +68,9 @@ public class HoMM extends JFrame implements Disposable {
      *              <li>
      *                  -loglevel, beállítja, hogy milyen szinten logoljon a program, NONE = 0, INFO = 1, WARN = 2, ERR = 3, DEBUG = 4
      *              </li>
+     *             <li>
+     *                 -ignoreconfig, beállítja, hogy a config fájlt ne töltse be
+     *              </li>
      *             </ul>
      */
     public static void main(String[] args) {
@@ -105,7 +108,7 @@ public class HoMM extends JFrame implements Disposable {
                     if (args[i].equalsIgnoreCase("-resizable")) {
                         params.resizable = true;
                     }
-                    if (args[i].equalsIgnoreCase("-resizable")) {
+                    if (args[i].equalsIgnoreCase("-notresizable")) {
                         params.resizable = false;
                     }
                     if (args[i].equalsIgnoreCase("-loglevel")) {

@@ -12,8 +12,18 @@ import java.awt.*;
  */
 public class GameScene extends Scene {
 
-    private Hero left;
-    private Hero right;
+    /**
+     * A bal oldali hős
+     */
+    private final Hero left;
+    /**
+     * A jobb oldali hős
+     */
+    private final Hero right;
+    /**
+     * Előkészületi fázisban?
+     */
+    private boolean prepPhase = true;
 
     /**
      * @param h a hős, akinek az ellenfelét keressük
@@ -26,12 +36,34 @@ public class GameScene extends Scene {
         return right;
     }
 
+    /**
+     *
+     * @return a baloldali játékos
+     */
     public Hero left() {
         return left;
     }
 
+    /**
+     *
+     * @return a jobboldali játékos
+     */
     public Hero right() {
         return right;
+    }
+
+    /**
+     * @return előkészületi fázisban?
+     */
+    public boolean isInPrepPhase() {
+        return prepPhase;
+    }
+
+    /**
+     * @return játék fázisban?
+     */
+    public boolean isInGame() {
+        return !isInPrepPhase();
     }
 
     /**

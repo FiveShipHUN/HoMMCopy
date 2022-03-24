@@ -31,6 +31,9 @@ public class GameBoard extends JPanel {
      * A map magassága, alapból 10
      */
     public final int height;
+    /**
+     * A scene, ami ezt tartalmazza
+     */
     private final GameScene scene;
 
     /**
@@ -150,6 +153,12 @@ public class GameBoard extends JPanel {
         return x + y * width;
     }
 
+    /**
+     * Visszaadja az adott mezőt koordináta alapján
+     * @param x x koordináta
+     * @param y y koordináta
+     * @return az adott kordinátán lévő mező, ha nem létezik, akkor null
+     */
     public Tile tileOf(int x, int y) {
         int i = index(x, y);
         if (0 <= i && i < tiles.length) {
@@ -187,6 +196,10 @@ public class GameBoard extends JPanel {
         return inRange;
     }
 
+    /**
+     *
+     * @return A scene, ami ezt tartalmazza
+     */
     public GameScene game() {
         return scene;
     }

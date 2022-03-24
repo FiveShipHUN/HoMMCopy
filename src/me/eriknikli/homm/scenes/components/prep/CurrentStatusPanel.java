@@ -1,6 +1,8 @@
 package me.eriknikli.homm.scenes.components.prep;
 
+import me.eriknikli.homm.HoMM;
 import me.eriknikli.homm.gameplay.Hero;
+import me.eriknikli.homm.scenes.GameScene;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,6 +22,7 @@ public class CurrentStatusPanel extends JPanel {
     private final SpellsListPanel spells;
     private final JLabel gold;
     private final ImproveSkillPanel skills;
+    private final JButton startBtn;
     private Hero hero;
 
     public CurrentStatusPanel(Hero hero) {
@@ -100,6 +103,19 @@ public class CurrentStatusPanel extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.PAGE_START;
         add(resetBtn, c);
+
+        startBtn = new JButton("Start Game");
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 5;
+        c.gridwidth = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        add(startBtn, c);
+        startBtn.addActionListener(e -> {
+            HoMM.game().setScene(new GameScene(hero));
+        });
+        startBtn.setEnabled(false);
+        _update();
     }
 
     public void _update() {
@@ -107,7 +123,7 @@ public class CurrentStatusPanel extends JPanel {
         spells._update();
         skills._update();
         gold.setText("Gold: " + hero.gold());
-
+        startBtn.setEnabled(hero.units().size() > 0);
     }
 
 }

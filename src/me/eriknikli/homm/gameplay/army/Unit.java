@@ -3,13 +3,14 @@ package me.eriknikli.homm.gameplay.army;
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
 import me.eriknikli.homm.scenes.components.game.Tile;
+import me.eriknikli.homm.utils.Disposable;
 
 import java.util.HashSet;
 
 /**
  * Egy egység
  */
-public class Unit {
+public class Unit implements Disposable {
 
     /**
      * Az egység típusa
@@ -107,9 +108,27 @@ public class Unit {
     }
 
     /**
-     * Meghal az adott egység, és a program "feltakarítja" a maradékait (pl. mezőről eltünteti és a hőstől is, stb...)
+     * Meghal az adott egység, a destruktort hívja meg
      */
     public void die() {
+        health = 0;
+        dispose();
+    }
+
+    /**
+     * Destruktor, ami elveszi a hőstől és a mezőről ezt a unitot
+     */
+    @Override
+    public final void dispose() {
+        onDispose();
+        hero.removeUnit(this);
+        tile().setUnit(null);
+    }
+
+    /**
+     * Feltakarításkor fut le, ezt örököltesd, ha szeretnél eventet hook-olni ide, ne a diposet! (final miatt nem is kell engednie)
+     */
+    public void onDispose() {
 
     }
 

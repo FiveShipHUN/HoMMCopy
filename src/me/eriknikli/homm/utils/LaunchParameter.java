@@ -30,7 +30,7 @@ public class LaunchParameter {
     /**
      * Átmérezhető-e az ablak?
      */
-    public boolean resizable = true;
+    public boolean resizable = false;
 
     /**
      * Legyen-e hatása az {@code initFromConfig()} függvénynek?
