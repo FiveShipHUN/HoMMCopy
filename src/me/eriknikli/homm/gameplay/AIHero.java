@@ -8,5 +8,6 @@ public class AIHero extends Hero {
 
     public AIHero() {
         super("BOT", 1000);
+        random();
     }
 }

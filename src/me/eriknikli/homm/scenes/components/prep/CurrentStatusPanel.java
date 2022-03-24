@@ -2,6 +2,7 @@ package me.eriknikli.homm.scenes.components.prep;
 
 import me.eriknikli.homm.gameplay.Hero;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -54,7 +55,7 @@ public class CurrentStatusPanel extends JPanel {
         c.gridwidth = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.PAGE_START;
-        c.weightx = 1;
+        // c.weightx = 1;
         add(skills = new ImproveSkillPanel(hero), c);
         c = new GridBagConstraints();
         c.gridx = 0;
@@ -62,16 +63,43 @@ public class CurrentStatusPanel extends JPanel {
         //c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.PAGE_START;
         c.weighty = 1;
+        c.weightx = 1;
         c.insets = new Insets(10, 10, 10, 10);
         add(units = new UnitListPanel(hero), c);
         c = new GridBagConstraints();
         c.gridx = 1;
         c.gridy = 3;
-        c.weighty = 1;
+        c.weightx = 1;
+        // c.weighty = 1;
         //c.fill = GridBagConstraints.BOTH;
         c.anchor = GridBagConstraints.PAGE_START;
         c.insets = new Insets(10, 10, 10, 10);
         add(spells = new SpellsListPanel(hero), c);
+
+        var randomBtn = new JButton("Random Hero");
+        randomBtn.addActionListener(e -> {
+            hero.reset();
+            hero.random();
+        });
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 4;
+        c.weightx = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.PAGE_START;
+        add(randomBtn, c);
+
+        var resetBtn = new JButton("Reset Hero");
+        resetBtn.addActionListener(e -> {
+            hero.reset();
+        });
+        c = new GridBagConstraints();
+        c.gridx = 1;
+        c.gridy = 4;
+        c.weightx = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.PAGE_START;
+        add(resetBtn, c);
     }
 
     public void _update() {

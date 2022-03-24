@@ -1,9 +1,11 @@
 package me.eriknikli.homm.gameplay;
 
 import me.eriknikli.homm.HoMM;
+import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.army.Unit;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
 import me.eriknikli.homm.gameplay.spells.Spell;
+import me.eriknikli.homm.utils.RNG;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,6 +45,11 @@ public abstract class Hero {
     private int learntSkills = 0;
 
     /**
+     * Kezdő gold
+     */
+    private final int startGold;
+
+    /**
      * Hőst hoz létre, magába nem használható
      *
      * @param name      a hős neve
@@ -50,9 +57,22 @@ public abstract class Hero {
      */
     protected Hero(String name, int startGold) {
         this.name = name;
+        this.startGold = startGold;
+        reset();
+    }
+
+    public void reset() {
         setGold(startGold);
-        for (var s : Skill.values()) {
+        skills.clear();
+        units.clear();
+        spells.clear();
+        for (Skill s : Skill.values()) {
             skills.put(s, 1);
+        }
+        learntSkills = 0;
+        try {
+            HoMM.update();
+        } catch (Exception e) {
         }
     }
 
@@ -251,6 +271,40 @@ public abstract class Hero {
                 decreaseSkill(s);
             }
         }
+    }
+
+    public void random() {
+        int n = 0;
+        while (n < 10000 && canAfford(1)) {
+            n++;
+            int i = RNG.randomInt(3);
+            switch (i) {
+                case 0:
+                    if (learnSpell(RNG.randomElement(Registry.spells()))) {
+                        n--;
+                    }
+                    break;
+                case 1:
+                    int amount = RNG.randomInt(1, 30);
+                    var type = RNG.randomElement(Registry.uTypes());
+                    if (subtractGold(amount * type.price())) {
+                        addUnit(new Unit(type, amount));
+                        n--;
+                    }
+                    break;
+                case 2:
+                    var s = RNG.randomElement(Skill.values());
+                    if (canImprove(s)) {
+                        increaseSkill(s);
+                        n--;
+                    }
+                    break;
+            }
+        }
+        while (canAfford(Registry.UT_FARMER.price())) {
+            addUnit(new Unit(Registry.UT_FARMER, 1));
+        }
+        HoMM.update();
     }
 
 
