@@ -32,7 +32,7 @@ public class Attack extends Spell {
 
     @Override
     public String desc() {
-        return "The default spell, the Attack, which attacks a selected unit on the board.";
+        return "The default spell, the Attack, which damages a selected unit on the board.";
     }
 
     @Override

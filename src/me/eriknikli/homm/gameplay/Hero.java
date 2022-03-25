@@ -71,6 +71,7 @@ public abstract class Hero {
             skills.put(s, 1);
         }
         learntSkills = 0;
+        learnSpell(Registry.S_ATTACK);
         try {
             HoMM.update();
         } catch (Exception e) {

@@ -125,13 +125,23 @@ public class Tile extends JButton {
                 if (dx == 0 && dy == 0) {
                     continue;
                 }
-                Tile tile = board.tileOf(x, y);
+                Tile tile = board.tileOf(x + dx, y + dy);
                 if (tile != null) {
                     tiles.add(tile);
                 }
             }
         }
         return tiles;
+    }
+
+    /**
+     * DEBUGHOZ!
+     *
+     * @param range beállítja a távolságot
+     */
+    @Deprecated
+    public void DEBUG_setRange(int range) {
+        setText(range + "");
     }
 
     /**
@@ -188,6 +198,7 @@ public class Tile extends JButton {
             setBackground(Color.BLACK);
         }
         setForeground(Color.WHITE);
+        // setText(unit() == null ? "" : (unit().amount() + ""));
     }
 
 
@@ -198,8 +209,11 @@ public class Tile extends JButton {
         } else {
             setBackground(Color.YELLOW);
             setForeground(Color.BLACK);
-            for (Tile t : board().tilesInRange(this, unit().type().speed(), false)) {
+            for (Tile t : unit().inRange(board)) {
                 t.setBackground(Color.GRAY);
+            }
+            for (Unit u : unit().validTargets()) {
+                u.tile().setBackground(new Color(105, 9, 9));
             }
         }
     }

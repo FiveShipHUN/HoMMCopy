@@ -1,8 +1,11 @@
 package me.eriknikli.homm.gameplay.army;
 
+import me.eriknikli.homm.HoMM;
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.gameplay.Skill;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
+import me.eriknikli.homm.scenes.GameScene;
+import me.eriknikli.homm.scenes.components.game.GameBoard;
 import me.eriknikli.homm.scenes.components.game.Tile;
 import me.eriknikli.homm.utils.Disposable;
 
@@ -45,6 +48,12 @@ public class Unit implements Disposable {
      * Meg volt-e támadva
      */
     private boolean wasAttacked = false;
+
+    /**
+     * DEBUG-hoz, meg tudjam nézni a priority() értékét
+     */
+    @Deprecated
+    private int DEBUG_priority;
 
     /**
      * Létrehoz egy új egységet
@@ -131,7 +140,6 @@ public class Unit implements Disposable {
     }
 
     /**
-     *
      * @return Meghalt-e az egység?
      */
     public boolean isDead() {
@@ -146,6 +154,9 @@ public class Unit implements Disposable {
         onDispose();
         hero.removeUnit(this);
         tile().setUnit(null);
+        if (HoMM.game().scene() instanceof GameScene gs) {
+            gs.getBoard().removeFromOrder(this);
+        }
     }
 
     /**
@@ -233,7 +244,7 @@ public class Unit implements Disposable {
      * @return a kezdeményezés attól függően, hogy a hősnek mekkora a morálja
      */
     public int priority() {
-        return type().priority() + hero().skill(Skill.MORAL);
+        return DEBUG_priority = type().priority() + hero().skill(Skill.MORAL);
     }
 
     /**
@@ -254,5 +265,12 @@ public class Unit implements Disposable {
     @Deprecated
     public void setTile(Tile tile) {
         this.tile = tile;
+    }
+
+    public HashSet<Tile> inRange(GameBoard board) {
+        return board.tilesInRange(tile(), this.type().speed(), false);
+    }
+
+    public void attack(Unit target) {
     }
 }

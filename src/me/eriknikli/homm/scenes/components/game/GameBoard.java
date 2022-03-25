@@ -1,7 +1,6 @@
 package me.eriknikli.homm.scenes.components.game;
 
 import me.eriknikli.homm.gameplay.Hero;
-import me.eriknikli.homm.gameplay.PlayerHero;
 import me.eriknikli.homm.gameplay.army.Unit;
 import me.eriknikli.homm.scenes.GameScene;
 
@@ -13,7 +12,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -114,7 +112,7 @@ public class GameBoard extends JPanel {
             t.setUnit(u);
         }
         order.addAll(units);
-        units.sort(Comparator.comparingInt(Unit::priority));
+        order.sort((a, b) -> Integer.compare(b.priority(), a.priority()));
     }
 
     /**
@@ -204,7 +202,10 @@ public class GameBoard extends JPanel {
      * @return az index
      */
     public int index(int x, int y) {
-        return x + y * width;
+        if (0 <= x && x < width && 0 <= y && y < height) {
+            return x + y * width;
+        }
+        return -1;
     }
 
     /**
@@ -233,20 +234,24 @@ public class GameBoard extends JPanel {
      */
     public HashSet<Tile> tilesInRange(Tile from, int range, boolean includeSelf) {
         HashSet<Tile> inRange = new HashSet<>();
-        List<Tile> queue = new ArrayList<>();
+        HashSet<Tile> queue = new HashSet<>();
         queue.add(from);
-        for (int i = 0; i < range && queue.size() > 0; i++) {
-            var e = queue.get(0);
-            queue.remove(0);
-            for (Tile t : e.neighbors()) {
-                if (!inRange.contains(t) && t.unit() == null) {
-                    queue.add(e);
+        for (int i = 0; i <= range; i++) {
+            for (var e : new ArrayList<>(queue)) {
+                for (Tile t : e.neighbors()) {
+                    if (!inRange.contains(t) && t.unit() == null) {
+                        queue.add(t);
+                    }
                 }
+                inRange.add(e);
+                //e.DEBUG_setRange(i);
+                queue.remove(e);
             }
-            inRange.add(e);
         }
         if (!includeSelf) {
             inRange.remove(from);
+        } else {
+            inRange.add(from);
         }
         return inRange;
     }
@@ -263,20 +268,10 @@ public class GameBoard extends JPanel {
      * Következő forduló
      */
     public void nextTurn() {
-        roundCounter++;
         roundCounter = roundCounter % order.size();
         var unit = order.get(roundCounter);
+        roundCounter++;
         unit.hero().theirTurn(this, unit);
-        HeroPanel a, b;
-        if (unit.hero() instanceof PlayerHero) {
-            a = scene.playerPanel();
-            b = scene.aiPanel();
-        } else {
-            a = scene.aiPanel();
-            b = scene.playerPanel();
-        }
-        a.setBackground(new Color(0, 54, 17));
-        b.setBackground(Color.DARK_GRAY);
     }
 
 

@@ -107,6 +107,9 @@ public class GameScene extends Scene {
 
     }
 
+    /**
+     * A játék elindítása
+     */
     public void startGame() {
         prepPhase = false;
         board.select(null);
@@ -116,14 +119,26 @@ public class GameScene extends Scene {
         board.nextTurn();
     }
 
+    /**
+     *
+     * @return a tábla
+     */
     public GameBoard getBoard() {
         return board;
     }
 
+    /**
+     *
+     * @return A játékos állapotjelzője
+     */
     public HeroPanel playerPanel() {
         return playerHPanel;
     }
 
+    /**
+     *
+     * @return a bot állapotjelzője
+     */
     public HeroPanel aiPanel() {
         return aiHPanel;
     }

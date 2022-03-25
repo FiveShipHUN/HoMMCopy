@@ -85,7 +85,7 @@ public abstract class UnitType {
     public HashSet<Unit> validTargets(Unit who) {
         var set = new HashSet<Unit>();
         for (Tile t : who.tile().neighbors()) {
-            if (t.unit() != null) {
+            if (t.unit() != null && !t.unit().isWith(who)) {
                 set.add(t.unit());
             }
         }

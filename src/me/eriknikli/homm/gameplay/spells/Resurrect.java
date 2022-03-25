@@ -16,12 +16,12 @@ public class Resurrect extends Spell {
 
     @Override
     public int price() {
-        return 60;
+        return 120;
     }
 
     @Override
     public int mana() {
-        return 5;
+        return 6;
     }
 
     @Override

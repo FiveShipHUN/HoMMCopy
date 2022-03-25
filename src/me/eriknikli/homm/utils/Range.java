@@ -150,4 +150,18 @@ public class Range implements Serializable {
         }
         return "" + min + " - " + max + "";
     }
+
+    /**
+     * @return alsó korlát
+     */
+    public double min() {
+        return min;
+    }
+
+    /**
+     * @return felső korlát
+     */
+    public double max() {
+        return max;
+    }
 }

@@ -6,6 +6,7 @@ import me.eriknikli.homm.gameplay.army.types.Griffin;
 import me.eriknikli.homm.gameplay.army.types.Priest;
 import me.eriknikli.homm.gameplay.army.types.Swordsman;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
+import me.eriknikli.homm.gameplay.spells.Attack;
 import me.eriknikli.homm.gameplay.spells.Fireball;
 import me.eriknikli.homm.gameplay.spells.Resurrect;
 import me.eriknikli.homm.gameplay.spells.Shock;
@@ -90,6 +91,11 @@ public class Registry {
     /**
      * Villámcsapás varázslat
      */
+    public static final Attack S_ATTACK = new Attack();
+
+    /**
+     * Villámcsapás varázslat
+     */
     public static final Shock S_SHOCK = new Shock();
 
     /**
@@ -130,7 +136,7 @@ public class Registry {
      * @return Összes varázslat
      */
     public static Spell[] spells() {
-        return new Spell[]{S_SHOCK, S_FIREBALL, S_RESURRECT, S_STRENGTHENING, S_TELEPORT_SWAP};
+        return new Spell[]{S_SHOCK, S_FIREBALL, S_RESURRECT, S_STRENGTHENING, S_TELEPORT_SWAP, S_ATTACK};
     }
 
     /**
