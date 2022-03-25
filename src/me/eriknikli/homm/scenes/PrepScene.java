@@ -16,7 +16,7 @@ public class PrepScene extends Scene {
     private final BuyPanel buy;
     private final CurrentStatusPanel status;
 
-    public PrepScene(Hero hero) {
+    public PrepScene(Hero hero, String startBtnName, Runnable action) {
         this.hero = hero;
         //hero.learnSpell(Registry.S_FIREBALL);
         setLayout(new GridBagLayout());
@@ -33,7 +33,7 @@ public class PrepScene extends Scene {
         c.weighty = 1;
         c.weightx = 0.5;
         c.anchor = GridBagConstraints.PAGE_START;
-        add(status = new CurrentStatusPanel(hero), c);
+        add(status = new CurrentStatusPanel(hero, startBtnName, action), c);
         _update();
     }
 

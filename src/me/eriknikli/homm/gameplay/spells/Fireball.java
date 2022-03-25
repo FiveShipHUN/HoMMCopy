@@ -3,6 +3,9 @@ package me.eriknikli.homm.gameplay.spells;
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
 
+/**
+ * Tűzlabda spell
+ */
 public class Fireball extends Spell {
 
 

@@ -1,8 +1,6 @@
 package me.eriknikli.homm.scenes.components.prep;
 
-import me.eriknikli.homm.HoMM;
 import me.eriknikli.homm.gameplay.Hero;
-import me.eriknikli.homm.scenes.GameScene;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,7 +23,7 @@ public class CurrentStatusPanel extends JPanel {
     private final JButton startBtn;
     private Hero hero;
 
-    public CurrentStatusPanel(Hero hero) {
+    public CurrentStatusPanel(Hero hero, String startBtnName, Runnable action) {
         this.hero = hero;
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
@@ -104,7 +102,7 @@ public class CurrentStatusPanel extends JPanel {
         c.anchor = GridBagConstraints.PAGE_START;
         add(resetBtn, c);
 
-        startBtn = new JButton("Start Game");
+        startBtn = new JButton(startBtnName);
         c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 5;
@@ -112,7 +110,7 @@ public class CurrentStatusPanel extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         add(startBtn, c);
         startBtn.addActionListener(e -> {
-            HoMM.game().setScene(new GameScene(hero));
+            action.run();
         });
         startBtn.setEnabled(false);
         _update();

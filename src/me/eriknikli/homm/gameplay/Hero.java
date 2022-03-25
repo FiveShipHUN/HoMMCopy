@@ -5,6 +5,7 @@ import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.army.Unit;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
 import me.eriknikli.homm.gameplay.spells.Spell;
+import me.eriknikli.homm.scenes.components.game.GameBoard;
 import me.eriknikli.homm.utils.RNG;
 
 import java.util.HashMap;
@@ -307,5 +308,5 @@ public abstract class Hero {
         HoMM.update();
     }
 
-
+    public abstract void theirTurn(GameBoard board, Unit which);
 }

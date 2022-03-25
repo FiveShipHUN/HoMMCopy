@@ -1,6 +1,7 @@
 package me.eriknikli.homm.gameplay.army;
 
 import me.eriknikli.homm.gameplay.Hero;
+import me.eriknikli.homm.gameplay.Skill;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
 import me.eriknikli.homm.scenes.components.game.Tile;
 import me.eriknikli.homm.utils.Disposable;
@@ -36,7 +37,7 @@ public class Unit implements Disposable {
     private Hero hero;
 
     /**
-     * Kezdő életereje a hősnek
+     * Kezdő életereje az egységnek
      */
     private double startHP;
 
@@ -55,10 +56,11 @@ public class Unit implements Disposable {
     public Unit(UnitType type, int a) {
         this.type = type;
         amount = a;
-        health = type().maxHealth() * a;
+        startHP = health = type().maxHealth() * a;
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount cannot be negative or 0.");
         }
+
     }
 
     /**
@@ -83,7 +85,9 @@ public class Unit implements Disposable {
      */
     public void addAmount(int amount) {
         this.amount += amount;
-        this.health += amount * type.maxHealth();
+        var hp = amount * type.maxHealth();
+        this.health += hp;
+        this.startHP += hp;
     }
 
     /**
@@ -91,6 +95,17 @@ public class Unit implements Disposable {
      */
     public UnitType type() {
         return type;
+    }
+
+    /**
+     * Beállítja a hőst, ha hero() == null
+     *
+     * @param h a hős
+     */
+    public void setHero(Hero h) {
+        if (hero() == null) {
+            this.hero = h;
+        }
     }
 
     /**
@@ -113,6 +128,14 @@ public class Unit implements Disposable {
     public void die() {
         health = 0;
         dispose();
+    }
+
+    /**
+     *
+     * @return Meghalt-e az egység?
+     */
+    public boolean isDead() {
+        return health <= 0;
     }
 
     /**
@@ -204,5 +227,32 @@ public class Unit implements Disposable {
             this.amount = (int) (health / type.maxHealth());
         }
 
+    }
+
+    /**
+     * @return a kezdeményezés attól függően, hogy a hősnek mekkora a morálja
+     */
+    public int priority() {
+        return type().priority() + hero().skill(Skill.MORAL);
+    }
+
+    /**
+     * Ezt az egyésget elmozgatja
+     *
+     * @param tile a mező, amire mozgatjuk
+     */
+    public void moveTo(Tile tile) {
+        tile().setUnit(null);
+        tile.setUnit(this);
+    }
+
+    /**
+     * Használd a moveTo-t!
+     *
+     * @param tile a mező, amit beállítunk
+     */
+    @Deprecated
+    public void setTile(Tile tile) {
+        this.tile = tile;
     }
 }

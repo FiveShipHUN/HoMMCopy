@@ -5,10 +5,9 @@ package me.eriknikli.homm.gameplay;
  * Ennek az AI-nak nincsenek Gold korlátjai, főleg Enemy Creator-hoz készül
  * Skillekből is végtelenségig tanulhat
  */
-public class OPAIHero extends Hero {
+public class OPAIHero extends AIHero {
 
     public OPAIHero() {
-        super("BOT", 1000);
     }
 
     @Override

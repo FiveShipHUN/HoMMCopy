@@ -3,6 +3,9 @@ package me.eriknikli.homm.gameplay.spells;
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
 
+/**
+ * Erősítés képesség
+ */
 public class Strengthening extends Spell {
 
 
@@ -23,7 +26,7 @@ public class Strengthening extends Spell {
 
     @Override
     public String desc() {
-        return "It increases your units' damage for a round depending on your Magic Power (It multiplies with 1 + Magic Power / 20).";
+        return "It increases your units' damage for three round depending on your Magic Power (It multiplies with 1 + Magic Power / 20).<br>The effect will be visible as <strong>Strength</strong>.";
     }
 
     @Override

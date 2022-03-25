@@ -1,11 +1,14 @@
 package me.eriknikli.homm.scenes;
 
-import me.eriknikli.homm.gameplay.OPAIHero;
+import me.eriknikli.homm.gameplay.AIHero;
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.scenes.components.game.GameBoard;
 import me.eriknikli.homm.scenes.components.game.HeroPanel;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 /**
  * Játék Scene-je
@@ -20,6 +23,12 @@ public class GameScene extends Scene {
      * A jobb oldali hős
      */
     private final Hero right;
+    /**
+     * A tábla
+     */
+    private final GameBoard board;
+    private final HeroPanel playerHPanel;
+    private final HeroPanel aiHPanel;
     /**
      * Előkészületi fázisban?
      */
@@ -37,7 +46,6 @@ public class GameScene extends Scene {
     }
 
     /**
-     *
      * @return a baloldali játékos
      */
     public Hero left() {
@@ -45,7 +53,6 @@ public class GameScene extends Scene {
     }
 
     /**
-     *
      * @return a jobboldali játékos
      */
     public Hero right() {
@@ -78,21 +85,46 @@ public class GameScene extends Scene {
         c.gridy = 0;
         c.insets = new Insets(0, 10, 0, 10);
         c.fill = GridBagConstraints.VERTICAL;
-        var leftH = new HeroPanel(player);
-        add(leftH, c);
+        playerHPanel = new HeroPanel(player, this);
+        add(playerHPanel, c);
         c = new GridBagConstraints();
         c.gridx = 1;
         c.gridy = 0;
         c.fill = GridBagConstraints.BOTH;
         c.weighty = c.weightx = 0.5;
-        add(new GameBoard(this), c);
+        add(board = new GameBoard(this), c);
         c = new GridBagConstraints();
         c.gridx = 2;
         c.gridy = 0;
         c.fill = GridBagConstraints.VERTICAL;
         c.insets = new Insets(0, 10, 0, 10);
-        var rightH = new HeroPanel(right = new OPAIHero());
-        add(rightH, c);
-        setBackground(rightH.getBackground());
+        aiHPanel = new HeroPanel(right = new AIHero(), this);
+        add(aiHPanel, c);
+        setBackground(aiHPanel.getBackground());
+
+        board.spawnUnits(left(), true);
+        board.spawnUnits(right(), false);
+
+    }
+
+    public void startGame() {
+        prepPhase = false;
+        board.select(null);
+        for (var t : board.tiles) {
+            t.setBackground(Color.BLACK);
+        }
+        board.nextTurn();
+    }
+
+    public GameBoard getBoard() {
+        return board;
+    }
+
+    public HeroPanel playerPanel() {
+        return playerHPanel;
+    }
+
+    public HeroPanel aiPanel() {
+        return aiHPanel;
     }
 }

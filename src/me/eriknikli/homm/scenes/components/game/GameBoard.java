@@ -1,5 +1,8 @@
 package me.eriknikli.homm.scenes.components.game;
 
+import me.eriknikli.homm.gameplay.Hero;
+import me.eriknikli.homm.gameplay.PlayerHero;
+import me.eriknikli.homm.gameplay.army.Unit;
 import me.eriknikli.homm.scenes.GameScene;
 
 import javax.swing.JLabel;
@@ -9,6 +12,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -35,6 +40,22 @@ public class GameBoard extends JPanel {
      * A scene, ami ezt tartalmazza
      */
     private final GameScene scene;
+
+    /**
+     * Az egységek sorrendje
+     */
+    private final List<Unit> order = new ArrayList<>();
+
+    /**
+     * A köröket számolja
+     */
+    private int roundCounter = 0;
+
+
+    /**
+     * Kiválasztott mező
+     */
+    private Tile selectedTile;
 
     /**
      * Map inicializálása 12 és 10-es szélességgel
@@ -68,6 +89,39 @@ public class GameBoard extends JPanel {
         }
         addColumnLabel(false);
         setBackground(Color.GRAY);
+    }
+
+    /**
+     * Lespawnolja adott hősök unitjait random
+     *
+     * @param h    a hős, akinek le kell spawnolnia
+     * @param left bal oldali játékos?
+     */
+    public void spawnUnits(Hero h, boolean left) {
+        var units = new ArrayList<>(h.units());
+        Collections.shuffle(units);
+        List<Integer> ys = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            ys.add(i);
+        }
+        Collections.shuffle(ys);
+        int x = left ? 0 : width - 1;
+        for (int i = 0; i < units.size(); i++) {
+            int y = ys.get(i);
+            Unit u = units.get(i);
+            u.setHero(h);
+            var t = tileOf(x, y);
+            t.setUnit(u);
+        }
+        order.addAll(units);
+        units.sort(Comparator.comparingInt(Unit::priority));
+    }
+
+    /**
+     * Kitörli adott egységet a sorrendből
+     */
+    public void removeFromOrder(Unit u) {
+        order.remove(u);
     }
 
     /**
@@ -155,6 +209,7 @@ public class GameBoard extends JPanel {
 
     /**
      * Visszaadja az adott mezőt koordináta alapján
+     *
      * @param x x koordináta
      * @param y y koordináta
      * @return az adott kordinátán lévő mező, ha nem létezik, akkor null
@@ -197,11 +252,51 @@ public class GameBoard extends JPanel {
     }
 
     /**
-     *
      * @return A scene, ami ezt tartalmazza
      */
     public GameScene game() {
         return scene;
     }
 
+
+    /**
+     * Következő forduló
+     */
+    public void nextTurn() {
+        roundCounter++;
+        roundCounter = roundCounter % order.size();
+        var unit = order.get(roundCounter);
+        unit.hero().theirTurn(this, unit);
+        HeroPanel a, b;
+        if (unit.hero() instanceof PlayerHero) {
+            a = scene.playerPanel();
+            b = scene.aiPanel();
+        } else {
+            a = scene.aiPanel();
+            b = scene.playerPanel();
+        }
+        a.setBackground(new Color(0, 54, 17));
+        b.setBackground(Color.DARK_GRAY);
+    }
+
+
+    /**
+     * @return kiválasztott mező
+     */
+    public Tile selected() {
+        return selectedTile;
+    }
+
+    /**
+     * @param selectedTile Válaszd ki ezt a mezőt
+     */
+    public void select(Tile selectedTile) {
+        for (Tile t : tiles) {
+            t.onDeselect();
+        }
+        this.selectedTile = selectedTile;
+        if (this.selectedTile != null) {
+            this.selected().onSelect();
+        }
+    }
 }

@@ -4,6 +4,7 @@ import me.eriknikli.homm.data.Config;
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.Difficulty;
 import me.eriknikli.homm.gameplay.PlayerHero;
+import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.PrepScene;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.Disposable;
@@ -200,7 +201,10 @@ public class HoMM extends JFrame implements Disposable {
             setExtendedState(JFrame.MAXIMIZED_BOTH);
         }
         setVisible(true);
-        setScene(new PrepScene(new PlayerHero(cfg().playerName, Difficulty.NORMAL)));
+        var hero = new PlayerHero(cfg().playerName, Difficulty.NORMAL);
+        setScene(new PrepScene(hero, "Start Game", () -> {
+            HoMM.game().setScene(new GameScene(hero));
+        }));
     }
 
     /**

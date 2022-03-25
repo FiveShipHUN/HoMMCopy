@@ -1,5 +1,6 @@
 package me.eriknikli.homm.scenes.components.game;
 
+import me.eriknikli.homm.gameplay.PlayerHero;
 import me.eriknikli.homm.gameplay.army.Unit;
 
 import javax.swing.JButton;
@@ -56,6 +57,9 @@ public class Tile extends JButton {
                 refreshUnitInfo();
             }
         });
+        addActionListener(e -> {
+            onClick();
+        });
     }
 
     /**
@@ -66,11 +70,14 @@ public class Tile extends JButton {
             setIcon(null);
             setText("");
         } else {
-            var width = (int) (getWidth() * 0.8f);
-            var height = (int) (getHeight() * 0.8f);
-            width = height = Math.min(width, height);
-            setIcon(unit().type().image().icon(width, height));
-            setText(unit().amount() + "");
+            try {
+                var width = (int) (getWidth() * 0.8f);
+                var height = (int) (getHeight() * 0.8f);
+                width = height = Math.min(width, height);
+                setIcon(unit().type().image().icon(width, height));
+                setText(unit().amount() + "");
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -101,12 +108,15 @@ public class Tile extends JButton {
      * @param u a unit, amit ide szeretnél rakni
      */
     public void setUnit(Unit u) {
-        refreshUnitInfo();
         this.unit = u;
+        if (u != null) {
+            unit.setTile(this);
+        }
+        refreshUnitInfo();
     }
 
     /**
-     *
+     * @return szomszédos mezők
      */
     public HashSet<Tile> neighbors() {
         var tiles = new HashSet<Tile>();
@@ -125,10 +135,72 @@ public class Tile extends JButton {
     }
 
     /**
-     *
      * @return A board, ami ezt a mezőt tartalmazza
      */
     public GameBoard board() {
         return board;
+    }
+
+
+    /**
+     * Amikor erre a gombra rákattint mi történjen
+     */
+    public void onClick() {
+        PlayerHero player = (PlayerHero) board().game().left();
+        Unit selectedUnit = null;
+        if (board.selected() != null) {
+            selectedUnit = board.selected().unit;
+        }
+        //// Felkészülés
+        if (board().game().isInPrepPhase()) {
+            for (int y = 0; y < board.height; y++) {
+                for (int x = 0; x < 2; x++) {
+                    var t = board.tileOf(x, y);
+                    if (t.getBackground().equals(Color.BLACK) && t.unit() == null) {
+                        t.setBackground(Color.GRAY);
+                    }
+                }
+            }
+            if (x < 2) {
+                if (unit() != null) {
+                    board.select(this);
+                } else {
+                    if (selectedUnit != null && selectedUnit.hero() == player) {
+                        selectedUnit.moveTo(this);
+                        board.select(this);
+
+                    }
+                }
+            }
+        }
+        //// INGAME
+        else {
+            if (unit() == null) {
+
+            }
+        }
+    }
+
+    public void onDeselect() {
+        if (board.game().isInPrepPhase()) {
+            setBackground(unit == null && x < 2 ? Color.GRAY : Color.BLACK);
+        } else {
+            setBackground(Color.BLACK);
+        }
+        setForeground(Color.WHITE);
+    }
+
+
+    public void onSelect() {
+        if (board.game().isInPrepPhase()) {
+            setBackground(Color.YELLOW);
+            setForeground(Color.BLACK);
+        } else {
+            setBackground(Color.YELLOW);
+            setForeground(Color.BLACK);
+            for (Tile t : board().tilesInRange(this, unit().type().speed(), false)) {
+                t.setBackground(Color.GRAY);
+            }
+        }
     }
 }

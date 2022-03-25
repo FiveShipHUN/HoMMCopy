@@ -1,9 +1,13 @@
 package me.eriknikli.homm.gameplay.spells;
 
 import me.eriknikli.homm.data.ImageAsset;
+import me.eriknikli.homm.gameplay.Skill;
 
 import java.util.Objects;
 
+/**
+ * A Spellek ősosztálya
+ */
 public abstract class Spell {
 
     public abstract String name();
@@ -36,6 +40,18 @@ public abstract class Spell {
                 "</li>" +
                 "</ul>" +
                 "</html>";
+    }
+
+    public Skill skill() {
+        return Skill.MAGIC_POWER;
+    }
+
+    public boolean canBeSold() {
+        return true;
+    }
+
+    public boolean canBeBought() {
+        return true;
     }
 
     public abstract ImageAsset icon();

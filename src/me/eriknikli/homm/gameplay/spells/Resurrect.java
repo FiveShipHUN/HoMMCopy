@@ -3,6 +3,9 @@ package me.eriknikli.homm.gameplay.spells;
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
 
+/**
+ * Feltámasztás, vagy gyógyítás spell
+ */
 public class Resurrect extends Spell {
 
 
