@@ -27,7 +27,7 @@ public class AIHero extends Hero {
             which.moveTo(RNG.randomElement(valids));
         } else {
             var target = RNG.randomElement(targets);
-            which.attack(target);
+            which.attack(target, !target.tile().neighbors().contains(which.tile()));
         }
         board.nextTurn();
         lastMoved = which;

@@ -230,7 +230,10 @@ public class HoMM extends JFrame implements Disposable {
     }
 
     public static void update() {
-        game()._update();
+        try {
+            game()._update();
+        } catch (Exception e) {
+        }
     }
 
     public void _update() {

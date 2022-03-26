@@ -96,6 +96,16 @@ public abstract class UnitType {
 
     }
 
+    public void onStartRound(Unit who) {
+
+    }
+
+    public HashSet<Unit> otherTargets(Unit target) {
+        HashSet<Unit> set = new HashSet<>();
+        set.add(target);
+        return set;
+    }
+
     public String helpTxt() {
         return "<html>" +
                 "<h2>" +

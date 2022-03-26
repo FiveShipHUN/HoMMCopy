@@ -34,6 +34,7 @@ public class Tile extends JButton {
      * A tábla
      */
     private final GameBoard board;
+    private boolean selected;
 
     /**
      * Létrehoz egy mezőt
@@ -178,43 +179,27 @@ public class Tile extends JButton {
                     if (selectedUnit != null && selectedUnit.hero() == player) {
                         selectedUnit.moveTo(this);
                         board.select(this);
-
                     }
                 }
             }
         }
         //// INGAME
         else {
-            if (unit() == null) {
-
+            if (selectedUnit != null) {
+                var valid = selectedUnit.inRange(board);
+                if (unit() == null) {
+                    if (valid.contains(this)) {
+                        selectedUnit.moveTo(this);
+                        board.nextTurn();
+                    }
+                } else if (!selectedUnit.isWith(unit()) && selectedUnit.validTargets().contains(unit())) {
+                    selectedUnit.attack(unit(), !selectedUnit.tile().neighbors().contains(unit().tile()));
+                    board.nextTurn();
+                } else if (unit() == selectedUnit) {
+                    board.nextTurn();
+                }
             }
         }
-    }
-
-    public void onDeselect() {
-        if (board.game().isInPrepPhase()) {
-            setBackground(unit == null && x < 2 ? Color.GRAY : Color.BLACK);
-        } else {
-            setBackground(Color.BLACK);
-        }
-        setForeground(Color.WHITE);
-        // setText(unit() == null ? "" : (unit().amount() + ""));
-    }
-
-
-    public void onSelect() {
-        if (board.game().isInPrepPhase()) {
-            setBackground(Color.YELLOW);
-            setForeground(Color.BLACK);
-        } else {
-            setBackground(Color.YELLOW);
-            setForeground(Color.BLACK);
-            for (Tile t : unit().inRange(board)) {
-                t.setBackground(Color.GRAY);
-            }
-            for (Unit u : unit().validTargets()) {
-                u.tile().setBackground(new Color(105, 9, 9));
-            }
-        }
+        board.updateBoard();
     }
 }

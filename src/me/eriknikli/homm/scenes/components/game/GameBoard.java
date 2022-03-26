@@ -1,10 +1,13 @@
 package me.eriknikli.homm.scenes.components.game;
 
+import me.eriknikli.homm.HoMM;
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.gameplay.army.Unit;
 import me.eriknikli.homm.scenes.GameScene;
+import me.eriknikli.homm.scenes.MainMenuScene;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
@@ -47,13 +50,18 @@ public class GameBoard extends JPanel {
     /**
      * A köröket számolja
      */
-    private int roundCounter = 0;
+    private int turnCounter = 0;
 
+    /**
+     * Vége?
+     */
+    private boolean ended = false;
 
     /**
      * Kiválasztott mező
      */
     private Tile selectedTile;
+    private int roundCounter = 1;
 
     /**
      * Map inicializálása 12 és 10-es szélességgel
@@ -113,6 +121,7 @@ public class GameBoard extends JPanel {
         }
         order.addAll(units);
         order.sort((a, b) -> Integer.compare(b.priority(), a.priority()));
+        updateBoard();
     }
 
     /**
@@ -268,10 +277,32 @@ public class GameBoard extends JPanel {
      * Következő forduló
      */
     public void nextTurn() {
-        roundCounter = roundCounter % order.size();
-        var unit = order.get(roundCounter);
-        roundCounter++;
-        unit.hero().theirTurn(this, unit);
+        if (turnCounter >= order.size()) {
+            turnCounter = 0;
+            for (Unit u : order) {
+                u.onStartRound();
+            }
+            roundCounter++;
+        }
+        if (scene.left().units().isEmpty() && scene.right().units().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "It's a draw!", "Draw", JOptionPane.WARNING_MESSAGE);
+            HoMM.game().setScene(new MainMenuScene());
+            ended = true;
+        } else if (scene.left().units().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You lost the battle!", "Loser", JOptionPane.WARNING_MESSAGE);
+            HoMM.game().setScene(new MainMenuScene());
+            ended = true;
+        } else if (scene.right().units().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You won the battle!", "Winner", JOptionPane.WARNING_MESSAGE);
+            HoMM.game().setScene(new MainMenuScene());
+            ended = true;
+        }
+        if (!ended) {
+            var unit = order.get(turnCounter);
+            turnCounter++;
+            unit.hero().theirTurn(this, unit);
+        }
+        updateBoard();
     }
 
 
@@ -286,12 +317,51 @@ public class GameBoard extends JPanel {
      * @param selectedTile Válaszd ki ezt a mezőt
      */
     public void select(Tile selectedTile) {
-        for (Tile t : tiles) {
-            t.onDeselect();
-        }
         this.selectedTile = selectedTile;
-        if (this.selectedTile != null) {
-            this.selected().onSelect();
+    }
+
+    public void updateBoard() {
+        for (Tile t : tiles) {
+            t.setBackground(Color.BLACK);
         }
+        for (var u : scene.left().units()) {
+            if (u.tile() != null) {
+                u.tile().setBackground(new Color(0, 80, 0));
+            }
+        }
+        for (var u : scene.right().units()) {
+            if (u.tile() != null) {
+                u.tile().setBackground(new Color(108, 0, 0));
+            }
+        }
+        if (selected() != null) {
+            selected().setBackground(Color.YELLOW);
+        }
+        if (game().isInPrepPhase()) {
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < 2; x++) {
+                    var t = tileOf(x, y);
+                    if (t.unit() == null) {
+                        t.setBackground(Color.DARK_GRAY);
+                    }
+                }
+            }
+        } else {
+            try {
+                for (var t : selected().unit().inRange(this)) {
+                    t.setBackground(Color.DARK_GRAY);
+                }
+                for (var u : selected().unit().validTargets()) {
+                    u.tile().setBackground(Color.ORANGE);
+                }
+            } catch (Exception e) {
+            }
+        }
+        for (var t : tiles) {
+            if (t.unit() != null) {
+                t.refreshUnitInfo();
+            }
+        }
+        scene._update();
     }
 }

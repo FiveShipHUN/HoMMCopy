@@ -2,13 +2,17 @@ package me.eriknikli.homm.gameplay.army;
 
 import me.eriknikli.homm.HoMM;
 import me.eriknikli.homm.gameplay.Hero;
+import me.eriknikli.homm.gameplay.PlayerHero;
 import me.eriknikli.homm.gameplay.Skill;
+import me.eriknikli.homm.gameplay.army.types.Archer;
 import me.eriknikli.homm.gameplay.army.types.UnitType;
 import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.components.game.GameBoard;
 import me.eriknikli.homm.scenes.components.game.Tile;
 import me.eriknikli.homm.utils.Disposable;
+import me.eriknikli.homm.utils.Log;
 
+import java.awt.Color;
 import java.util.HashSet;
 
 /**
@@ -50,6 +54,11 @@ public class Unit implements Disposable {
     private boolean wasAttacked = false;
 
     /**
+     * Az előző pozíciója az egységnek
+     */
+    private Tile lastTile = null;
+
+    /**
      * DEBUG-hoz, meg tudjam nézni a priority() értékét
      */
     @Deprecated
@@ -76,7 +85,6 @@ public class Unit implements Disposable {
      * Ha elindul egy kör, akkor lesz meghívva ez a függvény
      */
     public void onTurnStarted() {
-        wasAttacked = false;
         type().onStartTurn(this);
     }
 
@@ -84,7 +92,7 @@ public class Unit implements Disposable {
      * @return a katonák száma az egységben
      */
     public int amount() {
-        return amount;
+        return Math.max(0, amount);
     }
 
     /**
@@ -93,6 +101,7 @@ public class Unit implements Disposable {
      * @param amount katonák száma
      */
     public void addAmount(int amount) {
+        amount = Math.max(amount, 0);
         this.amount += amount;
         var hp = amount * type.maxHealth();
         this.health += hp;
@@ -122,9 +131,11 @@ public class Unit implements Disposable {
      *
      * @param dam a sebzés mértéke
      */
-    public void dealDamage(double dam) {
+    public void getDamage(double dam) {
+        dam -= (1.0 - hero().skill(Skill.DEFENSE) / 20.0);
         health -= dam;
-        amount = (int) (health / type().maxHealth());
+        amount = (int) Math.ceil(health / type().maxHealth());
+        amount = Math.max(0, amount);
         if (health <= 0) {
             die();
         }
@@ -154,6 +165,7 @@ public class Unit implements Disposable {
         onDispose();
         hero.removeUnit(this);
         tile().setUnit(null);
+        tile = null;
         if (HoMM.game().scene() instanceof GameScene gs) {
             gs.getBoard().removeFromOrder(this);
         }
@@ -170,7 +182,7 @@ public class Unit implements Disposable {
      * @return él-e még ez az egység?
      */
     public boolean isAlive() {
-        return health <= 0;
+        return health > 0;
     }
 
     /**
@@ -198,7 +210,7 @@ public class Unit implements Disposable {
      * @return tud-e visszatámadni?
      */
     public boolean canCounterAttack() {
-        return type().canCounterAttack(this);
+        return type().canCounterAttack(this) && amount > 0 && health > 0;
     }
 
     /**
@@ -254,7 +266,9 @@ public class Unit implements Disposable {
      */
     public void moveTo(Tile tile) {
         tile().setUnit(null);
+        lastTile = tile();
         tile.setUnit(this);
+        setTile(tile);
     }
 
     /**
@@ -271,6 +285,42 @@ public class Unit implements Disposable {
         return board.tilesInRange(tile(), this.type().speed(), false);
     }
 
-    public void attack(Unit target) {
+    public void attack(Unit t, boolean ranged) {
+        for (var target : t.type().otherTargets(t)) {
+            if (!(type() instanceof Archer)) {
+                ranged = false;
+            }
+            Log.debug("Target: " + target.type().name() + ", Attacker: " + type().name() + ", Ranged?: " + ranged);
+            var dam = type().damage().random();
+            dam *= amount();
+            dam *= (1.0 + (hero().skill(Skill.ATTACK) / 10.0));
+            target.getDamage(dam);
+            if (!ranged) {
+                if (target.canCounterAttack()) {
+                    dam = target.type().damage().random();
+                    dam *= target.amount();
+                    dam *= (1.0 + (hero().skill(Skill.ATTACK) / 10.0));
+                    dam *= 0.5;
+                    getDamage(dam);
+                    target.wasAttacked = true;
+                }
+            }
+        }
+    }
+
+    public void onStartRound() {
+        type().onStartRound(this);
+        wasAttacked = false;
+    }
+
+    public Color color() {
+        if (hero instanceof PlayerHero) {
+            return new Color(8, 68, 6);
+        }
+        return new Color(91, 0, 0);
+    }
+
+    public double startHP() {
+        return startHP;
     }
 }

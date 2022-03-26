@@ -120,7 +120,6 @@ public class GameScene extends Scene {
     }
 
     /**
-     *
      * @return a tábla
      */
     public GameBoard getBoard() {
@@ -128,7 +127,6 @@ public class GameScene extends Scene {
     }
 
     /**
-     *
      * @return A játékos állapotjelzője
      */
     public HeroPanel playerPanel() {
@@ -136,10 +134,15 @@ public class GameScene extends Scene {
     }
 
     /**
-     *
      * @return a bot állapotjelzője
      */
     public HeroPanel aiPanel() {
         return aiHPanel;
+    }
+
+    @Override
+    public void _update() {
+        playerHPanel._update();
+        aiHPanel._update();
     }
 }

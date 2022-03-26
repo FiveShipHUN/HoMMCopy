@@ -13,11 +13,13 @@ import java.awt.GridBagLayout;
 public class PrepScene extends Scene {
 
     private final Hero hero;
+    private Hero enemy;
     private final BuyPanel buy;
     private final CurrentStatusPanel status;
 
     public PrepScene(Hero hero, String startBtnName, Runnable action) {
         this.hero = hero;
+        //enemy = new AIHero();
         //hero.learnSpell(Registry.S_FIREBALL);
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();

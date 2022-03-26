@@ -26,7 +26,7 @@ public class Strengthening extends Spell {
 
     @Override
     public String desc() {
-        return "It increases your units' damage for three round depending on your Magic Power (It multiplies with 1 + Magic Power / 20).<br>The effect will be visible as <strong>Strength</strong>.";
+        return "It increases your units' damage depending on your Magic Power (It multiplies with 1 + Magic Power / 20).";
     }
 
     @Override
