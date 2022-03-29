@@ -12,7 +12,7 @@ import me.eriknikli.homm.gameplay.spells.Resurrect;
 import me.eriknikli.homm.gameplay.spells.Shock;
 import me.eriknikli.homm.gameplay.spells.Spell;
 import me.eriknikli.homm.gameplay.spells.Strengthening;
-import me.eriknikli.homm.gameplay.spells.TeleportSwap;
+import me.eriknikli.homm.gameplay.spells.Teleport;
 import me.eriknikli.homm.utils.Utils;
 
 /**
@@ -116,7 +116,7 @@ public class Registry {
     /**
      * Teleportálás varázslat
      */
-    public static final TeleportSwap S_TELEPORT_SWAP = new TeleportSwap();
+    public static final Teleport S_TELEPORT_SWAP = new Teleport();
 
     /**
      * @return Összes kép asset

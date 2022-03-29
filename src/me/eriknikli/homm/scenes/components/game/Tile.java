@@ -186,17 +186,33 @@ public class Tile extends JButton {
         //// INGAME
         else {
             if (selectedUnit != null) {
-                var valid = selectedUnit.inRange(board);
-                if (unit() == null) {
-                    if (valid.contains(this)) {
-                        selectedUnit.moveTo(this);
+                var hero = selectedUnit.hero();
+                if (hero.casting() != null) {
+                    var target = unit();
+                    if (target != null) {
+                        hero.casting().cast(selectedUnit, target);
+                    }
+                    hero.onCastSpell();
+                    hero.setCastingSpell(null);
+                    for (var s : board.game().playerPanel().spells) {
+                        s.reset();
+                    }
+                } else {
+                    var valid = selectedUnit.inRange(board);
+                    if (unit() == null) {
+                        if (valid.contains(this)) {
+                            board().game().log("You moved your " + selectedUnit.type().name() + ".", selectedUnit.hero());
+                            selectedUnit.moveTo(this);
+                            board.nextTurn();
+                        }
+                    } else if (!selectedUnit.isWith(unit()) && selectedUnit.validTargets().contains(unit())) {
+                        board().game().log("You attacked the enemy's " + unit().type().name() + " with your " + selectedUnit.type().name() + ".", selectedUnit.hero());
+                        selectedUnit.attack(unit(), !selectedUnit.tile().neighbors().contains(unit().tile()));
+                        board.nextTurn();
+                    } else if (unit() == selectedUnit) {
+                        board().game().log("You waited with " + selectedUnit.type().name() + ".", selectedUnit.hero());
                         board.nextTurn();
                     }
-                } else if (!selectedUnit.isWith(unit()) && selectedUnit.validTargets().contains(unit())) {
-                    selectedUnit.attack(unit(), !selectedUnit.tile().neighbors().contains(unit().tile()));
-                    board.nextTurn();
-                } else if (unit() == selectedUnit) {
-                    board.nextTurn();
                 }
             }
         }

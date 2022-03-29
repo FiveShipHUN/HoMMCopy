@@ -11,6 +11,7 @@ import me.eriknikli.homm.scenes.components.game.GameBoard;
 import me.eriknikli.homm.scenes.components.game.Tile;
 import me.eriknikli.homm.utils.Disposable;
 import me.eriknikli.homm.utils.Log;
+import me.eriknikli.homm.utils.RNG;
 
 import java.awt.Color;
 import java.util.HashSet;
@@ -63,6 +64,8 @@ public class Unit implements Disposable {
      */
     @Deprecated
     private int DEBUG_priority;
+
+    public double damMod = 1;
 
     /**
      * Létrehoz egy új egységet
@@ -131,7 +134,11 @@ public class Unit implements Disposable {
      *
      * @param dam a sebzés mértéke
      */
-    public void getDamage(double dam) {
+    public void getDamage(double dam, boolean critical) {
+        if (critical) {
+            dam *= 2;
+            tile().board().game().log("Critical!", tile().board().game().enemyOf(hero()));
+        }
         dam -= (1.0 - hero().skill(Skill.DEFENSE) / 20.0);
         health -= dam;
         amount = (int) Math.ceil(health / type().maxHealth());
@@ -294,14 +301,15 @@ public class Unit implements Disposable {
             var dam = type().damage().random();
             dam *= amount();
             dam *= (1.0 + (hero().skill(Skill.ATTACK) / 10.0));
-            target.getDamage(dam);
+            dam *= damMod;
+            target.getDamage(dam, RNG.randomBoolean(hero.skill(Skill.LUCK) * 5f));
             if (!ranged) {
                 if (target.canCounterAttack()) {
                     dam = target.type().damage().random();
                     dam *= target.amount();
                     dam *= (1.0 + (hero().skill(Skill.ATTACK) / 10.0));
                     dam *= 0.5;
-                    getDamage(dam);
+                    getDamage(dam, RNG.randomBoolean(target.hero().skill(Skill.LUCK) * 5f));
                     target.wasAttacked = true;
                 }
             }
@@ -311,6 +319,7 @@ public class Unit implements Disposable {
     public void onStartRound() {
         type().onStartRound(this);
         wasAttacked = false;
+        damMod = 1;
     }
 
     public Color color() {

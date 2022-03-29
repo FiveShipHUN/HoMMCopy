@@ -2,6 +2,7 @@ package me.eriknikli.homm.gameplay.spells;
 
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.gameplay.Skill;
+import me.eriknikli.homm.gameplay.army.Unit;
 
 import java.util.Objects;
 
@@ -73,5 +74,20 @@ public abstract class Spell {
             return Objects.equals(s.name(), name());
         }
         return false;
+    }
+
+    public boolean hasSelected() {
+        return false;
+    }
+
+    public boolean hasTarget() {
+        return true;
+    }
+
+    public abstract void cast(Unit selected, Unit target);
+
+    @Override
+    public String toString() {
+        return name();
     }
 }

@@ -2,6 +2,7 @@ package me.eriknikli.homm.gameplay.spells;
 
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
+import me.eriknikli.homm.gameplay.army.Unit;
 
 /**
  * Feltámasztás, vagy gyógyítás spell
@@ -37,5 +38,10 @@ public class Resurrect extends Spell {
     @Override
     public ImageAsset icon() {
         return Registry.I_RESURRECT;
+    }
+
+    @Override
+    public void cast(Unit selected, Unit target) {
+        target.heal(power(selected.hero().skill(skill())), true);
     }
 }

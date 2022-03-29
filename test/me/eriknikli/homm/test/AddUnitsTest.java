@@ -17,7 +17,7 @@ public class AddUnitsTest {
     @Test()
     @DisplayName("Add Units Test")
     public void test() {
-        OPAIHero hero = new OPAIHero();
+        OPAIHero hero = new OPAIHero(null);
         Unit u1 = new Unit(Registry.UT_ARCHER, 100);
         Unit u2 = new Unit(Registry.UT_ARCHER, 200);
         Unit u3 = new Unit(Registry.UT_FARMER, 500);

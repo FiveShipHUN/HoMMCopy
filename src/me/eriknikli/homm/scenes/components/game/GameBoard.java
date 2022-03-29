@@ -277,6 +277,7 @@ public class GameBoard extends JPanel {
      * Következő forduló
      */
     public void nextTurn() {
+        updateBoard();
         if (turnCounter >= order.size()) {
             turnCounter = 0;
             for (Unit u : order) {
@@ -300,7 +301,10 @@ public class GameBoard extends JPanel {
         if (!ended) {
             var unit = order.get(turnCounter);
             turnCounter++;
-            unit.hero().theirTurn(this, unit);
+            if (unit.isAlive()) {
+                unit.onTurnStarted();
+                unit.hero().theirTurn(this, unit);
+            }
         }
         updateBoard();
     }

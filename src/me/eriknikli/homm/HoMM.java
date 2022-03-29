@@ -2,10 +2,7 @@ package me.eriknikli.homm;
 
 import me.eriknikli.homm.data.Config;
 import me.eriknikli.homm.data.Registry;
-import me.eriknikli.homm.gameplay.Difficulty;
-import me.eriknikli.homm.gameplay.PlayerHero;
-import me.eriknikli.homm.scenes.GameScene;
-import me.eriknikli.homm.scenes.PrepScene;
+import me.eriknikli.homm.scenes.MainMenuScene;
 import me.eriknikli.homm.scenes.Scene;
 import me.eriknikli.homm.utils.Disposable;
 import me.eriknikli.homm.utils.LaunchParameter;
@@ -13,7 +10,9 @@ import me.eriknikli.homm.utils.Log;
 import me.eriknikli.homm.utils.Utils;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import java.util.Objects;
 
 /**
@@ -193,7 +192,7 @@ public class HoMM extends JFrame implements Disposable {
         } catch (Exception e) {
             Log.err("Error occurred while setting up the icon for JFrame.", e);
         }
-        setTitle("Heroes of Might and Magic - Copy");
+        setTitle("Heroes of Might and Magic - Duel");
         setBounds(params.x, params.y, params.width, params.height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(params.resizable);
@@ -201,10 +200,7 @@ public class HoMM extends JFrame implements Disposable {
             setExtendedState(JFrame.MAXIMIZED_BOTH);
         }
         setVisible(true);
-        var hero = new PlayerHero(cfg().playerName, Difficulty.NORMAL);
-        setScene(new PrepScene(hero, "Start Game", () -> {
-            HoMM.game().setScene(new GameScene(hero));
-        }));
+        setScene(new MainMenuScene());
     }
 
     /**
@@ -227,6 +223,7 @@ public class HoMM extends JFrame implements Disposable {
         this.scene = s;
         add(this.scene);
         setContentPane(this.scene);
+        update();
     }
 
     public static void update() {

@@ -2,6 +2,7 @@ package me.eriknikli.homm.gameplay.spells;
 
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
+import me.eriknikli.homm.gameplay.army.Unit;
 
 /**
  * Villámcsapás képesség
@@ -37,5 +38,10 @@ public class Shock extends Spell {
     @Override
     public ImageAsset icon() {
         return Registry.I_SHOCK;
+    }
+
+    @Override
+    public void cast(Unit selected, Unit target) {
+        target.getDamage(power(selected.hero().skill(skill())), false);
     }
 }

@@ -4,6 +4,8 @@ import me.eriknikli.homm.gameplay.army.Unit;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.text.NumberFormat;
@@ -19,6 +21,7 @@ public class UnitInfoPanel extends JPanel {
         setLayout(new GridBagLayout());
         name = new JLabel(unit.type().name());
         name.setIcon(unit.type().image().iconByHeight(32));
+        name.setFont(getFont().deriveFont(Font.BOLD));
         var c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
@@ -40,6 +43,7 @@ public class UnitInfoPanel extends JPanel {
         } else {
             hp.setText("Dead");
         }
+        setBackground(new Color((float) (1 - unit.health() / unit.startHP()), (float) (unit.health() / unit.startHP()), 0));
     }
 
 }

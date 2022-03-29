@@ -2,6 +2,9 @@ package me.eriknikli.homm.gameplay.spells;
 
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
+import me.eriknikli.homm.gameplay.Hero;
+import me.eriknikli.homm.gameplay.army.Unit;
+import me.eriknikli.homm.scenes.components.game.Tile;
 
 /**
  * Tűzlabda spell
@@ -37,5 +40,20 @@ public class Fireball extends Spell {
     @Override
     public ImageAsset icon() {
         return Registry.I_FIREBALL;
+    }
+
+    @Override
+    public void cast(Unit selected, Unit target) {
+        castHere(target.tile(), selected.hero());
+        for (var tile : target.tile().neighbors()) {
+
+        }
+    }
+
+    private void castHere(Tile t, Hero h) {
+        var unit = t.unit();
+        if (unit != null) {
+            unit.getDamage(power(h.skill(skill())), false);
+        }
     }
 }

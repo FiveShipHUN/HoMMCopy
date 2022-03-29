@@ -4,6 +4,7 @@ import me.eriknikli.homm.gameplay.AIHero;
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.scenes.components.game.GameBoard;
 import me.eriknikli.homm.scenes.components.game.HeroPanel;
+import me.eriknikli.homm.scenes.components.log.LogFrame;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -29,6 +30,7 @@ public class GameScene extends Scene {
     private final GameBoard board;
     private final HeroPanel playerHPanel;
     private final HeroPanel aiHPanel;
+    private final LogFrame log;
     /**
      * Előkészületi fázisban?
      */
@@ -98,13 +100,34 @@ public class GameScene extends Scene {
         c.gridy = 0;
         c.fill = GridBagConstraints.VERTICAL;
         c.insets = new Insets(0, 10, 0, 10);
-        aiHPanel = new HeroPanel(right = new AIHero(), this);
+        aiHPanel = new HeroPanel(right = new AIHero(this), this);
         add(aiHPanel, c);
         setBackground(aiHPanel.getBackground());
+        log = new LogFrame();
 
         board.spawnUnits(left(), true);
         board.spawnUnits(right(), false);
 
+    }
+
+    /**
+     * Ah yes, log
+     *
+     * @param log log
+     */
+    public void log(String log) {
+        log(log, null);
+    }
+
+    private String hex(int r, int g, int b) {
+        return String.format("#%02x%02x%02x", r, g, b);
+    }
+
+    public void log(String log, Hero which) {
+        log = "<html>" +
+                "<p>" + log + "</p>" +
+                "</html>";
+        this.log.log(log, which);
     }
 
     /**
@@ -116,6 +139,9 @@ public class GameScene extends Scene {
         for (var t : board.tiles) {
             t.setBackground(Color.BLACK);
         }
+        left().onStartMatch();
+        right().onStartMatch();
+        log("The Match has begun!");
         board.nextTurn();
     }
 

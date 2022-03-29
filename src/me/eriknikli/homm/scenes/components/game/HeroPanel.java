@@ -1,8 +1,10 @@
 package me.eriknikli.homm.scenes.components.game;
 
+import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.gameplay.PlayerHero;
 import me.eriknikli.homm.gameplay.army.Unit;
+import me.eriknikli.homm.gameplay.spells.Spell;
 import me.eriknikli.homm.scenes.GameScene;
 
 import javax.swing.JButton;
@@ -25,8 +27,11 @@ public class HeroPanel extends JPanel {
      * A hős
      */
     private final Hero hero;
+    private final JLabel mana;
     private JButton endTurnBtn;
     private HashSet<UnitInfoPanel> units = new HashSet<>();
+    HashSet<ActivateSpellPanel> spells = new HashSet<>();
+    private final GameScene scene;
 
     /**
      * Létrehozza a Hero panelt
@@ -34,11 +39,13 @@ public class HeroPanel extends JPanel {
      * @param hero a hero, aminek panelt készít
      */
     public HeroPanel(Hero hero, GameScene scene) {
+        int i = 0;
+        this.scene = scene;
         this.hero = hero;
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
-        c.gridx = c.gridy = 0;
-        c.weighty = 1;
+        c.gridx = 0;
+        c.gridy = i++;
         c.insets = new Insets(10, 10, 10, 10);
         c.anchor = GridBagConstraints.PAGE_START;
         var lbl = new JLabel(hero.name);
@@ -46,11 +53,25 @@ public class HeroPanel extends JPanel {
         lbl.setVerticalTextPosition(SwingConstants.CENTER);
         lbl.setHorizontalTextPosition(SwingConstants.CENTER);
         add(lbl, c);
+        mana = new JLabel("Mana: " + hero.getMana());
+        c = new GridBagConstraints();
+        c.insets = new Insets(5, 5, 5, 5);
+        c.gridx = 0;
+        c.gridy = i++;
+        c.weightx = 0;
+        mana.setFont(new Font("Times New Roman", Font.ITALIC, 20));
+        mana.setForeground(new Color(141, 221, 232));
+        add(mana, c);
         setBackground(Color.DARK_GRAY);
-        int i = 1;
         for (var unit : hero().units()) {
             addUnitInfo(unit, i);
             i++;
+        }
+        for (var s : Registry.spells()) {
+            if (hero.knowsSpell(s)) {
+                addSpell(s, i);
+                i++;
+            }
         }
         if (hero instanceof PlayerHero) {
             endTurnBtn = new JButton("Fight!");
@@ -71,6 +92,18 @@ public class HeroPanel extends JPanel {
                 }
             });
         }
+        _update();
+    }
+
+    private void addSpell(Spell s, int i) {
+        ActivateSpellPanel panel = new ActivateSpellPanel(hero, s, scene);
+        var c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = i;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        add(panel, c);
+        spells.add(panel);
     }
 
     private void addUnitInfo(Unit unit, int i) {
@@ -78,6 +111,8 @@ public class HeroPanel extends JPanel {
         var c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = i;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
         add(info, c);
         units.add(info);
     }
@@ -94,8 +129,12 @@ public class HeroPanel extends JPanel {
     }
 
     public void _update() {
+        mana.setText("Mana: " + hero.getMana());
         for (var u : units) {
             u._update();
+        }
+        for (var s : spells) {
+            s._update();
         }
     }
 

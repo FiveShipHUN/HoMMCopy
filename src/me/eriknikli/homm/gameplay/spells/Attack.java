@@ -3,6 +3,7 @@ package me.eriknikli.homm.gameplay.spells;
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.Skill;
+import me.eriknikli.homm.gameplay.army.Unit;
 
 /**
  * A támadás, mint spellként megcsinálva
@@ -53,5 +54,10 @@ public class Attack extends Spell {
     @Override
     public boolean canBeSold() {
         return canBeBought();
+    }
+
+    @Override
+    public void cast(Unit selected, Unit target) {
+        target.getDamage(power(selected.hero().skill(skill())) * 10, false);
     }
 }

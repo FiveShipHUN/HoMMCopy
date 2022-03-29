@@ -8,6 +8,7 @@ import me.eriknikli.homm.gameplay.spells.Spell;
 import me.eriknikli.homm.scenes.components.game.GameBoard;
 import me.eriknikli.homm.utils.RNG;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -50,6 +51,18 @@ public abstract class Hero {
      */
     private final int startGold;
 
+
+    /**
+     * Mana mennyisége
+     */
+    private int mana;
+
+    /**
+     * Tud-e képességet castolni még?
+     */
+    private boolean canCastSpell = true;
+    private Spell casting;
+
     /**
      * Hőst hoz létre, magába nem használható
      *
@@ -76,6 +89,13 @@ public abstract class Hero {
             HoMM.update();
         } catch (Exception e) {
         }
+    }
+
+    /**
+     * Meccs kezdetekor fut le
+     */
+    public void onStartMatch() {
+        mana = skill(Skill.KNOWLEDGE) * 10;
     }
 
 
@@ -276,38 +296,84 @@ public abstract class Hero {
     }
 
     public void random() {
-        int n = 0;
-        while (n < 10000 && canAfford(1)) {
-            n++;
-            int i = RNG.randomInt(3);
-            switch (i) {
-                case 0:
-                    if (learnSpell(RNG.randomElement(Registry.spells()))) {
-                        n--;
-                    }
-                    break;
-                case 1:
-                    int amount = RNG.randomInt(1, 30);
-                    var type = RNG.randomElement(Registry.uTypes());
-                    if (subtractGold(amount * type.price())) {
-                        addUnit(new Unit(type, amount));
-                        n--;
-                    }
-                    break;
-                case 2:
-                    var s = RNG.randomElement(Skill.values());
-                    if (canImprove(s)) {
-                        increaseSkill(s);
-                        n--;
-                    }
-                    break;
+        if (startGold < 2000) {
+
+
+            int n = 0;
+            while (n < 10000 && canAfford(1)) {
+                n++;
+                int i = RNG.randomInt(3);
+                switch (i) {
+                    case 0:
+                        if (learnSpell(RNG.randomElement(Registry.spells()))) {
+                            n--;
+                        }
+                        break;
+                    case 1:
+                        int amount = RNG.randomInt(1, 30);
+                        var type = RNG.randomElement(Registry.uTypes());
+                        if (subtractGold(amount * type.price())) {
+                            addUnit(new Unit(type, amount));
+                            n--;
+                        }
+                        break;
+                    case 2:
+                        var s = RNG.randomElement(Skill.values());
+                        if (canImprove(s)) {
+                            increaseSkill(s);
+                            n--;
+                        }
+                        break;
+                }
             }
+            while (canAfford(Registry.UT_FARMER.price())) {
+                addUnit(new Unit(Registry.UT_FARMER, 1));
+            }
+            HoMM.update();
         }
-        while (canAfford(Registry.UT_FARMER.price())) {
-            addUnit(new Unit(Registry.UT_FARMER, 1));
-        }
-        HoMM.update();
     }
 
     public abstract void theirTurn(GameBoard board, Unit which);
+
+    public int getMana() {
+        return mana;
+    }
+
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public HashSet<Spell> spells() {
+        return spells;
+    }
+
+    public Color color() {
+        if (this instanceof PlayerHero) {
+            return new Color(8, 68, 6);
+        }
+        return new Color(91, 0, 0);
+    }
+
+
+    public void onStartRound() {
+        canCastSpell = true;
+    }
+
+    public void onCastSpell() {
+        canCastSpell = false;
+        HoMM.update();
+    }
+
+    public boolean canCastSpell() {
+        return canCastSpell;
+    }
+
+    public void setCastingSpell(Spell s) {
+        this.casting = s;
+    }
+
+    public Spell casting() {
+        return casting;
+    }
 }

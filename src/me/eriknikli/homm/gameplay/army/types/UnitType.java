@@ -133,4 +133,9 @@ public abstract class UnitType {
                 "</ul>" +
                 "</html>";
     }
+
+    @Override
+    public String toString() {
+        return name();
+    }
 }

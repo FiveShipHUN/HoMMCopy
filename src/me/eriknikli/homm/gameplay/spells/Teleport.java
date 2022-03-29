@@ -2,16 +2,17 @@ package me.eriknikli.homm.gameplay.spells;
 
 import me.eriknikli.homm.data.ImageAsset;
 import me.eriknikli.homm.data.Registry;
+import me.eriknikli.homm.gameplay.army.Unit;
 
 /**
  * Teleportálás képesség
  */
-public class TeleportSwap extends Spell {
+public class Teleport extends Spell {
 
 
     @Override
     public String name() {
-        return "Teleport-Swap";
+        return "Teleport";
     }
 
     @Override
@@ -37,5 +38,18 @@ public class TeleportSwap extends Spell {
     @Override
     public ImageAsset icon() {
         return Registry.I_TELEPORT;
+    }
+
+    @Override
+    public void cast(Unit selected, Unit target) {
+        var t1 = target.tile();
+        var t2 = selected.tile();
+        target.moveTo(t2);
+        selected.moveTo(t1);
+    }
+
+    @Override
+    public boolean hasSelected() {
+        return true;
     }
 }
