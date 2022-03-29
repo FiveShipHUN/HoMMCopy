@@ -283,6 +283,8 @@ public class GameBoard extends JPanel {
             for (Unit u : order) {
                 u.onStartRound();
             }
+            game().left().onStartRound();
+            game().right().onStartRound();
             roundCounter++;
         }
         if (scene.left().units().isEmpty() && scene.right().units().isEmpty()) {
@@ -301,10 +303,11 @@ public class GameBoard extends JPanel {
         if (!ended) {
             var unit = order.get(turnCounter);
             turnCounter++;
-            if (unit.isAlive()) {
+            if (unit.isAlive() && !unit.isSick()) {
                 unit.onTurnStarted();
                 unit.hero().theirTurn(this, unit);
             }
+            unit.sickness(false);
         }
         updateBoard();
     }

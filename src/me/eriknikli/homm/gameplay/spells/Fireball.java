@@ -44,9 +44,12 @@ public class Fireball extends Spell {
 
     @Override
     public void cast(Unit selected, Unit target) {
-        castHere(target.tile(), selected.hero());
         for (var tile : target.tile().neighbors()) {
-
+            castHere(tile, selected.hero());
+        }
+        castHere(target.tile(), selected.hero());
+        if (selected.isDead()) {
+            selected.tile().board().nextTurn();
         }
     }
 

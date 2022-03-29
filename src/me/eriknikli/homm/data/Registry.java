@@ -12,7 +12,7 @@ import me.eriknikli.homm.gameplay.spells.Resurrect;
 import me.eriknikli.homm.gameplay.spells.Shock;
 import me.eriknikli.homm.gameplay.spells.Spell;
 import me.eriknikli.homm.gameplay.spells.Strengthening;
-import me.eriknikli.homm.gameplay.spells.Teleport;
+import me.eriknikli.homm.gameplay.spells.Sickness;
 import me.eriknikli.homm.utils.Utils;
 
 /**
@@ -56,7 +56,7 @@ public class Registry {
 
     public static final ImageAsset I_STRENGTHENING = new ImageAsset();
 
-    public static final ImageAsset I_TELEPORT = new ImageAsset();
+    public static final ImageAsset I_SICKNESS = new ImageAsset();
 
     /**
      * Help icon
@@ -116,13 +116,13 @@ public class Registry {
     /**
      * Teleportálás varázslat
      */
-    public static final Teleport S_TELEPORT_SWAP = new Teleport();
+    public static final Sickness S_TELEPORT_SWAP = new Sickness();
 
     /**
      * @return Összes kép asset
      */
     public static ImageAsset[] images() {
-        return new ImageAsset[]{I_FARMER, I_ARCHER, I_SWORDSMAN, I_PRIEST, I_GRIFFIN, I_HELP, I_FIREBALL, I_SHOCK, I_RESURRECT, I_STRENGTHENING, I_TELEPORT};
+        return new ImageAsset[]{I_FARMER, I_ARCHER, I_SWORDSMAN, I_PRIEST, I_GRIFFIN, I_HELP, I_FIREBALL, I_SHOCK, I_RESURRECT, I_STRENGTHENING, I_SICKNESS};
     }
 
     /**
@@ -152,7 +152,7 @@ public class Registry {
         I_FIREBALL.loadImage("textures/spells/fireball.png");
         I_RESURRECT.loadImage("textures/spells/resurrect.png");
         I_STRENGTHENING.loadImage("textures/spells/buff.png");
-        I_TELEPORT.loadImage("textures/spells/tp.png");
+        I_SICKNESS.loadImage("textures/spells/sickness.png");
         I_HELP.loadImage("textures/help.png");
     }
 

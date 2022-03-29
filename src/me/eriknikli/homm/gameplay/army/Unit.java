@@ -65,6 +65,11 @@ public class Unit implements Disposable {
     @Deprecated
     private int DEBUG_priority;
 
+    /**
+     * Betegség spell rá lett-e nyomva. Ha igen, akkor ebből a körből kimarad
+     */
+    private boolean sickness;
+
     public double damMod = 1;
 
     /**
@@ -89,6 +94,15 @@ public class Unit implements Disposable {
      */
     public void onTurnStarted() {
         type().onStartTurn(this);
+        sickness = false;
+    }
+
+    public boolean isSick() {
+        return sickness;
+    }
+
+    public void sickness() {
+        sickness = true;
     }
 
     /**
@@ -331,5 +345,9 @@ public class Unit implements Disposable {
 
     public double startHP() {
         return startHP;
+    }
+
+    public void sickness(boolean b) {
+        sickness = b;
     }
 }

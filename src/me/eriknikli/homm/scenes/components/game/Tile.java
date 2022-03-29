@@ -192,6 +192,7 @@ public class Tile extends JButton {
                     if (target != null) {
                         hero.casting().cast(selectedUnit, target);
                     }
+                    hero.setMana(hero.getMana() - hero.casting().mana());
                     hero.onCastSpell();
                     hero.setCastingSpell(null);
                     for (var s : board.game().playerPanel().spells) {

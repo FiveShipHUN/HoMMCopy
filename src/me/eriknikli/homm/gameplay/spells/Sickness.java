@@ -7,12 +7,12 @@ import me.eriknikli.homm.gameplay.army.Unit;
 /**
  * Teleportálás képesség
  */
-public class Teleport extends Spell {
+public class Sickness extends Spell {
 
 
     @Override
     public String name() {
-        return "Teleport";
+        return "Sickness";
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Teleport extends Spell {
 
     @Override
     public String desc() {
-        return "It swaps two unit on the board. One has to be yours and the other has to be an enemy.";
+        return "Makes a unit skip its turn.";
     }
 
     @Override
@@ -37,19 +37,11 @@ public class Teleport extends Spell {
 
     @Override
     public ImageAsset icon() {
-        return Registry.I_TELEPORT;
+        return Registry.I_SICKNESS;
     }
 
     @Override
     public void cast(Unit selected, Unit target) {
-        var t1 = target.tile();
-        var t2 = selected.tile();
-        target.moveTo(t2);
-        selected.moveTo(t1);
-    }
-
-    @Override
-    public boolean hasSelected() {
-        return true;
+        target.sickness();
     }
 }
