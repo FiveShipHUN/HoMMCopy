@@ -78,8 +78,9 @@ public class GameScene extends Scene {
     /**
      * Inicializálja a scene-t
      */
-    public GameScene(Hero player) {
+    public GameScene(Hero player, Hero enemy) {
         left = player;
+        right = enemy;
         var layout = new GridBagLayout();
         setLayout(layout);
         var c = new GridBagConstraints();
@@ -100,7 +101,10 @@ public class GameScene extends Scene {
         c.gridy = 0;
         c.fill = GridBagConstraints.VERTICAL;
         c.insets = new Insets(0, 10, 0, 10);
-        aiHPanel = new HeroPanel(right = new AIHero(this), this);
+        aiHPanel = new HeroPanel(enemy, this);
+        if (enemy instanceof AIHero ai) {
+            ai.setGame(this);
+        }
         add(aiHPanel, c);
         setBackground(aiHPanel.getBackground());
         log = new LogFrame();

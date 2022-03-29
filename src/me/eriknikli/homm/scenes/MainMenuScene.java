@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -18,12 +19,14 @@ import java.awt.GridBagLayout;
  */
 public class MainMenuScene extends Scene {
 
+
     /**
      * Inicializálja a scene-t
      */
     public MainMenuScene() {
         setLayout(new GridBagLayout());
         JLabel lbl = new JLabel("Heroes of Might and Magic - Duel");
+        lbl.setFont(new Font("Times New Roman", Font.BOLD, 30));
         var c = new GridBagConstraints();
         add(lbl, c);
         JButton startGameBtn = new JButton("Start Game");
@@ -59,9 +62,7 @@ public class MainMenuScene extends Scene {
     }
 
     public void toStartGame(Hero hero) {
-        HoMM.game().setScene(new PrepScene(hero, "Start Game", () -> {
-            HoMM.game().setScene(new GameScene(hero));
-        }));
+        HoMM.game().setScene(new PrepScene(hero));
     }
 
 

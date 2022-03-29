@@ -1,7 +1,5 @@
 package me.eriknikli.homm.gameplay;
 
-import me.eriknikli.homm.scenes.GameScene;
-
 /**
  * Ezt a hős AI irányítja
  * Ennek az AI-nak nincsenek Gold korlátjai, főleg Enemy Creator-hoz készül
@@ -9,8 +7,8 @@ import me.eriknikli.homm.scenes.GameScene;
  */
 public class OPAIHero extends AIHero {
 
-    public OPAIHero(GameScene a) {
-        super(a);
+    public OPAIHero() {
+        super();
     }
 
     @Override

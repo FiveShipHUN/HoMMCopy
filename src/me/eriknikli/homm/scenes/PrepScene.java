@@ -1,5 +1,6 @@
 package me.eriknikli.homm.scenes;
 
+import me.eriknikli.homm.gameplay.AIHero;
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.scenes.components.prep.BuyPanel;
 import me.eriknikli.homm.scenes.components.prep.CurrentStatusPanel;
@@ -17,9 +18,9 @@ public class PrepScene extends Scene {
     private final BuyPanel buy;
     private final CurrentStatusPanel status;
 
-    public PrepScene(Hero hero, String startBtnName, Runnable action) {
+    public PrepScene(Hero hero) {
         this.hero = hero;
-        //enemy = new AIHero();
+        enemy = new AIHero();
         //hero.learnSpell(Registry.S_FIREBALL);
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
@@ -35,7 +36,7 @@ public class PrepScene extends Scene {
         c.weighty = 1;
         c.weightx = 0.5;
         c.anchor = GridBagConstraints.PAGE_START;
-        add(status = new CurrentStatusPanel(hero, startBtnName, action), c);
+        add(status = new CurrentStatusPanel(hero, this), c);
         _update();
     }
 
@@ -46,4 +47,11 @@ public class PrepScene extends Scene {
     }
 
 
+    public Hero ai() {
+        return enemy;
+    }
+
+    public Hero player() {
+        return hero;
+    }
 }

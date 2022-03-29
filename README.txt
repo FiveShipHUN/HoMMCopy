@@ -28,7 +28,6 @@ a config fájl beállításait pedig (hacsak nem megkértük rá a programot, ho
 feldolgozása után állítja be.
 
 A játékot a "Start Game" gombbal kezdheted. Ezután meg fogja kérdezni, milyen nehézségi szinten szeretnél játszani.
-Ezután megkérdezi, milyen
 
 
 

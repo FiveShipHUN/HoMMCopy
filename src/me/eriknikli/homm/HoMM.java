@@ -217,13 +217,18 @@ public class HoMM extends JFrame implements Disposable {
      */
     public void setScene(Scene s) {
         if (scene() != null) {
+            scene().removeAll();
+            scene.revalidate();
+            scene.repaint();
             remove(scene());
             Utils.tryDispose(scene());
         }
+        // EventQueue.invokeLater(() -> {
         this.scene = s;
         add(this.scene);
         setContentPane(this.scene);
         update();
+        //});
     }
 
     public static void update() {

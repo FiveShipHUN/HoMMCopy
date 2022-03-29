@@ -1,6 +1,8 @@
 package me.eriknikli.homm.gameplay;
 
+import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.army.Unit;
+import me.eriknikli.homm.gameplay.spells.Spell;
 import me.eriknikli.homm.scenes.GameScene;
 import me.eriknikli.homm.scenes.components.game.GameBoard;
 import me.eriknikli.homm.utils.RNG;
@@ -15,7 +17,7 @@ public class AIHero extends Hero {
 
     private GameScene scene;
 
-    public AIHero(GameScene scene) {
+    public AIHero() {
         super("BOT", 1000);
         this.scene = scene;
         random();
@@ -55,6 +57,52 @@ public class AIHero extends Hero {
         board.nextTurn();
         lastMoved = which;
 
+    }
+
+    public void setGame(GameScene scene) {
+        if (this.scene == null) {
+            this.scene = scene;
+        }
+    }
+
+    public String helpTxt() {
+        var skills = "";
+        for (Skill s : Skill.values()) {
+            skills += "<li>";
+            skills += "<strong>" + s.display() + "</strong>" + ": " + skill(s);
+            skills += "</li>";
+        }
+        var spells = "";
+        for (Spell s : Registry.spells()) {
+            if (knowsSpell(s)) {
+                spells += "<li>";
+                spells += s.name();
+                spells += "</li>";
+            }
+        }
+        var units = "";
+        for (var unit : units()) {
+            units += "<li>";
+            units += "<strong>" + unit.type().name() + "</strong>: " + unit.amount();
+            units += "</li>";
+        }
+        return "<html>" +
+                "<h1>" +
+                name +
+                "</h1>" +
+                "<h3>Skills</h3>" +
+                "<ul>" +
+                skills +
+                "</ul>" +
+                "<h3>Spells</h3>" +
+                "<ul>" +
+                spells +
+                "</ul>" +
+                "<h3>Units</h3>" +
+                "<ul>" +
+                units +
+                "</ul>" +
+                "</html>";
     }
 
 }

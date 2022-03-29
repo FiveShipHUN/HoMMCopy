@@ -1,11 +1,16 @@
 package me.eriknikli.homm.scenes.components.prep;
 
+import me.eriknikli.homm.HoMM;
+import me.eriknikli.homm.gameplay.AIHero;
 import me.eriknikli.homm.gameplay.Hero;
+import me.eriknikli.homm.scenes.GameScene;
+import me.eriknikli.homm.scenes.PrepScene;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -23,7 +28,7 @@ public class CurrentStatusPanel extends JPanel {
     private final JButton startBtn;
     private Hero hero;
 
-    public CurrentStatusPanel(Hero hero, String startBtnName, Runnable action) {
+    public CurrentStatusPanel(Hero hero, PrepScene scene) {
         this.hero = hero;
         setLayout(new GridBagLayout());
         var c = new GridBagConstraints();
@@ -76,7 +81,17 @@ public class CurrentStatusPanel extends JPanel {
         c.anchor = GridBagConstraints.PAGE_START;
         c.insets = new Insets(10, 10, 10, 10);
         add(spells = new SpellsListPanel(hero), c);
+        var help = new JLabel("Hover here to check your enemy");
+        help.setFont(new Font("Arial", Font.ITALIC, 15));
+        help.setToolTipText(((AIHero) scene.ai()).helpTxt());
+        help.setHorizontalAlignment(SwingConstants.CENTER);
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 4;
+        c.gridwidth = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
 
+        add(help, c);
         var randomBtn = new JButton("Random Hero");
         randomBtn.addActionListener(e -> {
             hero.reset();
@@ -84,7 +99,7 @@ public class CurrentStatusPanel extends JPanel {
         });
         c = new GridBagConstraints();
         c.gridx = 0;
-        c.gridy = 4;
+        c.gridy = 5;
         c.weightx = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.PAGE_START;
@@ -96,21 +111,23 @@ public class CurrentStatusPanel extends JPanel {
         });
         c = new GridBagConstraints();
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 5;
         c.weightx = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.PAGE_START;
         add(resetBtn, c);
 
-        startBtn = new JButton(startBtnName);
+        startBtn = new JButton("Start Battle");
         c = new GridBagConstraints();
         c.gridx = 0;
-        c.gridy = 5;
+        c.gridy = 6;
         c.gridwidth = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
         add(startBtn, c);
         startBtn.addActionListener(e -> {
-            action.run();
+            EventQueue.invokeLater(() -> {
+                HoMM.game().setScene(new GameScene(scene.player(), scene.ai()));
+            });
         });
         startBtn.setEnabled(false);
         _update();

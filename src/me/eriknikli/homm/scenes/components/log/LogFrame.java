@@ -37,6 +37,7 @@ public class LogFrame extends JFrame {
                 return log.get(index).log;
             }
         });
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         _update();
     }
 
