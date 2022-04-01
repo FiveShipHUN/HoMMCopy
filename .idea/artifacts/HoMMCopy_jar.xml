@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="HoMMCopy:jar">
+    <output-path>$PROJECT_DIR$/build</output-path>
+    <root id="archive" name="HoMMCopy.jar">
+      <element id="module-output" name="HoMMCopy" />
+    </root>
+  </artifact>
+</component>

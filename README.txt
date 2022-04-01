@@ -1,8 +1,9 @@
 A projekt IntellijIDEA-ben készült, a fordítás ott volt tesztelve,
 kérlek, hogy ott próbáld meg futtatni.
 A JDK-n és a JUnit-on kívül semmilyen külső könyvtárat nem használtam.
-Elvileg, ha nem felejtem el (ezek szerint elfelejtettem, mert ez a szöveg itt maradt c:),
-fogok készíteni egy build mappát, ebben megtalálod a lefordult programot futtatható állapotban.
+Készítettem a "build" mappába egy jar filet, ezzel is futtatható a játék. Lehet, hogy
+elfelejtem későbbi változatokba frissíteni, szóval légyszíves csak akkor használd, ha
+valami miatt nem tudod futtatni a játékot IntellijIDEA-n keresztül.
 A main függvény a me.eriknikli.homm.HoMM class-be találod.
 
 A játékot 1280x768-as ablakméretben terveztem és teszteltem,
