@@ -13,6 +13,9 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Az eseményeket itt lehet megnézni
+ */
 public class LogFrame extends JFrame {
 
     private final JList<String> logs = new JList<>();

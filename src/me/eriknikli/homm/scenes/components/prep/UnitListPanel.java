@@ -14,6 +14,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.HashMap;
 
+/**
+ * Egységeket listázza
+ */
 public class UnitListPanel extends JPanel {
 
     private final Hero h;

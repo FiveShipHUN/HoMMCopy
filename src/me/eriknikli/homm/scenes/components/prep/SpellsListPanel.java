@@ -16,6 +16,9 @@ import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Varázslatok listája
+ */
 public class SpellsListPanel extends JPanel {
 
     private Hero h;
