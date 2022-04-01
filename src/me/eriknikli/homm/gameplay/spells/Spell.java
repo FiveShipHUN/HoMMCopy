@@ -90,4 +90,5 @@ public abstract class Spell {
     public String toString() {
         return name();
     }
+
 }

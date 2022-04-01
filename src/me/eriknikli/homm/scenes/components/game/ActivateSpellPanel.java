@@ -3,6 +3,7 @@ package me.eriknikli.homm.scenes.components.game;
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.gameplay.PlayerHero;
 import me.eriknikli.homm.gameplay.spells.Attack;
+import me.eriknikli.homm.gameplay.spells.Sickness;
 import me.eriknikli.homm.gameplay.spells.Spell;
 import me.eriknikli.homm.scenes.GameScene;
 
@@ -12,6 +13,9 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+/**
+ * Spelleket ezen keresztül tudsz aktiválni
+ */
 public class ActivateSpellPanel extends JPanel {
 
     private final Spell s;
@@ -37,12 +41,18 @@ public class ActivateSpellPanel extends JPanel {
             if (!s.hasTarget()) {
                 s.cast(scene.getBoard().selected().unit(), null);
             } else {
-
-                for (var d : scene.playerPanel().spells) {
-                    d.reset();
+                if (scene.left().casting() == null) {
+                    for (var d : scene.playerPanel().spells) {
+                        d.reset();
+                    }
+                    setBackground(Color.RED);
+                    scene.left().setCastingSpell(s);
+                } else {
+                    for (var d : scene.playerPanel().spells) {
+                        d.reset();
+                    }
+                    scene.left().setCastingSpell(null);
                 }
-                setBackground(Color.RED);
-                scene.left().setCastingSpell(s);
             }
         });
         button.setIcon(s.icon().iconByHeight(32));
@@ -59,6 +69,11 @@ public class ActivateSpellPanel extends JPanel {
 
     public void _update() {
         button.setEnabled(hero.getMana() >= s.mana() && scene.isInGame() && hero instanceof PlayerHero && hero.canCastSpell());
+        if (s instanceof Sickness) {
+            if (scene.enemyOf(hero).units().size() <= 1) {
+                button.setEnabled(false);
+            }
+        }
     }
 
 }

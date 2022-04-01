@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -370,5 +371,30 @@ public class GameBoard extends JPanel {
             }
         }
         scene._update();
+    }
+
+    public int round() {
+        return roundCounter;
+    }
+
+    public Collection<Unit> order() {
+        return order;
+    }
+
+    public void checkWin() {
+        if (scene.left().units().isEmpty() && scene.right().units().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "It's a draw!", "Draw", JOptionPane.WARNING_MESSAGE);
+            HoMM.game().setScene(new MainMenuScene());
+            ended = true;
+        } else if (scene.left().units().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You lost the battle!", "Loser", JOptionPane.WARNING_MESSAGE);
+            HoMM.game().setScene(new MainMenuScene());
+            ended = true;
+        } else if (scene.right().units().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You won the battle!", "Winner", JOptionPane.WARNING_MESSAGE);
+            HoMM.game().setScene(new MainMenuScene());
+            ended = true;
+        }
+        updateBoard();
     }
 }

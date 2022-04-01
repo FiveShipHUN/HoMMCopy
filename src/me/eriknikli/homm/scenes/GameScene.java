@@ -4,6 +4,7 @@ import me.eriknikli.homm.gameplay.AIHero;
 import me.eriknikli.homm.gameplay.Hero;
 import me.eriknikli.homm.scenes.components.game.GameBoard;
 import me.eriknikli.homm.scenes.components.game.HeroPanel;
+import me.eriknikli.homm.scenes.components.game.RoundPanel;
 import me.eriknikli.homm.scenes.components.log.LogFrame;
 
 import java.awt.Color;
@@ -31,6 +32,7 @@ public class GameScene extends Scene {
     private final HeroPanel playerHPanel;
     private final HeroPanel aiHPanel;
     private final LogFrame log;
+    private final RoundPanel order;
     /**
      * Előkészületi fázisban?
      */
@@ -81,23 +83,30 @@ public class GameScene extends Scene {
     public GameScene(Hero player, Hero enemy) {
         left = player;
         right = enemy;
+        board = new GameBoard(this);
         var layout = new GridBagLayout();
         setLayout(layout);
         var c = new GridBagConstraints();
         c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.VERTICAL;
+        c.insets = new Insets(3, 3, 3, 3);
+        add(order = new RoundPanel(board), c);
+        c = new GridBagConstraints();
+        c.gridx = 1;
         c.gridy = 0;
         c.insets = new Insets(0, 10, 0, 10);
         c.fill = GridBagConstraints.VERTICAL;
         playerHPanel = new HeroPanel(player, this);
         add(playerHPanel, c);
         c = new GridBagConstraints();
-        c.gridx = 1;
+        c.gridx = 2;
         c.gridy = 0;
         c.fill = GridBagConstraints.BOTH;
         c.weighty = c.weightx = 0.5;
-        add(board = new GameBoard(this), c);
+        add(board, c);
         c = new GridBagConstraints();
-        c.gridx = 2;
+        c.gridx = 3;
         c.gridy = 0;
         c.fill = GridBagConstraints.VERTICAL;
         c.insets = new Insets(0, 10, 0, 10);
@@ -174,5 +183,6 @@ public class GameScene extends Scene {
     public void _update() {
         playerHPanel._update();
         aiHPanel._update();
+        order._update();
     }
 }

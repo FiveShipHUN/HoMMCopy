@@ -5,7 +5,7 @@ import me.eriknikli.homm.data.Registry;
 import me.eriknikli.homm.gameplay.army.Unit;
 
 /**
- * Teleportálás képesség
+ * Betegség képesség
  */
 public class Sickness extends Spell {
 
@@ -27,7 +27,7 @@ public class Sickness extends Spell {
 
     @Override
     public String desc() {
-        return "Makes a unit skip its turn.";
+        return "Makes a unit skip its turn.<br>Cannot be casted if your enemy has only one unit left.";
     }
 
     @Override
@@ -42,6 +42,8 @@ public class Sickness extends Spell {
 
     @Override
     public void cast(Unit selected, Unit target) {
-        target.sickness();
+        if (target.hero().units().size() > 1) {
+            target.sickness();
+        }
     }
 }

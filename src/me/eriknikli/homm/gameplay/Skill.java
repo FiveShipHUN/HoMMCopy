@@ -1,5 +1,8 @@
 package me.eriknikli.homm.gameplay;
 
+/**
+ * Skilleket tartalmazó enum
+ */
 public enum Skill {
 
     ATTACK("Attack", "It improves attack damage of your units."),

@@ -10,16 +10,25 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.text.NumberFormat;
 
+/**
+ * Egy egység leírását tartalmazó panel
+ */
 public class UnitInfoPanel extends JPanel {
 
     private Unit unit;
+    private boolean showOwner;
     private JLabel name;
     private JLabel hp;
 
-    public UnitInfoPanel(Unit unit) {
+    public UnitInfoPanel(Unit u) {
+        this(u, false);
+    }
+
+    public UnitInfoPanel(Unit unit, boolean showOwner) {
         this.unit = unit;
+        this.showOwner = showOwner;
         setLayout(new GridBagLayout());
-        name = new JLabel(unit.type().name());
+        name = new JLabel("<html>" + unit.type().name() + (showOwner ? " <br>(<strong>" + unit.hero().name + "</strong>)" : "") + "</html>");
         name.setIcon(unit.type().image().iconByHeight(32));
         name.setFont(getFont().deriveFont(Font.BOLD));
         var c = new GridBagConstraints();
@@ -39,7 +48,10 @@ public class UnitInfoPanel extends JPanel {
             var f = NumberFormat.getInstance();
             f.setMaximumFractionDigits(0);
             f.setMinimumFractionDigits(0);
-            hp.setText(f.format(unit.health()) + " / " + f.format(unit.startHP()));
+            try {
+                hp.setText("<html>" + f.format(unit.health()) + " / " + f.format(unit.startHP()) + "</html>");
+            } catch (Exception e) {
+            }
         } else {
             hp.setText("Dead");
         }

@@ -189,6 +189,7 @@ public class Unit implements Disposable {
         tile = null;
         if (HoMM.game().scene() instanceof GameScene gs) {
             gs.getBoard().removeFromOrder(this);
+            gs.getBoard().checkWin();
         }
     }
 

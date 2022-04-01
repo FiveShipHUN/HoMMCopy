@@ -29,7 +29,7 @@ public class HeroPanel extends JPanel {
     private final Hero hero;
     private final JLabel mana;
     private JButton endTurnBtn;
-    private HashSet<UnitInfoPanel> units = new HashSet<>();
+    private final HashSet<UnitInfoPanel> units = new HashSet<>();
     HashSet<ActivateSpellPanel> spells = new HashSet<>();
     private final GameScene scene;
 
@@ -49,9 +49,11 @@ public class HeroPanel extends JPanel {
         c.insets = new Insets(10, 10, 10, 10);
         c.anchor = GridBagConstraints.PAGE_START;
         var lbl = new JLabel(hero.name);
+        lbl.setToolTipText(hero.helpTxt());
         lbl.setFont(new Font("Times New Roman", Font.BOLD, 30));
         lbl.setVerticalTextPosition(SwingConstants.CENTER);
         lbl.setHorizontalTextPosition(SwingConstants.CENTER);
+        lbl.setForeground(Color.WHITE);
         add(lbl, c);
         mana = new JLabel("Mana: " + hero.getMana());
         c = new GridBagConstraints();
