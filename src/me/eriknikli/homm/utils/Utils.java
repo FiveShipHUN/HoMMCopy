@@ -58,6 +58,11 @@ public class Utils {
         return dimg;
     }
 
+    /**
+     * Másolatot készít képből
+     * @param img a kép amiből kell másolat
+     * @return a másolat
+     */
     public static BufferedImage cpy(BufferedImage img) {
         return resizeImg(img, img.getWidth(), img.getHeight());
     }

@@ -69,14 +69,31 @@ Ha valakinek elfogynak az egységei, akkor véget ér a játék. Ilyenkor egy Me
 kidob a főmenübe. Előfordulhat, hogy nem jelenik meg ez az üzenet, ez általába varázslat után van, ilyenkor be kell
 fejezni az adott kört. (Elvileg javítottam.)
 
-
-
 Extra egységek:
     Kardforgató: területi sebzést okoz, baráti egységet nem sebez
     Pap: magán kívül a közelbe lévő egységeket köre elején gyógyítja
 
-
-
+Két osztály JavaDoc-kal:
+    me.eriknikli.homm.HoMM
+    me.eriknikli.homm.utils.RNG
+    van még egy rakat, de csak kettő kellett (kár hogy hamarabb erről nem tudtam :c)
+Tesztek:
+    me.eriknikli.homm.test.
+        AddUnitsTest: leteszteli, hogy az adott unitokat hozzáadja és mergeli-e (összevonja-e) ha kell
+        ClampTest: me.eriknikli.homm.utils.Utils.clamp() függvény működését ellenőrzi
+            szélsőérték: ha a max és min egyezik, vagy meg van cserélve
+        DifficultyDisplayNameTest: leellenőrzi, hogy a me.eriknikli.homm.gameplay.Difficulty enum jól működik-e, és user
+            friendly nevet ír-e ki
+        HeroGoldTest: leellenőrzi, hogy adott hős megfelelő aranyat kap-e, illetve a költekezést is nézi
+        RandomTest: a me.eriknikli.homm.utils.RNG osztály tesztelése
+            szélsőérték: olyan intervallum, ahol az alsó és felsőkorlát meg van cserélve
+            100-szor fut le a tesztelés, hisz random, nem lehet pontosan belőni teszteléskor mi fog történni
+        RangeTest: a me.eriknikli.homm.utils.Range osztály tesztelése
+            Szélsőérték: olyan range, ahol az alsó és felsőkorlát meg van cserélve
+        SpellPropertiesTest: a leírtaknak megfelelőek-e a varázslatok
+        UnitPropertiesTest: a leírtaknak megfelelőek-e az egység tesztek
+        SkillBuyingTest: leteszteli, hogy a Skillek ára megfelelően inflálódik
+        RandomAIHeroTest: leteszteli, hogy képes-e a gép időben hőst generálni, és annak lesznek-e egységei
 
 
 

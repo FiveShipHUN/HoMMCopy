@@ -231,6 +231,9 @@ public class HoMM extends JFrame implements Disposable {
         //});
     }
 
+    /**
+     * Frissíti a Swing komponenseket, shortcut {@code HoMM.game()._update()}-ra, try-catch között
+     */
     public static void update() {
         try {
             game()._update();
@@ -238,6 +241,9 @@ public class HoMM extends JFrame implements Disposable {
         }
     }
 
+    /**
+     * Frissíti a Swing komponenseket
+     */
     public void _update() {
         if (scene() != null) {
             scene()._update();
@@ -245,6 +251,9 @@ public class HoMM extends JFrame implements Disposable {
         }
     }
 
+    /**
+     * Destruktor
+     */
     @Override
     public void dispose() {
         Registry.dispose();
