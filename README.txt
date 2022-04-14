@@ -1,10 +1,17 @@
-A projekt IntellijIDEA-ben készült, a fordítás ott volt tesztelve,
-kérlek, hogy ott próbáld meg futtatni.
+A projekt IntellijIDEA-ben készült, a fordítás és futtatás ott volt
+tesztelve, kérlek, hogy ott próbáld meg futtatni.
 A JDK-n és a JUnit-on kívül semmilyen külső könyvtárat nem használtam.
 Készítettem a "build" mappába egy jar filet, ezzel is futtatható a játék. Lehet, hogy
 elfelejtem későbbi változatokba frissíteni, szóval légyszíves csak akkor használd, ha
 valami miatt nem tudod futtatni a játékot IntellijIDEA-n keresztül.
-A main függvény a me.eriknikli.homm.HoMM class-be találod.
+A projektet csomagold ki egy mappába, lehetőleg egy HoMMCopy nevűbe. Ezt a mappát
+nyisd meg IntellijIDEA-ben. Ezután keresd meg a src mappában a me.eriknikli.homm.HoMM
+osztályt, amiben megtalálod a main függvényt, ezt kell elindítanod.
+(Vagy a class vagy a main függvény deklarálása melletti nyilat nyomd meg.)
+
+Ha esetleg terminálból szeretnéd fordítani a programot arra figyelj, hogy az asseteket
+a res mappában találod (a forráskódot pedig az src-ben), ezeket is bele kell fordítanod a 
+JAR file-ba, különben nem fog rendeltetésszerűen működni a program.
 
 A játékot 1280x768-as ablakméretben terveztem és teszteltem,
 kérlek te is próbáld meg ebben futtatni.
@@ -12,18 +19,27 @@ Azonban a játék generál egy config file-t, ezt szerkesztheted,
 ha szeretnéd. Emellett vannak parancssori argumentumok is:
     -ignoreconfig, ezzel a config file beállításait nem veszi figyelembe,
         fontos, mert enélkül sok parancssori beállításnak nem lesz hatása
+
     -x <szám>, az ablak x helyét állítja be
+
     -y <szám>, az ablak y helyét állítja be
+
     -width <szám>
     -w <szám>, az ablak hosszát állítja be
+    
     -height <szám>
     -h <szám>, az ablak magasságát állítja be
+
     -maximize
     -mw
     -maximizewindow, az ablakot kinagyított állapotba nyissa meg
+
     -loglevel <NONE|INFO|WARN|ERR|DEBUG>, a loglevelt állítja
+
     -resizable, az ablak mérete futás alatt változtatható
+
     -notresizable, az ablak mérete futás alatt NEM változtatható (ez az alap)
+
 Ha két egymással nem összeegyeztethető beállítás érkezik, akkor az utóbbit fogja figyelembe venni,
 a config fájl beállításait pedig (hacsak nem megkértük rá a programot, hogy ne), mindig az argumentumok
 feldolgozása után állítja be.
